@@ -1,0 +1,4 @@
+Libro,11,102,L001,C++ avanzado,Pedro Gomez,Programacion avanzada,Libro,Nuevo
+Revista,8,202,R005,Revista Ciencia,Luisa Perez,Tecnologia,Revista,Usado,12,3
+MaterialDigital,10,303,D007,Curso de JavaScript,Carlos Ruiz,Educacion en linea,MaterialDigital,Nuevo,DVD,MP4,1
+Libro,3,3,100,Luna de Queso,Dross Rotzank,comedia,Libro,Disponible
