@@ -37,6 +37,7 @@ void GestorInventario::saveToFile(const std::string& filename) {
                 << libro->getPalabraClave() << ","
                 << libro->getTipoMaterial() << ","
                 << libro->getEstado() << ","
+
                 << std::endl;
         }
         else if (Revista* revista = dynamic_cast<Revista*>(materials[i])) {
@@ -49,6 +50,7 @@ void GestorInventario::saveToFile(const std::string& filename) {
                 << revista->getPalabraClave() << ","
                 << revista->getTipoMaterial() << ","
                 << libro->getEstado() << "," 
+	
                 << revista->getVolumen() << ","
                 << revista->getNumero() << std::endl;
         }
@@ -62,6 +64,7 @@ void GestorInventario::saveToFile(const std::string& filename) {
                 << digital->getPalabraClave() << ","
                 << digital->getTipoMaterial() << ","
                 << digital->getEstado() << "," 
+			
                 << digital->getTipo() << ","
                 << digital->getFormato() << ","
                 << (digital->getAcceso() ? "1" : "0") << std::endl;
@@ -506,4 +509,12 @@ void GestorInventario::mostrarMaterialesDigitales() const {
 
 void GestorInventario::displayPos(int indice) const{
     std::cout << "- - Material elegido - -\n" << materials[indice]->toString();
+}
+
+Material** GestorInventario::getMateriales() {
+    return this->materials;
+}
+
+size_t GestorInventario::getCantidadMateriales() {
+    return this->size;
 }

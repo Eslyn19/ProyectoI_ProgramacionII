@@ -2,30 +2,24 @@
 
 // ------------------------------- Entradas del programa -----------------------------------
 void Interfaz::Bienvenida() {
-    std::cout << "---- << Bienvenido al sistema de administracion de materiales >> ----" << std::endl;
+    std::cout << "---- << Bienvenido al sistema de administracion de materiales >> ----" << std::endl << std::endl;
 }
 
 void Interfaz::MostrarMenu() {
-    std::cout << std::endl;
+    std::cout << "1. Inclusion de datos de materiales.\n";
+    std::cout << "2. Modificacion de datos de materiales.\n";
+    std::cout << "3. Reporte de inventario de materiales.\n" << std::endl;
 
-    std::cout << "\033[32m"; // Verde
-    std::cout << "1. Inclusion de datos de materiales\n"; // HECHO
-    std::cout << "2. Modificacion de datos de materiales\n"; // HECHO
-    std::cout << "3. Inclusion de usuarios\n";  // HECHO
-    std::cout << "4. Modificacion de datos de usuarios\n"; // HECHO
-    std::cout << "\033[0m"; // Restaurar color al predeterminado
+    // USUARIOS TERMINADO
+    std::cout << "4. Inclusion de usuarios.\n";
+    std::cout << "5. Modificacion de datos de usuarios.\n";
+    std::cout << "6. Reporte de usuarios.\n" << std::endl;
 
-    std::cout << "5. Registro de solicitudes de prestamo y devoluciones\n"; // Blanco
-    std::cout << "\033[32m"; // Verde
-    std::cout << "6. Reporte de inventario de materiales\n"; // HECHO
-    std::cout << "7. Reporte de usuarios\n"; // HECHO
-    std::cout << "\033[0m"; 
+    std::cout << "7. Registro de solicitudes de prestamo y devoluciones.\n";
+    std::cout << "8. Reporte de materiales en prestamo (general y por tipo de material).\n";
+    std::cout << "9. Reporte de prestamos por usuario.\n" << std::endl;
 
-    std::cout << "8. Reporte de materiales en prestamo (general y por tipo de material)\n";
-    std::cout << "9. Reporte de prestamos por usuario\n";
-    std::cout << "\033[32m"; // Verde
     std::cout << "0. Salir\n";
-    std::cout << "\033[0m";
 }
 
 
@@ -696,7 +690,9 @@ std::string Interfaz::ApellidoNuevoUsuario()
     }
 }
 
-bool Interfaz::DisponibleNuevoUsuario() { return false; }
+bool Interfaz::DisponibleNuevoUsuario() {
+    return true;
+}
 
 void Interfaz::UsuarioGuardado() {
 	std::cout << "\n -- Usuario guardado exitosamente" << std::endl;
@@ -707,8 +703,31 @@ void Interfaz::UsuarioGuardado() {
 // ----------------------------------- Opcion 4 del menu -----------------------------------
 
 void Interfaz::MostrarEditarUsuario() {
-	std::cout << "- - Editar Usuario - -\n";
-    std::cout << "- - - - - - - - - - -" << std::endl;;
+    std::cout << "- - Editar Usuario - -\n" << std::endl;
+    std::cout << "Digite ID del usuario a modificar: ";
+}
+
+// ----------------------------------- Opcion 5 del menu -----------------------------------
+void Interfaz::OpcHacerPrestamoDevolucion() {
+	system("CLS");
+	std::cout << "- - Hacer prestamo o devolucion - -\n";
+	std::cout << "- - - - - - - - - - -" << std::endl;
+	std::cout << "1. Hacer prestamo\n";
+	std::cout << "2. Hacer devolucion\n";
+	std::cout << "0. Volver al menu\n";
+}
+
+int Interfaz::OpcionPrestamo() {
+	int opc;
+	while (true) {
+		std::cout << "\n> Opcion: ";
+		if (std::cin >> opc && opc >= 0 && opc <= 2) {
+			return opc;
+		}
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+		std::cout << "\nEntrada inválida. Por favor, ingrese un numero entre 0 y 2.\n";
+	}
 }
 
 // ----------------------------------- Opcion 6 del menu -----------------------------------
@@ -765,4 +784,10 @@ int Interfaz::MostrarPorActividad() {
         std::cin.ignore(1000, '\n');
         std::cout << "\nEntrada inválida. Por favor, ingrese un numero entre 0 y 3.\n";
     }
+}
+// ----------------------------------- Opcion 8 del menu -----------------------------------
+// ----------------------------------- Opcion 9 del menu -----------------------------------
+void Interfaz::MostrarPrestamosPorUsuario() {
+    std::cout << "- - - Reporte de prestamos por usuario - - -" << std::endl;
+    std::cout << "--------------------------------------------" << std::endl << std::endl;
 }

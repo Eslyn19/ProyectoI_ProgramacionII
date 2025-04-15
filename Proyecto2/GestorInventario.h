@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "Material.h"
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "Material.h"
 #include "Libro.h"
 #include "Revista.h"
 #include "MaterialDigital.h"
@@ -31,6 +31,11 @@ public:
     void editarLibro(Libro* libro);
     void editarRevista(Revista* revista);
     void editarMaterialDigital(MaterialDigital* digital);
+    
+    // Opcion 5 del menu
+    Material** getMateriales(); // Retorna el arreglo de materiales
+    size_t getCantidadMateriales(); // Retorna la cantidad actual de materiales
+
   
 private:
     void resize();

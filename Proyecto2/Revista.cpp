@@ -2,7 +2,8 @@
 
 Revista::Revista(int cantidad, int num_clasificacion, std::string num_catalogo,
     std::string titulo, std::string autor, std::string palabra_clave,
-    std::string tipo_material, std::string estado, int volumen, int numero) : Material(cantidad, num_clasificacion, num_catalogo, titulo, autor, palabra_clave, tipo_material, estado),
+    std::string tipo_material, std::string estado, int volumen, int numero) :
+    Material(cantidad, num_clasificacion, num_catalogo, titulo, autor, palabra_clave, tipo_material, estado),
 	volumen(volumen), numero(numero) {} 
 
 int Revista::getDiasPrestamo() const {
@@ -34,6 +35,6 @@ std::string Revista::toString() const {
         "\n  Clasificacion: " + std::to_string(getNumClasificacion()) +
         "\n  Volumen: " + std::to_string(volumen) +
         "\n  Numero: " + std::to_string(numero) +
-        "\n  Cantidad: " + std::to_string(getCantidad()) + "\n"
+        "\n  Cantidad: " + std::to_string(getCantidad()) +
         "\n------------------------------------------------------------------------\n";
 }

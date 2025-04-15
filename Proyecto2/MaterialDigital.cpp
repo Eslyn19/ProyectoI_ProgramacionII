@@ -2,7 +2,7 @@
 
 MaterialDigital::MaterialDigital(int cantidad, int num_clasificacion, std::string num_catalogo,
 	std::string titulo, std::string autor, std::string palabra_clave, std::string tipo_material,
-    std::string estado, std::string tipo, std::string formato, bool acceso)
+    std::string estado,std::string tipo, std::string formato, bool acceso)
     : Material(cantidad, num_clasificacion, num_catalogo, titulo, autor, palabra_clave, tipo_material, estado),
     tipo(tipo), formato(formato), acceso(acceso) {}
 
@@ -53,6 +53,6 @@ std::string MaterialDigital::toString() const {
         "\n  Tipo: " + tipo +
         "\n  Formato: " + formato +
         "\n  Acceso: " + (acceso ? "Habilitado" : "No habilitado") +
-        "\n  Cantidad: " + std::to_string(getCantidad()) + "\n"
+        "\n  Cantidad: " + std::to_string(getCantidad()) + 
         "\n------------------------------------------------------------------------\n";
 }

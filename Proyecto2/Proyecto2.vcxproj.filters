@@ -57,12 +57,6 @@
     <ClCompile Include="Persistencia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Prestamos.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Devoluciones.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Material.h">
@@ -104,10 +98,7 @@
     <ClInclude Include="Persistencia.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Prestamos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Devoluciones.h">
+    <ClInclude Include="Prestamo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

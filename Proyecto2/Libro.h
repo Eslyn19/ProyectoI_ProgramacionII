@@ -8,6 +8,5 @@ public:
         std::string tipo_material, std::string estado);
 
     int getDiasPrestamo() const;
-
     std::string toString() const;
 };

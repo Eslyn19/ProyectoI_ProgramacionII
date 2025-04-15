@@ -2,9 +2,9 @@
 #include "Interfaz.h"
 #include "Libro.h"
 #include "Persistencia.h"
-#include "Prestamos.h"
 #include "Revista.h"
 #include "MaterialDigital.h"
+#include "GestorPrestamo.h"
 
 Biblioteca::Biblioteca(std::string _nombre) : nombre(_nombre) {
 	gestorInventario = new GestorInventario();
@@ -17,6 +17,7 @@ Biblioteca::Biblioteca(std::string _nombre) : nombre(_nombre) {
     for (size_t i = 0; i < cantidad; ++i) {
         GestorPrestamos->addUser(usuariosCargados[i]);
     }
+    GestorPrestamos->cargarPrestamos(RUTA_PRESTAMOS);
 }
 
 void Biblioteca::IniciarBiblioteca() {
@@ -157,7 +158,7 @@ void Biblioteca::IniciarBiblioteca() {
                 break;
 
             default:
-                std::cout << "\n> Opción no válida.\n";
+                std::cout << "\n> Opción no valida.\n";
                 break;
             }
 
@@ -165,14 +166,41 @@ void Biblioteca::IniciarBiblioteca() {
         }
 
         else if (opcion == 3) {
+            Interfaz::Borrar();
+            int opc = Interfaz::MostrarPorMaterial();
+            Interfaz::Borrar();
+
+            switch (opc) {
+            case 1:
+                gestorInventario->mostrarLibros();
+                break;
+            case 2:
+                gestorInventario->mostrarRevistas();
+                break;
+            case 3:
+                gestorInventario->mostrarMaterialesDigitales();
+                break;
+            case 4:
+                gestorInventario->displayMaterials();
+                break;
+            case 0:
+                break;
+            default:
+                std::cerr << "Opción invalida.\n";
+                break;
+            }
+
+            Interfaz::Borrar();
+        }
+        else if (opcion == 4) {
             std::cin.ignore();
-            Interfaz::MensajeAgregarUsuario(); 
-              
+            Interfaz::MensajeAgregarUsuario();
+
             std::string _nuevoNombre = Interfaz::NombreNuevoUsuario();
             std::string _nuevoApellido = Interfaz::ApellidoNuevoUsuario();
             std::string _nuevoID = Interfaz::IDNuevoUsuario();
             bool estado = GestorPrestamos->existeID(_nuevoID);
-            
+
             if (estado) {
                 std::cout << "Error: El ID ya está en uso. No se puede agregar el usuario.\n";
                 Interfaz::EsperarBorrar();
@@ -180,81 +208,34 @@ void Biblioteca::IniciarBiblioteca() {
             else {
                 // Si no existe, se agrega el usuario
                 bool _estaActivo = Interfaz::DisponibleNuevoUsuario();
-                GestorPrestamos->addUser(new User(_nuevoNombre, _nuevoApellido, _nuevoID, _estaActivo, "No Material"));
-                persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize()); 
+				GestorPrestamos->addUser(new User(_nuevoNombre, _nuevoApellido, _nuevoID, _estaActivo, "Sin material"));
+                persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
 
                 Interfaz::UsuarioGuardado();
             }
         }
-        else if (opcion == 4) {
-            std::cin.ignore(); 
-            Interfaz::Borrar(); 
-            Interfaz::MostrarEditarUsuario();
-            GestorPrestamos->displayUsers(); 
+        else if (opcion == 5) {
+            std::cin.ignore();
+            Interfaz::Borrar();
 
-            int indice;
-            std::cout << "\n> Ingrese el indice del usuario que desea editar: ";
-            std::cin >> indice;
-            std::cin.ignore(); 
+            Interfaz::MostrarEditarUsuario(); // mensaje para pedir el ID
 
-            if (indice < 0 || indice >= GestorPrestamos->getSize()) { 
-                std::cout << "\nIndice invalido. No se puede editar.\n";
+            std::string idBuscar;
+            std::getline(std::cin, idBuscar);
+
+            if (!GestorPrestamos->existeID(idBuscar)) {
+                std::cout << "\nEl ID ingresado no existe. No se puede editar.\n";
             }
             else {
                 system("cls");
-                GestorPrestamos->EditarUser(indice);
-                persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize()); 
+                GestorPrestamos->EditarUser(idBuscar); // pasas el ID
+                persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
             }
 
             Interfaz::EsperarBorrar();
         }
-        else if (opcion == 5) {  // Opción para realizar un préstamo
-           // Material** materiales = gestorInventario->getMaterials();
-           // size_t cantidadMateriales = gestorInventario->get();
-            //User** usuarios = GestorPrestamos->getUsers();
-            //size_t cantidadUsuarios = GestorPrestamos->getSize();
-            std::cout << "Realizando préstamo...\n";
 
-            // Llamamos a la función para realizar un préstamo
-            //hacer prestamos de nuevo
-           // Prestamo::realizarPrestamo(users, cantidadUsuarios, materials, cantidadMateriales);
-
-            // Mostrar un mensaje de confirmación
-            std::cout << "Préstamo realizado con éxito.\n";
-        }
         else if (opcion == 6) {
-            /*
-            Interfaz::ReporteInventarioMateriales();
-            gestorInventario->displayMaterials();
-            Interfaz::EsperarBorrar();
-            */
-			Interfaz::Borrar();
-			int opc = Interfaz::MostrarPorMaterial();
-			Interfaz::Borrar();
-
-			switch (opc) {
-			case 1:
-				gestorInventario->mostrarLibros();
-				break;
-			case 2:
-				gestorInventario->mostrarRevistas();
-				break;
-			case 3:
-				gestorInventario->mostrarMaterialesDigitales();
-				break;
-			case 4:
-				gestorInventario->displayMaterials(); // Mostrar todos
-				break;
-			case 0:
-                break;
-			default:
-				std::cerr << "Opción invalida.\n";
-				break;
-			}
-
-			Interfaz::EsperarBorrar();
-        }
-        else if (opcion == 7) {
             Interfaz::MostrarReporteUsuarios(); 
             int opc = Interfaz::MostrarPorActividad(); 
             Interfaz::Borrar(); 
@@ -278,7 +259,41 @@ void Biblioteca::IniciarBiblioteca() {
             }
             Interfaz::EsperarBorrar(); 
             }
+        // PARTE DE SELECCION DEL MENU PARA LOS PRESTAMOS ------------------------------------------------------------------------
+        else if (opcion == 7) { 
+            Interfaz::Borrar();
+            Interfaz::OpcHacerPrestamoDevolucion();
 
+            int opcPrestamo = Interfaz::OpcionPrestamo();
+
+            size_t cantidadMateriales = gestorInventario->getCantidadMateriales();
+            Material** materiales = gestorInventario->getMateriales();
+
+            switch (opcPrestamo) {
+            case 1:  // Realizar préstamo
+                GestorPrestamos->HacerPrestamo(materiales, cantidadMateriales);
+                persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
+                break;
+
+            case 2:  // Devolver préstamo
+                GestorPrestamos->DevolverPrestamo(materiales, cantidadMateriales);
+                persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
+                break;
+
+            default:
+                std::cout << "Opción inválida.\n";
+                break;
+            }
+
+            Interfaz::EsperarBorrar();
+            }
+        else if (opcion == 9) {
+            Interfaz::Borrar();
+            Interfaz::MostrarPrestamosPorUsuario();
+
+            GestorPrestamos->mostrarPrestamos();
+			Interfaz::EsperarBorrar();
+        }
         else {
             std::cerr << "La opción no es válida. Por favor, elige una opción del menú.\n";
         }

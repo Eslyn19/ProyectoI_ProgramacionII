@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Biblioteca.cpp" />
-    <ClCompile Include="Devoluciones.cpp" />
     <ClCompile Include="Excepcion.cpp" />
     <ClCompile Include="GestorInventario.cpp" />
     <ClCompile Include="GestorPrestamo.cpp" />
@@ -139,14 +138,12 @@
     <ClCompile Include="MaterialDigital.cpp" />
     <ClCompile Include="Materiales.cpp" />
     <ClCompile Include="Persistencia.cpp" />
-    <ClCompile Include="Prestamos.cpp" />
     <ClCompile Include="Revista.cpp" />
     <ClCompile Include="Usuario.cpp" />
     <ClCompile Include="Usuarios.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Biblioteca.h" />
-    <ClInclude Include="Devoluciones.h" />
     <ClInclude Include="Excepcion.h" />
     <ClInclude Include="GestorInventario.h" />
     <ClInclude Include="GestorPrestamo.h" />
@@ -156,7 +153,7 @@
     <ClInclude Include="MaterialDigital.h" />
     <ClInclude Include="Materiales.h" />
     <ClInclude Include="Persistencia.h" />
-    <ClInclude Include="Prestamos.h" />
+    <ClInclude Include="Prestamo.h" />
     <ClInclude Include="Revista.h" />
     <ClInclude Include="Usuario.h" />
     <ClInclude Include="Usuarios.h" />

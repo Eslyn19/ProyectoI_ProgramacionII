@@ -28,6 +28,7 @@ public:
 
     virtual std::string toString() const = 0;
     virtual int getDiasPrestamo() const = 0;
+
     virtual ~Material();
 
 protected:

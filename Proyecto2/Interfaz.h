@@ -16,7 +16,6 @@ public:
 	static void EsperarBorrar();
 	static void Borrar();
 	static void GuardadoExitoso();
-
 	// -----------Opcion 1 del menu------------
 	static void MenuElegirMaterial();
 	static int ElegirTipoMaterial();
@@ -39,7 +38,6 @@ public:
 	static std::string Tipo();
 	static std::string Formato();
 	static bool Acceso();
-
 	// -----------Opcion 2 del menu------------
 	static void MenuEditarMaterial();
 	static int ElegirIndiceMaterial();
@@ -62,10 +60,17 @@ public:
 	static void UsuarioGuardado();
 	// -----------Opcion 4 del menu------------
 	static void MostrarEditarUsuario();
+	// ----------Opcion 5 del menu------------
+	static void OpcHacerPrestamoDevolucion();
+	static int OpcionPrestamo();
 	// -----------Opcion 6 del menu------------
 	static void ReporteInventarioMateriales();
 	static int MostrarPorMaterial();
 	// -----------Opcion 7 del menu------------
 	static void MostrarReporteUsuarios();
 	static int MostrarPorActividad();
+	// -----------Opcion 8 del menu------------
+	
+	// -----------Opcion 9 del menu------------
+	static void MostrarPrestamosPorUsuario();
 };

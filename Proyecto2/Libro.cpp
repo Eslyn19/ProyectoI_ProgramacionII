@@ -16,6 +16,6 @@ std::string Libro::toString() const {
         "\n  Estado: " + getEstado() +
         "\n  Catalogo: " + getNumCatalogo() +
         "\n  Clasificacion: " + std::to_string(getNumClasificacion()) +
-        "\n  Cantidad: " + std::to_string(getCantidad()) + "\n" +
+        "\n  Cantidad: " + std::to_string(getCantidad()) +
         "\n------------------------------------------------------------------------\n";
 }
