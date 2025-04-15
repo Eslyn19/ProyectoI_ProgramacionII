@@ -5,7 +5,6 @@
 GestorPrestamo::GestorPrestamo() : size(0), capacity(10), prestamos(nullptr), cantidadPrestamos(0), capacidadPrestamos(0)
 {
 	users = new User * [capacity];
-
 }
 
 GestorPrestamo::~GestorPrestamo() {
@@ -231,26 +230,18 @@ void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateria
         return;
     }
 
-    /* corregir
-    if (usuario->getMaterial() == "!Material") {
-        std::cout << "El usuario ya tiene un material prestado.\n";
-        return;
-    }*/
-
-    // Mostrar materiales disponibles
     std::cout << "Materiales disponibles:\n";
     for (size_t i = 0; i < cantidadMateriales; ++i) {
         std::cout << i << ". " << materiales[i]->getTitulo() << " (Cantidad: " << materiales[i]->getCantidad() << ")\n";
     }
 
-    // Elegir material por índice
     int indiceMaterial;
     std::cout << "Ingrese el indice del material: ";
     std::cin >> indiceMaterial;
     std::cin.ignore();
 
     if (indiceMaterial < 0 || static_cast<size_t>(indiceMaterial) >= cantidadMateriales) {
-        std::cout << "Índice inválido. No se puede realizar el préstamo.\n";
+        std::cout << "Indice invalido. No se puede realizar el prestamo.\n";
         return;
     }
 
@@ -262,30 +253,20 @@ void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateria
     }
 
     // Realizar el préstamo
-    usuario->setMaterial(material->getNumCatalogo());
+    usuario->setMaterial(material->getTitulo());
     material->setCantidad(material->getCantidad() - 1);
-   //td::string tipoMaterial = material->getTipo(); // Asegúrate que Material tiene un método getTipo()
-
-    // Pedir fechas manualmente
-    std::string fechaPrestamo, fechaDevolucion;
-    std::cout << "Ingrese la fecha de préstamo (ej: 2025-04-14): ";
-    std::getline(std::cin, fechaPrestamo);
+ 
+    std::string fechaDevolucion;
+    std::cout << "Fecha del Prestamo: " << FECHA_PRESTAMO << std::endl;
     std::cout << "Ingrese la fecha de devolución (ej: 2025-04-21): ";
     std::getline(std::cin, fechaDevolucion);
 
-    // Guardar en archivo .txt
-    AgregarPrestamoArchivo(usuario->getID(), material->getNumCatalogo(), fechaPrestamo, fechaDevolucion, "libro");
-
-
-    // Actualizar archivo de usuarios solo después del éxito del préstamo
-    //ActualizarUsuarioArchivo(usuario->getID(), "Material"); buscar porque no cambia
-
-    // Actualizar lista de préstamos en memoria
+    AgregarPrestamoArchivo(usuario->getID(), material->getTitulo(), FECHA_PRESTAMO, fechaDevolucion, "libro");
+   // ActualizarUsuarioArchivo(idUsuario, )
     cargarPrestamos(RUTA_PRESTAMOS);
 
     std::cout << "Préstamo realizado con éxito.\n";
 }
-
 
 void GestorPrestamo::ActualizarUsuarioArchivo(const std::string& idUsuario, const std::string& nuevoMaterial) {
     std::ifstream archivo(RUTA_USUARIOS);
@@ -323,11 +304,10 @@ void GestorPrestamo::ActualizarUsuarioArchivo(const std::string& idUsuario, cons
     }
 }
 
-
-void GestorPrestamo::AgregarPrestamoArchivo(const std::string& idUsuario, const std::string& numCatalogo, const std::string& fechaPrestamo, const std::string& fechaDevolucion, const std::string &tipoMaterial) {
+void GestorPrestamo::AgregarPrestamoArchivo(const std::string& idUsuario, const std::string& Titulo, const std::string& fechaPrestamo, const std::string& fechaDevolucion, const std::string &tipoMaterial) {
 	std::ofstream archivo(RUTA_PRESTAMOS, std::ios::app);
 	if (archivo.is_open()) {
-		archivo << idUsuario << "," << numCatalogo << "," << fechaPrestamo << "," << fechaDevolucion << 
+		archivo << idUsuario << "," << Titulo << "," << fechaPrestamo << "," << fechaDevolucion << 
             ", " << tipoMaterial << "\n";
 		archivo.close();
 	}
@@ -343,10 +323,10 @@ void GestorPrestamo::cargarPrestamos(const std::string& rutaArchivo) {
     if (archivo.is_open()) {
         while (std::getline(archivo, linea)) {
             std::stringstream ss(linea);
-            std::string idUsuario, numCatalogo, fechaPrestamo, fechaDevolucion, tipoMaterial;
+            std::string idUsuario, Titulo, fechaPrestamo, fechaDevolucion, tipoMaterial;
 
             std::getline(ss, idUsuario, ',');
-            std::getline(ss, numCatalogo, ',');
+            std::getline(ss, Titulo, ',');
             std::getline(ss, fechaPrestamo, ',');
 			std::getline(ss, fechaDevolucion, ',');
             std::getline(ss, tipoMaterial);
@@ -357,7 +337,7 @@ void GestorPrestamo::cargarPrestamos(const std::string& rutaArchivo) {
             }
 
             // Crear un nuevo objeto de préstamo y agregarlo al arreglo
-            prestamos[cantidadPrestamos] = new Prestamo(idUsuario, numCatalogo, fechaPrestamo, fechaDevolucion, tipoMaterial);
+            prestamos[cantidadPrestamos] = new Prestamo(idUsuario, Titulo, fechaPrestamo, fechaDevolucion, tipoMaterial);
             ++cantidadPrestamos;
         }
         archivo.close();
@@ -370,10 +350,10 @@ void GestorPrestamo::cargarPrestamos(const std::string& rutaArchivo) {
 void GestorPrestamo::mostrarPrestamos() const {
     for (size_t i = 0; i < cantidadPrestamos; ++i) {
         std::cout << "Usuario ID: " << prestamos[i]->getIdUsuario() << "\n"
-            << "Catalogo material: " << prestamos[i]->getNumCatalogo() << "\n"
+            << "Titulo: " << prestamos[i]->getTitulo() << "\n"
             << "Fecha de prestamo: " << prestamos[i]->getFechaPrestamo() << "\n"
             << "Fecha de devolucion: " << prestamos[i]->getFechaDevolucion() << "\n"
-			<< "Tipo de material: " << prestamos[i]->getTipoMaterial() << "\n" << std::endl;
+			<< "Tipo de material:" << prestamos[i]->getTipoMaterial() << "\n" << std::endl;
     }
 }
 
@@ -390,7 +370,7 @@ void GestorPrestamo::DevolverPrestamo(Material** materiales, size_t cantidadMate
     for (size_t i = 0; i < cantidadPrestamos; ++i) {
         if (prestamos[i]->getIdUsuario() == idUsuario) {
             encontrado = true;
-            catalogoPrestado = prestamos[i]->getNumCatalogo();
+            catalogoPrestado = prestamos[i]->getTitulo();
 
             // Liberar memoria del préstamo
             delete prestamos[i];
@@ -412,25 +392,25 @@ void GestorPrestamo::DevolverPrestamo(Material** materiales, size_t cantidadMate
 
     // Devolver el material al inventario
     for (size_t i = 0; i < cantidadMateriales; ++i) {
-        if (materiales[i]->getNumCatalogo() == catalogoPrestado) {
+        if (materiales[i]->getTitulo() == catalogoPrestado) {
             materiales[i]->setCantidad(materiales[i]->getCantidad() + 1);
             break;
         }
     }
 
     // Actualizar el archivo de préstamos
-    std::ofstream archivoTemp("prestamos_temp.txt");
+    std::ofstream archivoTemp(RUTA_TEMP);
     if (archivoTemp.is_open()) {
         for (size_t i = 0; i < cantidadPrestamos; ++i) {
             archivoTemp << prestamos[i]->getIdUsuario() << ","
-                << prestamos[i]->getNumCatalogo() << ","
+                << prestamos[i]->getTitulo() << ","
                 << prestamos[i]->getFechaPrestamo() << ","
                 << prestamos[i]->getFechaDevolucion() << "\n"
 			    << prestamos[i]->getTipoMaterial() << "\n";
         }
         archivoTemp.close();
         std::remove(RUTA_PRESTAMOS);
-        std::rename("prestamos_temp.txt", RUTA_PRESTAMOS);
+        std::rename(RUTA_TEMP, RUTA_PRESTAMOS);
     }
     else {
         std::cerr << "No se pudo abrir el archivo temporal para actualizar los préstamos.\n";

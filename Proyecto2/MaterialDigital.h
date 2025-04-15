@@ -20,6 +20,7 @@ public:
 
     std::string getTipo() const;
     std::string getFormato() const;
+	
     bool getAcceso() const;
 
     void habilitarAcceso();

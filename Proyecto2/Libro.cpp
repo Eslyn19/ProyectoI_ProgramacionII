@@ -8,6 +8,7 @@ Libro::Libro(int cantidad, int num_clasificacion, std::string num_catalogo,
 int Libro::getDiasPrestamo() const {
     return 7;
 }
+
 std::string Libro::toString() const {
     return "Libro\n  Titulo: " + getTitulo() +
         "\n  Autor: " + getAutor() +

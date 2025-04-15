@@ -6,7 +6,6 @@
 
 GestorInventario::GestorInventario() : size(0), capacity(2) {
     materials = new Material * [capacity];
-	//inventario = new Material * [capacity];
 }
 
 GestorInventario::~GestorInventario() {
@@ -36,9 +35,7 @@ void GestorInventario::saveToFile(const std::string& filename) {
                 << libro->getAutor() << ","
                 << libro->getPalabraClave() << ","
                 << libro->getTipoMaterial() << ","
-                << libro->getEstado() << ","
-
-                << std::endl;
+                << libro->getEstado() << std::endl;
         }
         else if (Revista* revista = dynamic_cast<Revista*>(materials[i])) {
             file << "Revista,"
@@ -49,8 +46,7 @@ void GestorInventario::saveToFile(const std::string& filename) {
                 << revista->getAutor() << ","
                 << revista->getPalabraClave() << ","
                 << revista->getTipoMaterial() << ","
-                << libro->getEstado() << "," 
-	
+                << revista->getEstado() << "," 
                 << revista->getVolumen() << ","
                 << revista->getNumero() << std::endl;
         }
@@ -64,13 +60,16 @@ void GestorInventario::saveToFile(const std::string& filename) {
                 << digital->getPalabraClave() << ","
                 << digital->getTipoMaterial() << ","
                 << digital->getEstado() << "," 
-			
                 << digital->getTipo() << ","
                 << digital->getFormato() << ","
                 << (digital->getAcceso() ? "1" : "0") << std::endl;
         }
     }
     file.close();
+}
+
+bool GestorInventario::indiceValido(int indice) const {
+    return (indice >= 0 && indice < size);
 }
 
 /* Metodo para cargar los materiales desde un archivo a el arreglo de materiales
@@ -165,35 +164,54 @@ void GestorInventario::displayMaterials() const {
     }    
 }
 
-void GestorInventario::mostrarMaterialesPorTipo(const std::string& tipoBuscado) const {
+bool GestorInventario::mostrarMaterialesPorTipo(const std::string& tipoBuscado) const {
     int index = 0;
+    bool encontrado = false;
+
     for (int i = 0; i < size; ++i) {
         if (materials[i]->getTipoMaterial() == tipoBuscado) {
-            std::cout << "Posicion en el arreglo [" << index << "]\n" << materials[i]->toString() << std::endl;
+            std::cout << "Posicion en inventario[" << index << "]\n" << materials[i]->toString() << std::endl;
+            encontrado = true;
         }
         index++;
     }
+
+    //if (!encontrado) {
+     //   std::cout << "\n> No hay materiales registrados del tipo \"" << tipoBuscado << "\".\n";
+   // }
+
+    return encontrado;
+}
+
+size_t GestorInventario::getSize() const {
+	return size;
 }
 
 void GestorInventario::editarMaterial(int index) {
-    if (index < 0 || index >= size) {
-        std::cerr << "Indice fuera de rango." << std::endl;
+    try {
+        if (index < 0 || index >= size) {
+            std::cerr << "Indice fuera de rango." << std::endl;
+            return;
+        }
+
+        Material* material = materials[index];
+
+        if (Libro* libro = dynamic_cast<Libro*>(material)) {
+            editarLibro(libro);
+        }
+        else if (Revista* revista = dynamic_cast<Revista*>(material)) {
+            editarRevista(revista);
+        }
+        else if (MaterialDigital* digital = dynamic_cast<MaterialDigital*>(material)) {
+            editarMaterialDigital(digital);
+        }
+        else {
+            std::cerr << "Tipo de material desconocido." << std::endl;
+        }
+    }
+    catch (std::exception& ex) {
+        std::cerr << "Out of range" << ex.what() << std::endl;
         return;
-    }
-
-    Material* material = materials[index];
-
-    if (Libro* libro = dynamic_cast<Libro*>(material)) {
-        editarLibro(libro);
-    }
-    else if (Revista* revista = dynamic_cast<Revista*>(material)) {
-        editarRevista(revista);
-    }
-    else if (MaterialDigital* digital = dynamic_cast<MaterialDigital*>(material)) {
-        editarMaterialDigital(digital);
-    }
-    else {
-        std::cerr << "Tipo de material desconocido." << std::endl;
     }
 }
 
@@ -209,8 +227,7 @@ void GestorInventario::editarLibro(Libro* libro) {
         std::cout << "6. Palabra Clave" << std::endl;
         std::cout << "7. Tipo de Material" << std::endl;
         std::cout << "8. Estado" << std::endl;
-		std::cout << "9. Prestamo" << std::endl;
-        std::cout << "10. Salir" << std::endl;
+        std::cout << "9. Salir" << std::endl;
         std::cout << "\n> Ingrese su opcion: ";
         std::cin >> opcion;
         std::cin.ignore(); 
@@ -282,10 +299,9 @@ void GestorInventario::editarRevista(Revista* revista) {
         std::cout << "6. Palabra Clave" << std::endl;
         std::cout << "7. Tipo de Material" << std::endl;
         std::cout << "8. Estado" << std::endl;
-		std::cout << "9. Prestamo" << std::endl;
-        std::cout << "10. Volumen" << std::endl;
-        std::cout << "11. Numero" << std::endl;
-        std::cout << "12. Salir" << std::endl;
+        std::cout << "9. Volumen" << std::endl;
+        std::cout << "10. Numero" << std::endl;
+        std::cout << "11. Salir" << std::endl;
         std::cout << "Ingrese su opcion: ";
         std::cin >> opcion;
         std::cin.ignore();

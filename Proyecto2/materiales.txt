@@ -1,3 +1,3 @@
-Libro,11,102,L001,C++ avanzado,Pedro Gomez,Programacion avanzada,Libro,Nuevo
-Libro,2,3,400,La vida de js,John kelin,coide,Libro,Perdido
-MaterialDigital,2,20,200,mate,JJ,algebra,DVD,Disponible,material digital,DVD,1
+Libro,2,3,100,Luna de pluton,Dross Rotzank,comedia,Libro,Perdido
+Revista,3,20,200,Recetas de comida,Viviana Brenes,cuchara,Revista,Disponible,3,5
+MaterialDigital,1,101,MD-001,Curso de C++,Juan Perez,programacion,MaterialDigital,Disponible,Video,MP4,1

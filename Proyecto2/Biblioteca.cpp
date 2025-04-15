@@ -21,6 +21,7 @@ Biblioteca::Biblioteca(std::string _nombre) : nombre(_nombre) {
 }
 
 void Biblioteca::IniciarBiblioteca() {
+
     Interfaz::Bienvenida();
     Interfaz::MostrarMenu();
 
@@ -37,7 +38,7 @@ void Biblioteca::IniciarBiblioteca() {
             switch (tipoMaterial) {
             case 1: {
                 Interfaz::Borrar();
-                std::cout << "Agregando un libro...\n";
+                std::cout << "Agregando un libro...\n" << std::endl;
                 int cantidad = Interfaz::Cantidad();
                 int numClasificacion = Interfaz::Num_Clasificacion();
                 std::cin.ignore();
@@ -57,7 +58,7 @@ void Biblioteca::IniciarBiblioteca() {
 
             case 2: {
                 Interfaz::Borrar();
-                std::cout << "Agregando una revista...\n";
+                std::cout << "Agregando una revista...\n" << std::endl;
                 int cantidad = Interfaz::Cantidad();
                 int numClasificacion = Interfaz::Num_Clasificacion();
                 std::cin.ignore();
@@ -80,7 +81,7 @@ void Biblioteca::IniciarBiblioteca() {
 
             case 3: {
                 Interfaz::Borrar();
-                std::cout << "Agregando un material digital...\n";
+                std::cout << "Agregando un material digital...\n" << std::endl;
                 int cantidad = Interfaz::Cantidad();
                 int numClasificacion = Interfaz::Num_Clasificacion();
                 std::cin.ignore();
@@ -92,7 +93,6 @@ void Biblioteca::IniciarBiblioteca() {
                 std::string estado = Interfaz::Estado();
                 std::cin.ignore();
                 std::string tipo = Interfaz::Tipo();
-                std::cin.ignore();
                 std::string formato = Interfaz::Formato();
                 bool acceso = Interfaz::Acceso();
 
@@ -120,39 +120,63 @@ void Biblioteca::IniciarBiblioteca() {
 
             case 1:
                 Interfaz::Borrar();
-                Interfaz::EditarLibro(); 
-                gestorInventario->mostrarMaterialesPorTipo(LIBRO); 
-                {
-                    int indice = Interfaz::ElegirIndiceMaterial(); 
-                    system("cls"); 
-                    gestorInventario->displayPos(indice); 
-                    gestorInventario->editarMaterial(indice); 
-                    Interfaz::EsperarBorrar(); 
+                Interfaz::EditarLibro();
+                if (gestorInventario->mostrarMaterialesPorTipo(LIBRO)) {
+                    int indice = Interfaz::ElegirIndiceMaterial();
+                    if (!gestorInventario->indiceValido(indice)) {
+                        system("cls");
+                        break;
+                    }
+                    else {
+                        system("cls");
+                        gestorInventario->displayPos(indice);
+                        gestorInventario->editarMaterial(indice);
+                    }
+                    Interfaz::EsperarBorrar();
+                }
+                else {
+                    Interfaz::EsperarBorrar();  // para pausar antes de volver
                 }
                 break;
 
             case 2:
-                Interfaz::Borrar(); 
-                Interfaz::EditarRevista(); 
-                gestorInventario->mostrarMaterialesPorTipo(REVISTA); 
-                {
-                    int indice = Interfaz::ElegirIndiceMaterial(); 
-                    system("cls"); 
-                    gestorInventario->displayPos(indice);  
-                    gestorInventario->editarMaterial(indice); 
-                    Interfaz::EsperarBorrar(); 
+                Interfaz::Borrar();
+                Interfaz::EditarRevista();
+                if (gestorInventario->mostrarMaterialesPorTipo(REVISTA)) {
+                    int indice = Interfaz::ElegirIndiceMaterial();
+                    if (!gestorInventario->indiceValido(indice)) {
+                        system("cls");
+                        break;
+                    }
+                    else {
+                        system("cls");
+                        gestorInventario->displayPos(indice);
+                        gestorInventario->editarMaterial(indice);
+                    }
+                    Interfaz::EsperarBorrar();
+                }
+                else {
+                    Interfaz::EsperarBorrar();
                 }
                 break;
 
             case 3:
                 Interfaz::Borrar();
                 Interfaz::EditarDigital();
-                gestorInventario->mostrarMaterialesPorTipo(MATERIAL_DIGITAL);
-                {
+                if (gestorInventario->mostrarMaterialesPorTipo(MATERIAL_DIGITAL)) {
                     int indice = Interfaz::ElegirIndiceMaterial();
-                    system("cls");
-                    gestorInventario->displayPos(indice);
-                    gestorInventario->editarMaterial(indice);
+                    if (!gestorInventario->indiceValido(indice)) {
+                        system("cls");
+                        break;
+                    }
+                    else {
+                        system("cls");
+                        gestorInventario->displayPos(indice);
+                        gestorInventario->editarMaterial(indice);
+                    }
+                    Interfaz::EsperarBorrar();
+                }
+                else {
                     Interfaz::EsperarBorrar();
                 }
                 break;
@@ -173,15 +197,19 @@ void Biblioteca::IniciarBiblioteca() {
             switch (opc) {
             case 1:
                 gestorInventario->mostrarLibros();
+                Interfaz::EsperarBorrar();
                 break;
             case 2:
                 gestorInventario->mostrarRevistas();
+                Interfaz::EsperarBorrar();
                 break;
             case 3:
                 gestorInventario->mostrarMaterialesDigitales();
+                Interfaz::EsperarBorrar();
                 break;
             case 4:
                 gestorInventario->displayMaterials();
+                Interfaz::EsperarBorrar();
                 break;
             case 0:
                 break;
@@ -284,9 +312,10 @@ void Biblioteca::IniciarBiblioteca() {
                 std::cout << "Opción inválida.\n";
                 break;
             }
+           // GestorPrestamos->cargarPrestamos(RUTA_PRESTAMOS);
 
             Interfaz::EsperarBorrar();
-            }
+        }
         else if (opcion == 9) {
             Interfaz::Borrar();
             Interfaz::MostrarPrestamosPorUsuario();

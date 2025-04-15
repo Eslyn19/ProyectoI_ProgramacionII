@@ -12,6 +12,7 @@
 #define RUTA_USUARIOS "usuarios.txt"
 #define RUTA_PRESTAMOS "prestamos.txt"
 #define RUTA_TEMP "usuarios_temp.txt"
+#define FECHA_PRESTAMO "2025-04-14"
 
 class GestorPrestamo {
 public:

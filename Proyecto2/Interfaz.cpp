@@ -2,10 +2,13 @@
 
 // ------------------------------- Entradas del programa -----------------------------------
 void Interfaz::Bienvenida() {
+    std::cout << "\033[1;33m";
     std::cout << "---- << Bienvenido al sistema de administracion de materiales >> ----" << std::endl << std::endl;
+    std::cout << "\033[0m";
 }
 
 void Interfaz::MostrarMenu() {
+    // MATERIALES TERMINADOS
     std::cout << "1. Inclusion de datos de materiales.\n";
     std::cout << "2. Modificacion de datos de materiales.\n";
     std::cout << "3. Reporte de inventario de materiales.\n" << std::endl;
@@ -14,21 +17,25 @@ void Interfaz::MostrarMenu() {
     std::cout << "4. Inclusion de usuarios.\n";
     std::cout << "5. Modificacion de datos de usuarios.\n";
     std::cout << "6. Reporte de usuarios.\n" << std::endl;
+ 
 
+    std::cout << "\033[1;31m";
     std::cout << "7. Registro de solicitudes de prestamo y devoluciones.\n";
     std::cout << "8. Reporte de materiales en prestamo (general y por tipo de material).\n";
     std::cout << "9. Reporte de prestamos por usuario.\n" << std::endl;
+    std::cout << "\033[0m";
 
     std::cout << "0. Salir\n";
 }
-
 
 int Interfaz::OpcionMenu() {
     std::string input;
     int opcion;
 
     while (true) {
+        std::cout << "\033[1;33m";
         std::cout << "\n> Opcion: ";
+        std::cout << "\033[0m";
         std::cin >> input;
 
         try {
@@ -166,7 +173,7 @@ std::string Interfaz::Num_Catalogo() {
 
 	while (true) {
 		try {
-			std::cout << char(175) << " Numero de catalogo: ";
+			std::cout << std::endl << char(175) << " Numero de catalogo: ";
 			std::getline(std::cin, _num_catalogo);
 
 			if (_num_catalogo.empty()) {
@@ -181,7 +188,6 @@ std::string Interfaz::Num_Catalogo() {
 	}
 
 	return _num_catalogo;
-
 }
 
 std::string Interfaz::Titulo() {
@@ -190,7 +196,7 @@ std::string Interfaz::Titulo() {
 
 	while (true) {
 		try {
-			std::cout << char(175) << " Titulo del libro: ";
+            std::cout << std::endl << char(175) << " Titulo del libro: ";
 			std::getline(std::cin, _titulo);
 
 			if (_titulo.empty()) {
@@ -213,7 +219,7 @@ std::string Interfaz::Autor() {
 
 	while (true) {
 		try {
-			std::cout << char(175) << " Autor del libro: ";
+            std::cout << std::endl << char(175) << " Autor del libro: ";
 			std::getline(std::cin, _autor);
 
 			if (_autor.empty()) {
@@ -231,27 +237,35 @@ std::string Interfaz::Autor() {
 }
 
 std::string Interfaz::Palabra_Clave() {
-	std::cin.clear();
-	std::string _palabra_clave;
+    std::cin.clear();
+    std::string _palabra_clave;
 
-	while (true) {
-		try {
-			std::cout << char(175) << " Palabra clave del libro: ";
-			std::getline(std::cin, _palabra_clave);
+    while (true) {
+        try {
+            std::cout << std::endl << char(175) << " Palabra clave del libro: ";
+            std::getline(std::cin, _palabra_clave);
 
-			if (_palabra_clave.empty()) {
-				throw MyException("Error: La palabra clave no puede estar vacia.");
-			}
+            if (_palabra_clave.empty()) {
+                throw MyException("Error: La palabra clave no puede estar vacía.");
+            }
 
-			break;
-		}
-		catch (const MyException& e) {
-			std::cerr << e.what() << std::endl;
-		}
-	}
+            // Verificar que no tenga números
+            for (char c : _palabra_clave) {
+                if (isdigit(static_cast<unsigned char>(c))) {
+                    throw MyException("Error: La palabra clave no puede contener números.");
+                }
+            }
 
-	return _palabra_clave;
-}   
+            break;
+        }
+        catch (const MyException& e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+
+    return _palabra_clave;
+}
+
 
 std::string Interfaz::Tipo_MaterialLibro() {
     return "Libro";
@@ -266,7 +280,7 @@ std::string Interfaz::Tipo_MaterialDigital() {
     std::string _estado;
     int opcion;
 
-    std::cout << char(175) << " Tipo Digital";
+    std::cout << std::endl << char(175) << " Tipo Digital";
     while (true) {
         std::cout << "\n1) CD" << std::endl;
         std::cout << "2) DVD" << std::endl;
@@ -300,7 +314,7 @@ std::string Interfaz::Estado() {
     std::string _estado;
     int opcion;
 
-    std::cout << char(175) << " Estado del material";
+    std::cout << std::endl << char(175) << " Estado del material";
     while (true) {
         std::cout << "\n1) Nuevo" << std::endl;
         std::cout << "2) Usado" << std::endl;
@@ -333,16 +347,68 @@ std::string Interfaz::Estado() {
 
 int Interfaz::Volumen() {
     int volumen;
-	std::cout << char(175) << " Volumen de la revista: ";
-	std::cin >> volumen;
-	return volumen;
+    std::string entrada;
+
+    while (true) {
+        try {
+            std::cout << std::endl << char(175) << " Volumen de la revista: ";
+            std::getline(std::cin, entrada);
+
+            // Validar que la entrada contiene solo dígitos
+            if (entrada.empty() || entrada.find_first_not_of("0123456789") != std::string::npos) {
+                throw MyException("Error: Solo se permiten numeros enteros entre 1 y 99.");
+            }
+
+            volumen = std::stoi(entrada);
+
+            if (volumen < 1 || volumen > 99) {
+                throw MyException("Error: El numero debe estar entre 1 y 99.");
+            }
+
+            break;
+        }
+        catch (const MyException& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        catch (const std::exception&) {
+            std::cerr << "Error: Entrada no valida." << std::endl;
+        }
+    }
+
+    return volumen;
 }
 
 int Interfaz::Numero() {
-	int numero;
-	std::cout << char(175) << " Numero de la revista: ";
-	std::cin >> numero;
-	return numero;
+    int numero;
+    std::string entrada;
+
+    while (true) {
+        try {
+            std::cout << std::endl << char(175) << " Numero de la revista: ";
+            std::getline(std::cin, entrada);
+
+            // Validar que la entrada contiene solo dígitos
+            if (entrada.empty() || entrada.find_first_not_of("0123456789") != std::string::npos) {
+                throw MyException("Error: Solo se permiten numeros enteros entre 1 y 99.");
+            }
+
+            numero = std::stoi(entrada);
+
+            if (numero < 1 || numero > 99) {
+                throw MyException("Error: El numero debe estar entre 1 y 99.");
+            }
+
+            break;
+        }
+        catch (const MyException& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        catch (const std::exception&) {
+            std::cerr << "Error: Entrada no valida." << std::endl;
+        }
+    }
+
+    return numero;
 }
 
 std::string Interfaz::Tipo() {
@@ -351,7 +417,7 @@ std::string Interfaz::Tipo() {
 
 	while (true) {
 		try {
-			std::cout << char(175) << " Tipo de material digital: ";
+            std::cout << std::endl << char(175) << " Tipo de material digital: ";
 			std::getline(std::cin, _tipo);
 
 			if (_tipo.empty()) {
@@ -374,7 +440,7 @@ std::string Interfaz::Formato() {
 
 	while (true) {
 		try {
-			std::cout << char(175) << " Formato del material digital: ";
+            std::cout << std::endl << char(175) << " Formato del material digital: ";
 			std::getline(std::cin, _formato);
 
 			if (_formato.empty()) {
@@ -396,7 +462,7 @@ bool Interfaz::Acceso() {
 	bool acceso;
 	int opcion;
 
-	std::cout << char(175) << " Acceso al material digital";
+    std::cout << std::endl << char(175) << " Acceso al material digital";
 	while (true) {
 		std::cout << "\n1) Habilitado" << std::endl;
 		std::cout << "2) Deshabilitado" << std::endl;
@@ -424,6 +490,13 @@ bool Interfaz::Acceso() {
 }
 
 // ----------------------------------- Opcion 2 del menu -----------------------------------
+std::string Interfaz::BuscarPorTitulo() {
+    std::string Titulo;
+    std::cout << "Titulo del material: ";
+    std::getline(std::cin, Titulo);
+    return Titulo;
+}
+
 void Interfaz::MenuEditarMaterial() {
     system("cls");
     std::cout << "- - Editar Material - -" << std::endl;
@@ -759,7 +832,6 @@ int Interfaz::MostrarPorMaterial() {
 
 }
 
-
 // ----------------------------------- Opcion 7 del menu -----------------------------------
 void Interfaz::MostrarReporteUsuarios() {
 	system("CLS");
@@ -786,6 +858,9 @@ int Interfaz::MostrarPorActividad() {
     }
 }
 // ----------------------------------- Opcion 8 del menu -----------------------------------
+// 
+// 
+// 
 // ----------------------------------- Opcion 9 del menu -----------------------------------
 void Interfaz::MostrarPrestamosPorUsuario() {
     std::cout << "- - - Reporte de prestamos por usuario - - -" << std::endl;
