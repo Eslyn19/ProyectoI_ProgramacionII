@@ -1,4 +1,7 @@
 #include "GestorPrestamo.h"
+#include "Libro.h"
+#include "Revista.h"
+#include "MaterialDigital.h"
 
 #include <iostream>
 
@@ -16,7 +19,8 @@ GestorPrestamo::~GestorPrestamo() {
         delete prestamos[i];
     }
 
-    delete[] prestamos, users;
+    delete[] prestamos;
+    delete[] users;
 }
 
 void GestorPrestamo::resize() {
@@ -172,7 +176,7 @@ void GestorPrestamo::mostrarUsuariosInactivos() const {
             std::cout << "Nombre: " << users[i]->getName() << '\n';
             std::cout << "Apellido/os: " << users[i]->getSurname() << "\n";
             std::cout << "ID: " << users[i]->getID() << "\n";
-            std::cout << "Prestamo: " << users[i]->getMaterial() << std::endl << std::endl;
+            std::cout << "Material en prestamo: " << users[i]->getMaterial() << std::endl << std::endl;
             hayInactivos = true;
         }
 
@@ -193,7 +197,7 @@ void GestorPrestamo::mostrarUsuariosActivos() const {
 			std::cout << "Nombre: " << users[i]->getName() << '\n'
 				<< "Apellido/os: " << users[i]->getSurname() << "\n";
 			std::cout << "ID: " << users[i]->getID() << "\n";
-            std::cout << "Prestamo: " << users[i]->getMaterial() << std::endl << std::endl;
+            std::cout << "Material en prestamo: " << users[i]->getMaterial() << std::endl << std::endl;
 			hayActivos = true;
 		}
 	}
@@ -226,11 +230,16 @@ void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateria
     }
 
     if (usuario == nullptr) {
-        std::cout << "Usuario no encontrado. No se puede realizar el prestamo.\n";
+        std::cout << "\nUsuario no encontrado." << std::endl;
         return;
     }
 
-    std::cout << "Materiales disponibles:\n";
+	if (usuario->getMaterial() != "ninguno") {
+		std::cout << "\nEl usuario ya tiene un material prestado." << std::endl;
+		return;
+	}
+
+    std::cout << "\nMateriales disponibles:\n";
     for (size_t i = 0; i < cantidadMateriales; ++i) {
         std::cout << i << ". " << materiales[i]->getTitulo() << " (Cantidad: " << materiales[i]->getCantidad() << ")\n";
     }
@@ -255,17 +264,17 @@ void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateria
     // Realizar el préstamo
     usuario->setMaterial(material->getTitulo());
     material->setCantidad(material->getCantidad() - 1);
+
+    std::string tipoMaterial = ObtenerTipoMaterial(material);
  
     std::string fechaDevolucion;
-    std::cout << "Fecha del Prestamo: " << FECHA_PRESTAMO << std::endl;
-    std::cout << "Ingrese la fecha de devolución (ej: 2025-04-21): ";
+    std::cout << "\nFecha del Prestamo: " << FECHA_PRESTAMO << std::endl;
+    std::cout << "\nIngrese la fecha de devolución (ej: 2025-04-21): ";
     std::getline(std::cin, fechaDevolucion);
 
-    AgregarPrestamoArchivo(usuario->getID(), material->getTitulo(), FECHA_PRESTAMO, fechaDevolucion, "libro");
-   // ActualizarUsuarioArchivo(idUsuario, )
-    cargarPrestamos(RUTA_PRESTAMOS);
+    AgregarPrestamoArchivo(usuario->getID(), material->getTitulo(), FECHA_PRESTAMO, fechaDevolucion, tipoMaterial);
 
-    std::cout << "Préstamo realizado con éxito.\n";
+    std::cout << "\nPrestamo realizado con exito.\n";
 }
 
 void GestorPrestamo::ActualizarUsuarioArchivo(const std::string& idUsuario, const std::string& nuevoMaterial) {
@@ -308,7 +317,7 @@ void GestorPrestamo::AgregarPrestamoArchivo(const std::string& idUsuario, const 
 	std::ofstream archivo(RUTA_PRESTAMOS, std::ios::app);
 	if (archivo.is_open()) {
 		archivo << idUsuario << "," << Titulo << "," << fechaPrestamo << "," << fechaDevolucion << 
-            ", " << tipoMaterial << "\n";
+            "," << tipoMaterial << "\n";
 		archivo.close();
 	}
 	else {
@@ -316,8 +325,8 @@ void GestorPrestamo::AgregarPrestamoArchivo(const std::string& idUsuario, const 
 	}
 }
 
-void GestorPrestamo::cargarPrestamos(const std::string& rutaArchivo) {
-    std::ifstream archivo(rutaArchivo);
+void GestorPrestamo::cargarPrestamos() {
+    std::ifstream archivo(RUTA_PRESTAMOS);
     std::string linea;
 
     if (archivo.is_open()) {
@@ -342,18 +351,19 @@ void GestorPrestamo::cargarPrestamos(const std::string& rutaArchivo) {
         }
         archivo.close();
     }
-    else {
-        std::cerr << "Error al abrir el archivo de préstamos.\n";
-    }
 }
 
 void GestorPrestamo::mostrarPrestamos() const {
+    if (size == 0) {
+        std::cerr << "No hay prestamos de materiales" << std::endl;
+    }
+
     for (size_t i = 0; i < cantidadPrestamos; ++i) {
         std::cout << "Usuario ID: " << prestamos[i]->getIdUsuario() << "\n"
             << "Titulo: " << prestamos[i]->getTitulo() << "\n"
             << "Fecha de prestamo: " << prestamos[i]->getFechaPrestamo() << "\n"
             << "Fecha de devolucion: " << prestamos[i]->getFechaDevolucion() << "\n"
-			<< "Tipo de material:" << prestamos[i]->getTipoMaterial() << "\n" << std::endl;
+			<< "Tipo de material: " << prestamos[i]->getTipoMaterial() << "\n" << std::endl;
     }
 }
 
@@ -386,7 +396,7 @@ void GestorPrestamo::DevolverPrestamo(Material** materiales, size_t cantidadMate
     }
 
     if (!encontrado) {
-        std::cout << "No se encontró un préstamo para ese usuario.\n";
+        std::cout << "No se encontró un prestamo para ese usuario.\n";
         return;
     }
 
@@ -405,7 +415,7 @@ void GestorPrestamo::DevolverPrestamo(Material** materiales, size_t cantidadMate
             archivoTemp << prestamos[i]->getIdUsuario() << ","
                 << prestamos[i]->getTitulo() << ","
                 << prestamos[i]->getFechaPrestamo() << ","
-                << prestamos[i]->getFechaDevolucion() << "\n"
+                << prestamos[i]->getFechaDevolucion() << ","
 			    << prestamos[i]->getTipoMaterial() << "\n";
         }
         archivoTemp.close();
@@ -413,11 +423,127 @@ void GestorPrestamo::DevolverPrestamo(Material** materiales, size_t cantidadMate
         std::rename(RUTA_TEMP, RUTA_PRESTAMOS);
     }
     else {
-        std::cerr << "No se pudo abrir el archivo temporal para actualizar los préstamos.\n";
+        std::cerr << "No se pudo abrir el archivo temporal para actualizar los prestamos.\n";
     }
 
     // Actualizar estado del usuario en archivo (ponerlo como "No Material")
     ActualizarUsuarioArchivo(idUsuario, "No Material");
 
     std::cout << "Préstamo devuelto con éxito.\n";
+}
+
+std::string GestorPrestamo::ObtenerTipoMaterial(Material* material) {
+    if (dynamic_cast<Libro*>(material)) {
+        return "libro";
+    }
+    else if (dynamic_cast<Revista*>(material)) {
+        return "revista";
+    }
+    else if (dynamic_cast<MaterialDigital*>(material)) {
+        return "digital";
+    }
+    return "desconocido";
+}
+
+void GestorPrestamo::actualizarArchivoUsuarios(const std::string& rutaArchivo) {
+    std::ifstream archivoEntrada(rutaArchivo);
+    std::ofstream archivoTemporal(RUTA_TEMP);
+
+    if (!archivoEntrada.is_open() || !archivoTemporal.is_open()) {
+        std::cerr << "Error al abrir los archivos." << std::endl;
+        return;
+    }
+
+    std::string linea;
+    while (std::getline(archivoEntrada, linea)) {
+        std::istringstream ss(linea);
+        std::string campo;
+        std::string nuevaLinea;
+        std::string nombreUsuario;
+        bool esPrimerCampo = true;
+        bool actualizado = false;
+
+        int campoIndex = 0;
+        while (std::getline(ss, campo, ',')) {
+            if (campoIndex == 0) {
+                nombreUsuario = campo;
+            }
+
+            if (!actualizado && campo == "ninguno") {
+                for (int i = 0; i < size; ++i) {
+                    if (users[i]->getName() == nombreUsuario) {
+                        campo = users[i]->getMaterial();
+                        actualizado = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!esPrimerCampo) {
+                nuevaLinea += ",";
+            }
+            nuevaLinea += campo;
+            esPrimerCampo = false;
+            campoIndex++;
+        }
+
+        archivoTemporal << nuevaLinea << std::endl;
+    }
+
+    archivoEntrada.close();
+    archivoTemporal.close();
+
+    std::remove(rutaArchivo.c_str());
+    std::rename(RUTA_TEMP, rutaArchivo.c_str());
+}
+
+void GestorPrestamo::actualizarDevolucionMaterial(const std::string& rutaArchivo) {
+    std::ifstream archivoEntrada(rutaArchivo);
+    std::ofstream archivoTemporal(RUTA_TEMP);
+
+    if (!archivoEntrada.is_open() || !archivoTemporal.is_open()) {
+        std::cerr << "Error al abrir los archivos." << std::endl;
+        return;
+    }
+
+    std::string linea;
+    while (std::getline(archivoEntrada, linea)) {
+        std::istringstream ss(linea);
+        std::string campo;
+        std::string nuevaLinea;
+        std::string nombreUsuario;
+        bool esPrimerCampo = true;
+
+        int campoIndex = 0;
+        while (std::getline(ss, campo, ',')) {
+            if (campoIndex == 0) {
+                nombreUsuario = campo;
+            }
+
+            if (campoIndex == 2) {
+                for (int i = 0; i < size; ++i) {
+                    if (users[i]->getName() == nombreUsuario) {
+                        campo = "ninguno";
+                        users[i]->setMaterial("ninguno");
+                        break;
+                    }
+                }
+            }
+
+            if (!esPrimerCampo) {
+                nuevaLinea += ",";
+            }
+            nuevaLinea += campo;
+            esPrimerCampo = false;
+            campoIndex++;
+        }
+
+        archivoTemporal << nuevaLinea << std::endl;
+    }
+
+    archivoEntrada.close();
+    archivoTemporal.close();
+
+    std::remove(rutaArchivo.c_str());
+    std::rename(RUTA_TEMP, rutaArchivo.c_str());
 }

@@ -15,16 +15,18 @@ void PersistenciaUsuarios::guardarUsuarios(const std::string& ruta, User** usuar
             << usuarios[i]->getSurname() << ","
             << usuarios[i]->getID() << ","
 			<< (usuarios[i]->getAvailable() ? "1" : "0") << ","
-            << "No Material" << "\n";
+            << "ninguno" << "\n";
     }
 
     outFile.close();
 }
 
+// sera para sobreescribir cuando se haga prestamo
+
 User** PersistenciaUsuarios::cargarUsuarios(const std::string& ruta, size_t& cantidad, size_t& capacidad) {
     std::ifstream inFile(ruta, std::ios::in);
     if (!inFile.is_open()) {
-        std::cerr << "No se pudo abrir el archivo para cargar.\n";
+        //std::cerr << "No se pudo abrir el archivo para cargar.\n";
         return nullptr;
     }
 

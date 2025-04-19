@@ -17,7 +17,7 @@ Biblioteca::Biblioteca(std::string _nombre) : nombre(_nombre) {
     for (size_t i = 0; i < cantidad; ++i) {
         GestorPrestamos->addUser(usuariosCargados[i]);
     }
-    GestorPrestamos->cargarPrestamos(RUTA_PRESTAMOS);
+    GestorPrestamos->cargarPrestamos();
 }
 
 void Biblioteca::IniciarBiblioteca() {
@@ -102,7 +102,6 @@ void Biblioteca::IniciarBiblioteca() {
                 Interfaz::EsperarBorrar();
                 break;
             }
-
             default:
                 std::cout << "Tipo de material no valido.\n";
                 break;
@@ -236,7 +235,7 @@ void Biblioteca::IniciarBiblioteca() {
             else {
                 // Si no existe, se agrega el usuario
                 bool _estaActivo = Interfaz::DisponibleNuevoUsuario();
-				GestorPrestamos->addUser(new User(_nuevoNombre, _nuevoApellido, _nuevoID, _estaActivo, "Sin material"));
+				GestorPrestamos->addUser(new User(_nuevoNombre, _nuevoApellido, _nuevoID, _estaActivo, NINGUNO_MAT));
                 persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
 
                 Interfaz::UsuarioGuardado();
@@ -279,7 +278,6 @@ void Biblioteca::IniciarBiblioteca() {
                 GestorPrestamos->displayUsers(); // Mostrar todos
                 break;
             case 0:
-				Interfaz::Borrar();
                 break;
             default:
                 std::cerr << "Opción invalida.\n";
@@ -301,18 +299,21 @@ void Biblioteca::IniciarBiblioteca() {
             case 1:  // Realizar préstamo
                 GestorPrestamos->HacerPrestamo(materiales, cantidadMateriales);
                 persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
+                GestorPrestamos->actualizarArchivoUsuarios(RUTA_USUARIOS);
                 break;
 
             case 2:  // Devolver préstamo
                 GestorPrestamos->DevolverPrestamo(materiales, cantidadMateriales);
                 persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
+                GestorPrestamos->actualizarDevolucionMaterial(RUTA_USUARIOS);
                 break;
 
             default:
-                std::cout << "Opción inválida.\n";
+                std::cout << "Opcion invalida.\n";
                 break;
             }
-           // GestorPrestamos->cargarPrestamos(RUTA_PRESTAMOS);
+            GestorPrestamos->cargarPrestamos();
+            
 
             Interfaz::EsperarBorrar();
         }
@@ -324,7 +325,7 @@ void Biblioteca::IniciarBiblioteca() {
 			Interfaz::EsperarBorrar();
         }
         else {
-            std::cerr << "La opción no es válida. Por favor, elige una opción del menú.\n";
+            std::cerr << "La opción no es valida. Por favor, elige una opcion del menu.\n";
         }
         Interfaz::Bienvenida();
         Interfaz::MostrarMenu();

@@ -2,6 +2,7 @@
 #include "GestorInventario.h"
 #include "GestorPrestamo.h"
 #include <string>
+#define NINGUNO_MAT "ninguno"
 
 class Biblioteca {
 public:

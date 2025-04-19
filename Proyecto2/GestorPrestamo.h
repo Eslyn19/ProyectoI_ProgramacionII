@@ -33,10 +33,13 @@ public:
 	// metodos para prestamos
 	void HacerPrestamo(Material** materiales, size_t cantidadMateriales);
 	void ActualizarUsuarioArchivo(const std::string& idUsuario, const std::string& nuevoMaterial); // actualiza usuarios.txt con material
+	std::string ObtenerTipoMaterial(Material* material);
+	void actualizarArchivoUsuarios(const std::string& rutaArchivo);
+	void actualizarDevolucionMaterial(const std::string& rutaArchivo);
 
 	void AgregarPrestamoArchivo(const std::string& idUsuario, const std::string& numCatalogo, const std::string& fechaPrestamo, const std::string& fechaDevolucion, const std::string& tipoMaterial); // formato txt
 	void DevolverPrestamo(Material** materiales, size_t cantidadMateriales);
-	void cargarPrestamos(const std::string& rutaArchivo); // del txt
+	void cargarPrestamos(); // del txt
 	void mostrarPrestamos() const;
 
 	User** getUsers() const;

@@ -8,12 +8,9 @@ void Interfaz::Bienvenida() {
 }
 
 void Interfaz::MostrarMenu() {
-    // MATERIALES TERMINADOS
     std::cout << "1. Inclusion de datos de materiales.\n";
     std::cout << "2. Modificacion de datos de materiales.\n";
     std::cout << "3. Reporte de inventario de materiales.\n" << std::endl;
-
-    // USUARIOS TERMINADO
     std::cout << "4. Inclusion de usuarios.\n";
     std::cout << "5. Modificacion de datos de usuarios.\n";
     std::cout << "6. Reporte de usuarios.\n" << std::endl;
@@ -22,8 +19,8 @@ void Interfaz::MostrarMenu() {
     std::cout << "\033[1;31m";
     std::cout << "7. Registro de solicitudes de prestamo y devoluciones.\n";
     std::cout << "8. Reporte de materiales en prestamo (general y por tipo de material).\n";
-    std::cout << "9. Reporte de prestamos por usuario.\n" << std::endl;
     std::cout << "\033[0m";
+    std::cout << "9. Reporte de prestamos por usuario.\n" << std::endl;
 
     std::cout << "0. Salir\n";
 }
@@ -73,7 +70,6 @@ void Interfaz::MenuElegirMaterial() {
     std::cout << "1. Libros\n";
     std::cout << "2. Revistas\n";
     std::cout << "3. Articulos digitales\n";
-    std::cout << "4. Volver al menu\n";
 }
 
 int Interfaz::ElegirTipoMaterial() {
@@ -768,7 +764,7 @@ bool Interfaz::DisponibleNuevoUsuario() {
 }
 
 void Interfaz::UsuarioGuardado() {
-	std::cout << "\n -- Usuario guardado exitosamente" << std::endl;
+	std::cout << "\n-> Usuario guardado exitosamente! <-" << std::endl << std::endl;
     system("PAUSE");
 	system("CLS");
 }
@@ -799,7 +795,7 @@ int Interfaz::OpcionPrestamo() {
 		}
 		std::cin.clear();
 		std::cin.ignore(1000, '\n');
-		std::cout << "\nEntrada inválida. Por favor, ingrese un numero entre 0 y 2.\n";
+		std::cout << "\nOpcion no valida" << std::endl;
 	}
 }
 
@@ -863,6 +859,5 @@ int Interfaz::MostrarPorActividad() {
 // 
 // ----------------------------------- Opcion 9 del menu -----------------------------------
 void Interfaz::MostrarPrestamosPorUsuario() {
-    std::cout << "- - - Reporte de prestamos por usuario - - -" << std::endl;
-    std::cout << "--------------------------------------------" << std::endl << std::endl;
+    std::cout << "- - - Reporte de prestamos por usuario - - -" << std::endl << std::endl;
 }
