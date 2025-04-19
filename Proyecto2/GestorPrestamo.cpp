@@ -3,6 +3,8 @@
 #include "Revista.h"
 #include "MaterialDigital.h"
 
+#include "Persistencia.h"
+
 #include <iostream>
 
 GestorPrestamo::GestorPrestamo() : size(0), capacity(10), prestamos(nullptr), cantidadPrestamos(0), capacidadPrestamos(0)
@@ -58,7 +60,6 @@ int GestorPrestamo::getIndicePorID(const std::string& idBuscado) const {
     }
     return -1;
 }
-
 
 void GestorPrestamo::EditarUser(const std::string& id) {
     int index = getIndicePorID(id);
@@ -203,7 +204,7 @@ void GestorPrestamo::mostrarUsuariosActivos() const {
 	}
 
 	if (!hayActivos) {
-		std::cout << "\nNo hay usuarios activos registrados.\n" << std::endl;
+		std::cout << "No hay usuarios activos registrados.\n" << std::endl;
 	}
 }
 
@@ -234,10 +235,10 @@ void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateria
         return;
     }
 
-	if (usuario->getMaterial() != "ninguno") {
-		std::cout << "\nEl usuario ya tiene un material prestado." << std::endl;
-		return;
-	}
+    if (usuario->getMaterial() != "ninguno") {
+        std::cout << "\nEl usuario ya tiene un material prestado." << std::endl;
+        return;
+    }
 
     std::cout << "\nMateriales disponibles:\n";
     for (size_t i = 0; i < cantidadMateriales; ++i) {
@@ -261,18 +262,37 @@ void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateria
         return;
     }
 
+    // Obtener fecha actual
+  // Obtener fecha actual de forma segura
+    std::time_t t = std::time(nullptr);
+    std::tm now = {};
+    localtime_s(&now, &t);
+
+    // Formatear la fecha del préstamo
+    std::ostringstream ossPrestamo;
+    ossPrestamo << std::put_time(&now, "%Y-%m-%d");
+    std::string fechaPrestamo = ossPrestamo.str();
+
+    // Calcular la fecha de devolución sumando días
+    int diasPrestamo = material->getDiasPrestamo(); // Usa método virtual
+    now.tm_mday += diasPrestamo;
+    std::mktime(&now);  // Normaliza la fecha
+
+    std::ostringstream ossDevolucion;
+    ossDevolucion << std::put_time(&now, "%Y-%m-%d");
+    std::string fechaDevolucion = ossDevolucion.str();
+
+
     // Realizar el préstamo
     usuario->setMaterial(material->getTitulo());
     material->setCantidad(material->getCantidad() - 1);
 
     std::string tipoMaterial = ObtenerTipoMaterial(material);
- 
-    std::string fechaDevolucion;
-    std::cout << "\nFecha del Prestamo: " << FECHA_PRESTAMO << std::endl;
-    std::cout << "\nIngrese la fecha de devolución (ej: 2025-04-21): ";
-    std::getline(std::cin, fechaDevolucion);
 
-    AgregarPrestamoArchivo(usuario->getID(), material->getTitulo(), FECHA_PRESTAMO, fechaDevolucion, tipoMaterial);
+    std::cout << "\nFecha del Prestamo: " << fechaPrestamo << std::endl;
+    std::cout << "Fecha de Devolucion calculada automaticamente: " << fechaDevolucion << std::endl;
+
+    AgregarPrestamoArchivo(usuario->getID(), material->getTitulo(), fechaPrestamo, fechaDevolucion, tipoMaterial);
 
     std::cout << "\nPrestamo realizado con exito.\n";
 }
@@ -369,7 +389,7 @@ void GestorPrestamo::mostrarPrestamos() const {
 
 void GestorPrestamo::DevolverPrestamo(Material** materiales, size_t cantidadMateriales) {
     std::string idUsuario;
-    std::cout << "Ingrese el ID del usuario que desea devolver el préstamo: ";
+    std::cout << "\nIngrese el ID del usuario que desea devolver el prestamo: ";
     std::cin >> idUsuario;
     std::cin.ignore();
 
@@ -396,7 +416,7 @@ void GestorPrestamo::DevolverPrestamo(Material** materiales, size_t cantidadMate
     }
 
     if (!encontrado) {
-        std::cout << "No se encontró un prestamo para ese usuario.\n";
+        std::cout << "No se encontro un prestamo para ese usuario.\n";
         return;
     }
 
@@ -427,9 +447,16 @@ void GestorPrestamo::DevolverPrestamo(Material** materiales, size_t cantidadMate
     }
 
     // Actualizar estado del usuario en archivo (ponerlo como "No Material")
-    ActualizarUsuarioArchivo(idUsuario, "No Material");
+    ActualizarUsuarioArchivo(idUsuario, "ninguno");
 
-    std::cout << "Préstamo devuelto con éxito.\n";
+    for (size_t i = 0; i < capacity; ++i) {
+        if (users[i]->getID() == idUsuario) {
+            users[i]->setMaterial("ninguno");
+            break;
+        }
+    }
+
+    std::cout << "\nPrestamo devuelto con exito.\n";
 }
 
 std::string GestorPrestamo::ObtenerTipoMaterial(Material* material) {
@@ -500,7 +527,7 @@ void GestorPrestamo::actualizarArchivoUsuarios(const std::string& rutaArchivo) {
 void GestorPrestamo::actualizarDevolucionMaterial(const std::string& rutaArchivo) {
     std::ifstream archivoEntrada(rutaArchivo);
     std::ofstream archivoTemporal(RUTA_TEMP);
-
+    
     if (!archivoEntrada.is_open() || !archivoTemporal.is_open()) {
         std::cerr << "Error al abrir los archivos." << std::endl;
         return;
@@ -511,19 +538,19 @@ void GestorPrestamo::actualizarDevolucionMaterial(const std::string& rutaArchivo
         std::istringstream ss(linea);
         std::string campo;
         std::string nuevaLinea;
-        std::string nombreUsuario;
+        std::string idUsuario;
         bool esPrimerCampo = true;
 
         int campoIndex = 0;
         while (std::getline(ss, campo, ',')) {
             if (campoIndex == 0) {
-                nombreUsuario = campo;
+                idUsuario = campo; // Guardamos el ID (primer campo)
             }
 
-            if (campoIndex == 2) {
+            if (campoIndex == 2) { // Campo de material
                 for (int i = 0; i < size; ++i) {
-                    if (users[i]->getName() == nombreUsuario) {
-                        campo = "ninguno";
+                    if (users[i]->getID() == idUsuario) {
+                        campo = "ninguno"; // Solo cambia el material
                         users[i]->setMaterial("ninguno");
                         break;
                     }
@@ -547,3 +574,4 @@ void GestorPrestamo::actualizarDevolucionMaterial(const std::string& rutaArchivo
     std::remove(rutaArchivo.c_str());
     std::rename(RUTA_TEMP, rutaArchivo.c_str());
 }
+

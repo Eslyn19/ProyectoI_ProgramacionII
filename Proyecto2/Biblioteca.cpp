@@ -284,7 +284,8 @@ void Biblioteca::IniciarBiblioteca() {
                 break;
             }
             Interfaz::EsperarBorrar(); 
-            }
+        }
+        
         // PARTE DE SELECCION DEL MENU PARA LOS PRESTAMOS ------------------------------------------------------------------------
         else if (opcion == 7) { 
             Interfaz::Borrar();
@@ -298,13 +299,13 @@ void Biblioteca::IniciarBiblioteca() {
             switch (opcPrestamo) {
             case 1:  // Realizar préstamo
                 GestorPrestamos->HacerPrestamo(materiales, cantidadMateriales);
-                persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
+                //persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
                 GestorPrestamos->actualizarArchivoUsuarios(RUTA_USUARIOS);
                 break;
 
             case 2:  // Devolver préstamo
                 GestorPrestamos->DevolverPrestamo(materiales, cantidadMateriales);
-                persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
+                //persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
                 GestorPrestamos->actualizarDevolucionMaterial(RUTA_USUARIOS);
                 break;
 
@@ -313,6 +314,7 @@ void Biblioteca::IniciarBiblioteca() {
                 break;
             }
             GestorPrestamos->cargarPrestamos();
+            
             
 
             Interfaz::EsperarBorrar();
@@ -330,7 +332,6 @@ void Biblioteca::IniciarBiblioteca() {
         Interfaz::Bienvenida();
         Interfaz::MostrarMenu();
     }
-
     system("pause");
 }
 

@@ -7,24 +7,28 @@
       "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\Biblioteca.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\GestorPrestamo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\GestorPrestamo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\GestorPrestamo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Persistencia.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\Persistencia.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\MaterialDigital.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\MaterialDigital.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Persistencia.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\Persistencia.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Prestamo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\Prestamo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Interfaz.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|solutionrelative:Proyecto2\\Interfaz.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F6F68E5-680B-4D62-A107-28C28959DC4F}|Proyecto2\\Proyecto2.vcxproj|C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Biblioteca.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -48,7 +52,7 @@
               "RelativeDocumentMoniker": "Proyecto2\\Biblioteca.cpp",
               "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Biblioteca.cpp",
               "RelativeToolTip": "Proyecto2\\Biblioteca.cpp",
-              "ViewState": "AgIAACIBAAAAAAAAAAAEwC0BAABKAAAAAAAAAA==",
+              "ViewState": "AgIAABsBAAAAAAAAAAAcwDIBAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-04-15T15:35:48.115Z",
               "IsPinned": true,
@@ -56,27 +60,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Interfaz.cpp",
-              "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Interfaz.cpp",
-              "RelativeDocumentMoniker": "Proyecto2\\Interfaz.cpp",
-              "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Interfaz.cpp",
-              "RelativeToolTip": "Proyecto2\\Interfaz.cpp",
-              "ViewState": "AgIAABQDAAAAAAAAAAAmwCgDAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-16T16:22:39.616Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Biblioteca.h",
               "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Biblioteca.h",
               "RelativeDocumentMoniker": "Proyecto2\\Biblioteca.h",
               "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Biblioteca.h",
               "RelativeToolTip": "Proyecto2\\Biblioteca.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-04-16T17:07:10.814Z",
               "IsPinned": true,
@@ -84,20 +74,60 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Prestamo.h",
-              "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Prestamo.h",
-              "RelativeDocumentMoniker": "Proyecto2\\Prestamo.h",
-              "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Prestamo.h",
-              "RelativeToolTip": "Proyecto2\\Prestamo.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-19T20:31:12.947Z",
+              "DocumentIndex": 3,
+              "Title": "Main.cpp",
+              "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Main.cpp",
+              "RelativeDocumentMoniker": "Proyecto2\\Main.cpp",
+              "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Main.cpp",
+              "RelativeToolTip": "Proyecto2\\Main.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-04-19T21:51:15.86Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
+              "Title": "Persistencia.h",
+              "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Persistencia.h",
+              "RelativeDocumentMoniker": "Proyecto2\\Persistencia.h",
+              "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Persistencia.h",
+              "RelativeToolTip": "Proyecto2\\Persistencia.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-04-19T22:16:46.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GestorPrestamo.cpp",
+              "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.cpp",
+              "RelativeDocumentMoniker": "Proyecto2\\GestorPrestamo.cpp",
+              "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.cpp",
+              "RelativeToolTip": "Proyecto2\\GestorPrestamo.cpp",
+              "ViewState": "AgIAAJcBAAAAAAAAAADwv7ABAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-04-19T22:07:07.919Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MaterialDigital.cpp",
+              "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\MaterialDigital.cpp",
+              "RelativeDocumentMoniker": "Proyecto2\\MaterialDigital.cpp",
+              "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\MaterialDigital.cpp",
+              "RelativeToolTip": "Proyecto2\\MaterialDigital.cpp",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAADAAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-04-19T22:04:08.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Persistencia.cpp",
               "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Persistencia.cpp",
               "RelativeDocumentMoniker": "Proyecto2\\Persistencia.cpp",
@@ -110,28 +140,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GestorPrestamo.h",
               "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.h",
               "RelativeDocumentMoniker": "Proyecto2\\GestorPrestamo.h",
               "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.h",
               "RelativeToolTip": "Proyecto2\\GestorPrestamo.h",
-              "ViewState": "AgIAABcAAAAAAAAAAAAnwCUAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAADEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-04-15T23:07:53.585Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GestorPrestamo.cpp",
-              "DocumentMoniker": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.cpp",
-              "RelativeDocumentMoniker": "Proyecto2\\GestorPrestamo.cpp",
-              "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\GestorPrestamo.cpp",
-              "RelativeToolTip": "Proyecto2\\GestorPrestamo.cpp",
-              "ViewState": "AgIAAOMBAAAAAAAAAAAUwPsBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-15T23:07:54.799Z",
               "EditorCaption": ""
             }
           ]

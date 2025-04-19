@@ -4,6 +4,10 @@
 #include <string>
 #include <algorithm>   // Para std::all_of
 #include <cctype>      // Para ::isdigit, ::isalpha, ::isspace
+#include <ctime>
+#include <iomanip>
+#include <sstream>
+
 #include "Usuario.h"
 #include "Usuarios.h"
 #include "Persistencia.h"
@@ -12,7 +16,7 @@
 #define RUTA_USUARIOS "usuarios.txt"
 #define RUTA_PRESTAMOS "prestamos.txt"
 #define RUTA_TEMP "usuarios_temp.txt"
-#define FECHA_PRESTAMO "2025-04-14"
+#define FECHA_PRESTAMO "2025-04-19"
 
 class GestorPrestamo {
 public:
@@ -37,10 +41,14 @@ public:
 	void actualizarArchivoUsuarios(const std::string& rutaArchivo);
 	void actualizarDevolucionMaterial(const std::string& rutaArchivo);
 
+
 	void AgregarPrestamoArchivo(const std::string& idUsuario, const std::string& numCatalogo, const std::string& fechaPrestamo, const std::string& fechaDevolucion, const std::string& tipoMaterial); // formato txt
 	void DevolverPrestamo(Material** materiales, size_t cantidadMateriales);
 	void cargarPrestamos(); // del txt
 	void mostrarPrestamos() const;
+
+
+
 
 	User** getUsers() const;
 	size_t getSize() const;
