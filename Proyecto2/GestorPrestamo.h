@@ -15,6 +15,7 @@
 #include "Prestamo.h"
 #define RUTA_USUARIOS "usuarios.txt"
 #define RUTA_PRESTAMOS "prestamos.txt"
+#define RUTA_MATERIALES "materiales.txt"
 #define RUTA_TEMP "usuarios_temp.txt"
 #define FECHA_PRESTAMO "2025-04-19"
 
@@ -41,7 +42,6 @@ public:
 	void actualizarArchivoUsuarios(const std::string& rutaArchivo);
 	void actualizarDevolucionMaterial(const std::string& rutaArchivo);
 
-
 	void AgregarPrestamoArchivo(const std::string& idUsuario, const std::string& numCatalogo, const std::string& fechaPrestamo, const std::string& fechaDevolucion, const std::string& tipoMaterial); // formato txt
 	void DevolverPrestamo(Material** materiales, size_t cantidadMateriales);
 	void cargarPrestamos(); // del txt
@@ -56,6 +56,7 @@ private:
     void resize();
 	void redimensionarPrestamo();
 
+	int indiceMaterialSeleccionado;
     User** users;
 	PersistenciaUsuarios persistencia;
     size_t size;

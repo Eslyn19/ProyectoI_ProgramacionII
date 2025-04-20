@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-GestorPrestamo::GestorPrestamo() : size(0), capacity(10), prestamos(nullptr), cantidadPrestamos(0), capacidadPrestamos(0)
+GestorPrestamo::GestorPrestamo() : size(0), capacity(10), prestamos(nullptr), cantidadPrestamos(0), capacidadPrestamos(0), indiceMaterialSeleccionado()
 {
 	users = new User * [capacity];
 }
@@ -76,6 +76,7 @@ void GestorPrestamo::EditarUser(const std::string& id) {
         std::cout << "\n1. Nombre" << std::endl;
         std::cout << "2. Apellido" << std::endl;
         std::cout << "3. ID" << std::endl;
+        std::cout << "4. Estado (Activo/no activo)" << std::endl;
         std::cout << "0. Salir" << std::endl;
         std::cout << "\n> Ingrese su opcion: ";
         std::cin >> opcion;
@@ -122,6 +123,23 @@ void GestorPrestamo::EditarUser(const std::string& id) {
             else {
                 usuario->setID(nuevoValor);
                 std::cout << "\n> ID actualizado.\n" << std::endl;
+            }
+            system("pause");
+            break;
+
+        case 4:
+            if (usuario->getAvailable()) {
+                if (usuario->getMaterial() != "ninguno") {
+                    std::cout << "\n> No se puede marcar como 'No disponible' porque el usuario aun tiene un material prestado.\n";
+                }
+                else {
+                    usuario->setAvailability(false);
+                    std::cout << "\n> Estado actualizado a: no activo.\n";
+                }
+            }
+            else {
+                usuario->setAvailability(true);
+                std::cout << "\n> Estado actualizado a: Activo.\n";
             }
             system("pause");
             break;
@@ -234,6 +252,11 @@ void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateria
         std::cout << "\nUsuario no encontrado." << std::endl;
         return;
     }
+
+	if (usuario->getAvailable() == false) {
+		std::cout << "\nEl usuario no esta activo." << std::endl;
+		return;
+	}
 
     if (usuario->getMaterial() != "ninguno") {
         std::cout << "\nEl usuario ya tiene un material prestado." << std::endl;
@@ -544,13 +567,13 @@ void GestorPrestamo::actualizarDevolucionMaterial(const std::string& rutaArchivo
         int campoIndex = 0;
         while (std::getline(ss, campo, ',')) {
             if (campoIndex == 0) {
-                idUsuario = campo; // Guardamos el ID (primer campo)
+                idUsuario = campo;
             }
 
-            if (campoIndex == 2) { // Campo de material
+            if (campoIndex == 2) { 
                 for (int i = 0; i < size; ++i) {
                     if (users[i]->getID() == idUsuario) {
-                        campo = "ninguno"; // Solo cambia el material
+                        campo = "ninguno";
                         users[i]->setMaterial("ninguno");
                         break;
                     }
@@ -574,4 +597,3 @@ void GestorPrestamo::actualizarDevolucionMaterial(const std::string& rutaArchivo
     std::remove(rutaArchivo.c_str());
     std::rename(RUTA_TEMP, rutaArchivo.c_str());
 }
-
