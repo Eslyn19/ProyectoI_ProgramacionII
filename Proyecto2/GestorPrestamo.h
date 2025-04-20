@@ -18,6 +18,7 @@
 #define RUTA_PRESTAMOS "prestamos.txt"
 #define RUTA_MATERIALES "materiales.txt"
 #define RUTA_TEMP "usuarios_temp.txt"
+#define RUTA_TMATERIALES "materiales_temp.txt"
 
 class GestorPrestamo {
 public:
@@ -42,7 +43,10 @@ public:
 	void actualizarArchivoUsuarios(const std::string& rutaArchivo);
 	void actualizarDevolucionMaterial(const std::string& rutaArchivo);
 	void AgregarPrestamoArchivo(const std::string& idUsuario, const std::string& numCatalogo, const std::string& fechaPrestamo, const std::string& fechaDevolucion, const std::string& tipoMaterial); // formato txt
-	void DevolverPrestamo(Material** materiales, size_t cantidadMateriales);
+	std::string IDDevolucion() const;
+	std::string obtenerTituloPorIDUsuario(const std::string& idUsuario);
+	void DevolverPrestamo(std::string idUsuario, Material** materiales, size_t cantidadMateriales);
+	void sumarCantidadMaterialTXT(const std::string& tituloBuscado);
 	void cargarPrestamos();
 	void mostrarPrestamos() const;
 	void MaterialesEnPrestamo() const;
@@ -51,6 +55,15 @@ public:
 	void MostrarMaterialDigitalPrestamo() const;
 	User** getUsers() const;
 	size_t getSize() const;
+
+
+	User* verificarUsuario();
+	std::string seleccionarMaterial(Material** materiales, size_t cantidadMateriales);
+	void procesarPrestamo(User* usuario, Material** materiales, size_t cantidadMateriales, const std::string& tituloMaterial);
+	void actualizarCantidadMaterialTXT(const std::string& titulo);
+
+
+
 
 private:
     void resize();

@@ -312,25 +312,31 @@ void Biblioteca::IniciarBiblioteca() {
             size_t cantidadMateriales = gestorInventario->getCantidadMateriales();
             Material** materiales = gestorInventario->getMateriales();
 
-            switch (opcPrestamo) {
-            case 1:
-                GestorPrestamos->HacerPrestamo(materiales, cantidadMateriales);
+            if (opcPrestamo == 1) {
+                User* usuario = GestorPrestamos->verificarUsuario();
+                if (usuario == nullptr) return;
+
+                std::string tituloMaterial = GestorPrestamos->seleccionarMaterial(materiales, cantidadMateriales);
+                if (tituloMaterial == "") return;
+
+                GestorPrestamos->procesarPrestamo(usuario, materiales, cantidadMateriales, tituloMaterial);
                 GestorPrestamos->actualizarArchivoUsuarios(RUTA_USUARIOS);
-                break;
-
-            case 2:
-                GestorPrestamos->DevolverPrestamo(materiales, cantidadMateriales);
-                GestorPrestamos->actualizarDevolucionMaterial(RUTA_USUARIOS);
-                break;
-
-            default:
-                break;
+                GestorPrestamos->actualizarCantidadMaterialTXT(tituloMaterial);
             }
-            GestorPrestamos->cargarPrestamos();
+            else if (opcPrestamo == 2) {
+                std::string idUsuario = GestorPrestamos->IDDevolucion();
+                std::string titulo = GestorPrestamos->obtenerTituloPorIDUsuario(idUsuario);
 
+                GestorPrestamos->DevolverPrestamo(idUsuario, materiales, cantidadMateriales);
+                GestorPrestamos->actualizarDevolucionMaterial(RUTA_USUARIOS);
+                GestorPrestamos->sumarCantidadMaterialTXT(titulo); // usa el método nuevo que suma
+            }
+
+            GestorPrestamos->cargarPrestamos();
             Interfaz::Borrar();
             break;
         }
+
 
         case 8: {
             int c = Interfaz::OpcionMostrarPrestamos();
