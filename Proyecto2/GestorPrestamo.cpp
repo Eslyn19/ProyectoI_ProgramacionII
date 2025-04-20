@@ -2,10 +2,12 @@
 #include "Libro.h"
 #include "Revista.h"
 #include "MaterialDigital.h"
-
 #include "Persistencia.h"
-
 #include <iostream>
+
+#define WHITE_COLOR "\033[1;37m"
+#define GREEN_COLOR "\033[1;32m"
+#define CYAN_COLOR "\033[36m"
 
 GestorPrestamo::GestorPrestamo() : size(0), capacity(10), prestamos(nullptr), cantidadPrestamos(0), capacidadPrestamos(0), indiceMaterialSeleccionado()
 {
@@ -89,11 +91,11 @@ void GestorPrestamo::EditarUser(const std::string& id) {
             std::cout << "\n>Ingrese nuevo nombre: ";
             std::getline(std::cin, nuevoValor);
             if (!esNombreValido(nuevoValor)) {
-                std::cout << "\n> Nombre inválido. Debe tener más de 2 letras y solo contener letras.\n";
+                std::cout << "\n> Nombre invalido. Debe tener mas de 2 letras y solo contener letras." << std::endl;
             }
             else {
                 usuario->setName(nuevoValor);
-                std::cout << "\n>Nombre actualizado.\n" << std::endl;
+                std::cout << GREEN_COLOR << "\n>Nombre actualizado.\n" << WHITE_COLOR << std::endl;
             }
             system("pause");
             break;
@@ -102,11 +104,11 @@ void GestorPrestamo::EditarUser(const std::string& id) {
             std::cout << "\n> Ingrese nuevo apellido: ";
             std::getline(std::cin, nuevoValor);
             if (!esNombreValido(nuevoValor)) {
-                std::cout << "\n> Apellido invalido. Debe tener mas de 2 letras y solo contener letras.\n";
+                std::cout << "\n> Apellido invalido. Debe tener mas de 2 letras y solo contener letras." << std::endl;
             }
             else {
                 usuario->setSurname(nuevoValor);
-                std::cout << "\n> Apellido actualizado.\n" << std::endl;
+                std::cout << GREEN_COLOR "\n> Apellido actualizado.\n" << WHITE_COLOR << std::endl;
             }
             system("pause");
             break;
@@ -115,14 +117,14 @@ void GestorPrestamo::EditarUser(const std::string& id) {
             std::cout << "\n>Ingrese nuevo ID (9 digitos): ";
             std::getline(std::cin, nuevoValor);
             if (!esIDValido(nuevoValor)) {
-                std::cout << "\n> ID invalido. Debe contener exactamente 9 numeros.\n";
+                std::cout << "\n> ID invalido. Debe contener exactamente 9 numeros." << std::endl;
             }
             else if (existeID(nuevoValor)) {
-                std::cout << "\n> Ese ID ya existe. No se puede asignar.\n";
+                std::cout << "\n> Ese ID ya existe. No se puede asignar." << std::endl;
             }
             else {
                 usuario->setID(nuevoValor);
-                std::cout << "\n> ID actualizado.\n" << std::endl;
+                std::cout << GREEN_COLOR << "\n> ID actualizado.\n" << WHITE_COLOR << std::endl;
             }
             system("pause");
             break;
@@ -130,16 +132,16 @@ void GestorPrestamo::EditarUser(const std::string& id) {
         case 4:
             if (usuario->getAvailable()) {
                 if (usuario->getMaterial() != "ninguno") {
-                    std::cout << "\n> No se puede marcar como 'No disponible' porque el usuario aun tiene un material prestado.\n";
+                    std::cout << "\n> No se puede marcar como 'No disponible' porque el usuario aun tiene un material prestado." << std::endl;
                 }
                 else {
                     usuario->setAvailability(false);
-                    std::cout << "\n> Estado actualizado a: no activo.\n";
+                    std::cout << GREEN_COLOR << "\n> Estado actualizado a 'No Activo'." << WHITE_COLOR << std::endl;
                 }
             }
             else {
                 usuario->setAvailability(true);
-                std::cout << "\n> Estado actualizado a: Activo.\n";
+                std::cout << GREEN_COLOR << "\n> Estado actualizado a 'Activo'." << WHITE_COLOR << std::endl;
             }
             system("pause");
             break;
@@ -150,6 +152,7 @@ void GestorPrestamo::EditarUser(const std::string& id) {
         default:
             std::cout << "\n> Opcion no valida.\n";
         }
+		system("cls");  
     } while (opcion != 0);
 }
 
@@ -180,13 +183,21 @@ void GestorPrestamo::displayUsers() const {
 		std::cout << "El sistema no tiene usuarios guardados." << std::endl;
 	}
 
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|         Usuarios del sistema        |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+
+
 	for (size_t i = 0; i < size; ++i) {
 		std::cout << users[i]->toString() << std::endl;
 	}
 }
 
 void GestorPrestamo::mostrarUsuariosInactivos() const {
-    std::cout << "- - Usuarios No Activos - -\n" << std::endl;
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|         Usuarios Inactivos          |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+
 
     bool hayInactivos = false;
 
@@ -207,7 +218,9 @@ void GestorPrestamo::mostrarUsuariosInactivos() const {
 }
 
 void GestorPrestamo::mostrarUsuariosActivos() const {
-	std::cout << "- - Usuarios Activos - -\n" << std::endl;
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|           Usuarios activos          |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
 	
 	bool hayActivos = false;
 

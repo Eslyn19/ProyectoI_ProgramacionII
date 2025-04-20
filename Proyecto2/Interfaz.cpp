@@ -81,7 +81,8 @@ void Interfaz::MenuElegirMaterial() {
     
     std::cout << "\n1) Libros" << std::endl;
     std::cout << "2) Revistas" << std::endl;
-    std::cout << "3) Articulos digitales" << std::endl << std::endl;
+    std::cout << "3) Articulos digitales" << std::endl;
+	std::cout << "0) Regresar" << std::endl << std::endl;
 }
 
 int Interfaz::ElegirTipoMaterial() {
@@ -96,7 +97,7 @@ int Interfaz::ElegirTipoMaterial() {
                 throw MyException("Entrada no valida. Por favor, ingrese un numero.");
             }
 
-            if (Opc_mat < 1 || Opc_mat > 3) {
+            if (Opc_mat < 0 || Opc_mat > 3) {
                 throw MyException("Opcion no valida. Debe ser entre 1 y 3.");
             }
 
@@ -887,6 +888,8 @@ int Interfaz::OpcionPrestamo() {
 
 void Interfaz::WarningExistingID() {
     std::cout << "\nEl ID ingresado no existe. No se puede editar." << std::endl;
+    system("pause");
+    system("cls");
 }
 
 // ----------------------------------- Opcion 6 del menu -----------------------------------

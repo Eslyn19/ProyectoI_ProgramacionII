@@ -27,11 +27,12 @@ void Biblioteca::IniciarBiblioteca() {
 
     while (true) {
         int opcion = Interfaz::OpcionMenu();
-        if (opcion == 0) {
-			Interfaz::Farewell();
+        switch (opcion) {
+        case 0:
+            Interfaz::Farewell();
             return;
-        }
-        else if (opcion == 1) {
+
+        case 1: {
             Interfaz::MenuElegirMaterial();
             int tipoMaterial = Interfaz::ElegirTipoMaterial();
 
@@ -42,7 +43,7 @@ void Biblioteca::IniciarBiblioteca() {
                 int cantidad = Interfaz::Cantidad();
                 int numClasificacion = Interfaz::Num_Clasificacion();
                 std::cin.ignore();
-                
+
                 std::string numCatalogo = Interfaz::Num_Catalogo();
                 std::string titulo = Interfaz::Titulo();
                 std::string autor = Interfaz::Autor();
@@ -52,7 +53,7 @@ void Biblioteca::IniciarBiblioteca() {
 
                 gestorInventario->addMaterial(new Libro(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado));
                 gestorInventario->saveToFile(RUTA_ARCHIVO);
-               
+
                 Interfaz::GuardadoExitoso();
                 Interfaz::EsperarBorrar();
                 break;
@@ -64,7 +65,7 @@ void Biblioteca::IniciarBiblioteca() {
                 int cantidad = Interfaz::Cantidad();
                 int numClasificacion = Interfaz::Num_Clasificacion();
                 std::cin.ignore();
-                
+
                 std::string numCatalogo = Interfaz::Num_Catalogo();
                 std::string titulo = Interfaz::Titulo();
                 std::string autor = Interfaz::Autor();
@@ -77,7 +78,7 @@ void Biblioteca::IniciarBiblioteca() {
 
                 gestorInventario->addMaterial(new Revista(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado, volumen, numero));
                 gestorInventario->saveToFile(RUTA_ARCHIVO);
-                
+
                 Interfaz::GuardadoExitoso();
                 Interfaz::EsperarBorrar();
                 break;
@@ -85,11 +86,11 @@ void Biblioteca::IniciarBiblioteca() {
 
             case 3: {
                 Interfaz::AgregandoDigitalInterfaz();
-                
+
                 int cantidad = Interfaz::Cantidad();
                 int numClasificacion = Interfaz::Num_Clasificacion();
                 std::cin.ignore();
-                
+
                 std::string numCatalogo = Interfaz::Num_Catalogo();
                 std::string titulo = Interfaz::Titulo();
                 std::string autor = Interfaz::Autor();
@@ -103,17 +104,23 @@ void Biblioteca::IniciarBiblioteca() {
 
                 gestorInventario->addMaterial(new MaterialDigital(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado, tipo, formato, acceso));
                 gestorInventario->saveToFile(RUTA_ARCHIVO);
-                
+
                 Interfaz::GuardadoExitoso();
                 Interfaz::EsperarBorrar();
                 break;
             }
+
+			case 0:
+				Interfaz::Borrar();
+				break;
+
             default:
                 break;
             }
+            break;
         }
 
-        else if (opcion == 2) {
+        case 2: {
             Interfaz::MenuEditarMaterial();
             int tipo = Interfaz::OpcionEditarTipo();
 
@@ -151,7 +158,7 @@ void Biblioteca::IniciarBiblioteca() {
 
                 if (gestorInventario->mostrarMaterialesPorTipo(REVISTA)) {
                     int indice = Interfaz::ElegirIndiceMaterial();
-                    
+
                     if (!gestorInventario->indiceValido(indice)) {
                         Interfaz::Borrar();
                         break;
@@ -171,10 +178,10 @@ void Biblioteca::IniciarBiblioteca() {
             case 3:
                 Interfaz::Borrar();
                 Interfaz::EditarDigital();
-                
+
                 if (gestorInventario->mostrarMaterialesPorTipo(MATERIAL_DIGITAL)) {
                     int indice = Interfaz::ElegirIndiceMaterial();
-                   
+
                     if (!gestorInventario->indiceValido(indice)) {
                         Interfaz::Borrar();
                         break;
@@ -195,12 +202,13 @@ void Biblioteca::IniciarBiblioteca() {
                 break;
             }
             gestorInventario->saveToFile(RUTA_ARCHIVO);
+            break;
         }
 
-        else if (opcion == 3) {
+        case 3: {
             Interfaz::Borrar();
             int opc = Interfaz::MostrarPorMaterial();
-            
+
             Interfaz::Borrar();
             switch (opc) {
             case 1:
@@ -225,10 +233,11 @@ void Biblioteca::IniciarBiblioteca() {
                 break;
             }
 
-        Interfaz::Borrar();
+            Interfaz::Borrar();
+            break;
         }
 
-        else if (opcion == 4) {
+        case 4: {
             std::cin.ignore();
             Interfaz::MensajeAgregarUsuario();
 
@@ -243,14 +252,16 @@ void Biblioteca::IniciarBiblioteca() {
             }
             else {
                 bool _estaActivo = Interfaz::DisponibleNuevoUsuario();
-				GestorPrestamos->addUser(new User(_nuevoNombre, _nuevoApellido, _nuevoID, _estaActivo, NINGUNO_MAT));
+                GestorPrestamos->addUser(new User(_nuevoNombre, _nuevoApellido, _nuevoID, _estaActivo, NINGUNO_MAT));
                 persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
 
                 Interfaz::GuardadoExitoso();
                 Interfaz::EsperarBorrar();
             }
+            break;
         }
-        else if (opcion == 5) {
+
+        case 5: {
             std::cin.ignore();
             Interfaz::MostrarEditarUsuario();
 
@@ -262,23 +273,23 @@ void Biblioteca::IniciarBiblioteca() {
             }
             else {
                 Interfaz::Borrar();
-                GestorPrestamos->EditarUser(idBuscar); 
+                GestorPrestamos->EditarUser(idBuscar);
                 persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
             }
-            Interfaz::EsperarBorrar();
+            break;
         }
 
-        else if (opcion == 6) {
-            Interfaz::MostrarReporteUsuarios(); 
-            int opc = Interfaz::MostrarPorActividad(); 
-            Interfaz::Borrar(); 
+        case 6: {
+            Interfaz::MostrarReporteUsuarios();
+            int opc = Interfaz::MostrarPorActividad();
+            Interfaz::Borrar();
 
-            switch (opc) { 
+            switch (opc) {
             case 1:
-                GestorPrestamos->mostrarUsuariosActivos(); 
+                GestorPrestamos->mostrarUsuariosActivos();
                 break;
             case 2:
-                GestorPrestamos->mostrarUsuariosInactivos(); 
+                GestorPrestamos->mostrarUsuariosInactivos();
                 break;
             case 3:
                 GestorPrestamos->displayUsers();
@@ -288,9 +299,11 @@ void Biblioteca::IniciarBiblioteca() {
             default:
                 break;
             }
-            Interfaz::Borrar(); 
+            Interfaz::EsperarBorrar();
+            break;
         }
-        else if (opcion == 7) { 
+
+        case 7: {
             Interfaz::Borrar();
             Interfaz::OpcHacerPrestamoDevolucion();
 
@@ -302,13 +315,11 @@ void Biblioteca::IniciarBiblioteca() {
             switch (opcPrestamo) {
             case 1:
                 GestorPrestamos->HacerPrestamo(materiales, cantidadMateriales);
-                //persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
                 GestorPrestamos->actualizarArchivoUsuarios(RUTA_USUARIOS);
                 break;
 
             case 2:
                 GestorPrestamos->DevolverPrestamo(materiales, cantidadMateriales);
-                //persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
                 GestorPrestamos->actualizarDevolucionMaterial(RUTA_USUARIOS);
                 break;
 
@@ -316,23 +327,24 @@ void Biblioteca::IniciarBiblioteca() {
                 break;
             }
             GestorPrestamos->cargarPrestamos();
-           
+
             Interfaz::Borrar();
+            break;
         }
-        else if (opcion == 8) {
+
+        case 8: {
             int c = Interfaz::OpcionMostrarPrestamos();
             switch (c) {
-			case 0:
-				Interfaz::Borrar();
-				break;
+            case 0:
+                Interfaz::Borrar();
+                break;
             case 1:
                 Interfaz::Borrar();
                 GestorPrestamos->MaterialesEnPrestamo();
                 Interfaz::EsperarBorrar();
                 break;
-
             case 2: {
-				Interfaz::InterfazTipoPrestamos();
+                Interfaz::InterfazTipoPrestamos();
                 int d = Interfaz::TipoPrestamo();
                 switch (d) {
                 case 1:
@@ -355,26 +367,30 @@ void Biblioteca::IniciarBiblioteca() {
                 }
                 break;
             }
-
             default:
                 break;
             }
+            break;
         }
 
-        else if (opcion == 9) {
+        case 9: {
             Interfaz::Borrar();
             Interfaz::MostrarPrestamosPorUsuario();
 
             GestorPrestamos->mostrarPrestamos();
-			Interfaz::EsperarBorrar();
+            Interfaz::EsperarBorrar();
+            break;
         }
-        else {
+
+        default:
             Interfaz::InvalidEntry();
+            break;
         }
+
         Interfaz::Bienvenida();
         Interfaz::MostrarMenu();
     }
-    system("pause");
+    Interfaz::EsperarBorrar();
 }
 
 Biblioteca::~Biblioteca() {

@@ -3,6 +3,8 @@
 #include "Revista.h"
 #include "MaterialDigital.h"
 
+#define CYAN_COLOR "\033[36m"
+#define WHITE_COLOR "\033[1;37m"
 
 GestorInventario::GestorInventario() : size(0), capacity(2) {
     materials = new Material * [capacity];
@@ -158,6 +160,10 @@ void GestorInventario::displayMaterials() const {
     if (size == 0) {
         std::cout << "No hay materiales en el inventario." << std::endl;
     }
+
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|         Lista de materiales         |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
    
     for (size_t i = 0; i < size; ++i) {
         std::cout << materials[i]->toString() << std::endl;
@@ -466,7 +472,10 @@ void GestorInventario::editarMaterialDigital(MaterialDigital* digital) {
 }
 
 void GestorInventario::mostrarLibros() const {
-    std::cout << "--- Lista de Libros ---\n\n";
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|            Lista de libros          |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+
     for (size_t i = 0; i < size; ++i) {
         Libro* libro = dynamic_cast<Libro*>(materials[i]);
         if (libro != nullptr) {
@@ -484,7 +493,10 @@ void GestorInventario::mostrarLibros() const {
 
 
 void GestorInventario::mostrarRevistas() const {
-    std::cout << "--- Lista de Revistas ---\n\n";
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|          Lista de revistas          |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+
     for (size_t i = 0; i < size; ++i) {
         Revista* revista = dynamic_cast<Revista*>(materials[i]);
         if (revista != nullptr) {
@@ -504,7 +516,10 @@ void GestorInventario::mostrarRevistas() const {
 
 
 void GestorInventario::mostrarMaterialesDigitales() const {
-    std::cout << "--- Lista de Materiales Digitales ---\n\n";
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|      Lista de material digital      |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+
     for (size_t i = 0; i < size; ++i) {
         MaterialDigital* digital = dynamic_cast<MaterialDigital*>(materials[i]);
         if (digital != nullptr) {
