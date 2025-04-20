@@ -597,3 +597,49 @@ void GestorPrestamo::actualizarDevolucionMaterial(const std::string& rutaArchivo
     std::remove(rutaArchivo.c_str());
     std::rename(RUTA_TEMP, rutaArchivo.c_str());
 }
+
+void GestorPrestamo::MostrarLibroPrestamo() const {
+	std::cout << "- - Libros en Prestamo - -\n" << std::endl;
+	for (size_t i = 0; i < cantidadPrestamos; ++i) {
+		if (prestamos[i]->getTipoMaterial() == "libro") {
+			std::cout 
+				<< "Titulo: " << prestamos[i]->getTitulo() << "\n"
+				<< "Fecha de prestamo: " << prestamos[i]->getFechaPrestamo() << "\n"
+				<< "Fecha de devolucion: " << prestamos[i]->getFechaDevolucion() << "\n" << std::endl;
+		}
+	}
+}
+
+void GestorPrestamo::MostrarRevistaPrestamo() const {
+	std::cout << "- - Revistas en Prestamo - -\n" << std::endl;
+	for (size_t i = 0; i < cantidadPrestamos; ++i) {
+		if (prestamos[i]->getTipoMaterial() == "revista") {
+			std::cout
+				<< "Titulo: " << prestamos[i]->getTitulo() << "\n"
+				<< "Fecha de prestamo: " << prestamos[i]->getFechaPrestamo() << "\n"
+				<< "Fecha de devolucion: " << prestamos[i]->getFechaDevolucion() << "\n" << std::endl;
+		}
+	}
+}
+
+void GestorPrestamo::MostrarMaterialDigitalPrestamo() const {
+	std::cout << "- - Materiales Digitales en Prestamo - -\n" << std::endl;
+	for (size_t i = 0; i < cantidadPrestamos; ++i) {
+		if (prestamos[i]->getTipoMaterial() == "digital") {
+			std::cout 
+				<< "Titulo: " << prestamos[i]->getTitulo() << "\n"
+				<< "Fecha de prestamo: " << prestamos[i]->getFechaPrestamo() << "\n"
+				<< "Fecha de devolucion: " << prestamos[i]->getFechaDevolucion() << "\n" << std::endl;
+		}
+	}
+}
+
+void GestorPrestamo::MaterialesEnPrestamo() const {
+	std::cout << "- - Materiales en Prestamo - -\n" << std::endl;
+	for (size_t i = 0; i < cantidadPrestamos; ++i) {
+		std::cout << "Titulo del material: " << prestamos[i]->getTitulo() << "\n"
+			<< "Tipo de material: " << prestamos[i]->getTipoMaterial() << "\n"
+			<< "Fecha de prestamo: " << prestamos[i]->getFechaPrestamo() << "\n"
+			<< "Fecha de devolucion: " << prestamos[i]->getFechaDevolucion() << "\n" << std::endl;
+	}
+}

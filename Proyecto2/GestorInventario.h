@@ -33,10 +33,9 @@ public:
     void editarRevista(Revista* revista);
     void editarMaterialDigital(MaterialDigital* digital);
 
-    // Opcion 5 del menu
-    Material** getMateriales(); // Retorna el arreglo de materiales
-    size_t getCantidadMateriales(); // Retorna la cantidad actual de materiales
-	size_t getSize() const; // Retorna el tamaño actual del arreglo
+    Material** getMateriales();
+    size_t getCantidadMateriales();
+	size_t getSize() const;
 
   
 private:

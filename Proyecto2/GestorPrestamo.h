@@ -44,11 +44,13 @@ public:
 
 	void AgregarPrestamoArchivo(const std::string& idUsuario, const std::string& numCatalogo, const std::string& fechaPrestamo, const std::string& fechaDevolucion, const std::string& tipoMaterial); // formato txt
 	void DevolverPrestamo(Material** materiales, size_t cantidadMateriales);
-	void cargarPrestamos(); // del txt
+	void cargarPrestamos();
 	void mostrarPrestamos() const;
+	void MaterialesEnPrestamo() const;
 
-
-
+	void MostrarLibroPrestamo() const;
+	void MostrarRevistaPrestamo() const;
+	void MostrarMaterialDigitalPrestamo() const;
 
 	User** getUsers() const;
 	size_t getSize() const;

@@ -855,8 +855,46 @@ int Interfaz::MostrarPorActividad() {
 }
 // ----------------------------------- Opcion 8 del menu -----------------------------------
 // 
-// 
-// 
+int Interfaz::OpcionMostrarPrestamos() {
+	system("CLS");
+	int opc;
+	std::cout << "1. Reporte general de prestamos\n";
+	std::cout << "2. Reporte por tipo de material\n";
+	std::cout << "0. Volver al menu\n";
+	while (true) {
+		std::cout << "\n> Opcion: ";
+		if (std::cin >> opc && opc >= 0 && opc <= 2) {
+			return opc;
+		}
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+		std::cout << "\nEntrada inválida. Por favor, ingrese un numero entre 0 y 2.\n";
+	}
+}
+
+void Interfaz::InterfazTipoPrestamos() {
+	system("CLS");
+	std::cout << "- - Reporte de prestamos por tipo de material - -" << std::endl;
+	std::cout << "--------------------------------------------------\n\n";
+	std::cout << "1. Libros\n";
+	std::cout << "2. Revistas\n";
+	std::cout << "3. Materiales digitales\n";
+	std::cout << "0. Volver al menu\n";
+}
+
+int Interfaz::TipoPrestamo() {
+	int opc;
+	while (true) {
+		std::cout << "\n> Opcion: ";
+		if (std::cin >> opc && opc >= 0 && opc <= 3) {
+			return opc;
+		}
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+		std::cout << "\nEntrada inválida. Por favor, ingrese un numero entre 0 y 3.\n";
+	}
+}
+
 // ----------------------------------- Opcion 9 del menu -----------------------------------
 void Interfaz::MostrarPrestamosPorUsuario() {
     std::cout << "- - - Reporte de prestamos por usuario - - -" << std::endl << std::endl;
