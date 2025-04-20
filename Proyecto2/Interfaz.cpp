@@ -1,10 +1,15 @@
 ﻿#include "Interfaz.h"
 
+#define RED_COLOR "\033[1;31m"
+#define WHITE_COLOR "\033[1;37m"
+#define GREEN_COLOR "\033[1;32m"
+#define BLUE_COLOR "\033[1;34m"
+#define YELLOW_COLOR "\033[1;33m"
+#define CYAN_COLOR "\033[36m"
+
 // ------------------------------- Entradas del programa -----------------------------------
 void Interfaz::Bienvenida() {
-    std::cout << "\033[1;33m";
-    std::cout << "---- << Bienvenido al sistema de administracion de materiales >> ----" << std::endl << std::endl;
-    std::cout << "\033[0m";
+    std::cout << YELLOW_COLOR << "---- << Bienvenido al sistema de administracion de materiales >> ----" << WHITE_COLOR << std::endl << std::endl;
 }
 
 void Interfaz::MostrarMenu() {
@@ -14,14 +19,9 @@ void Interfaz::MostrarMenu() {
     std::cout << "4. Inclusion de usuarios.\n";
     std::cout << "5. Modificacion de datos de usuarios.\n";
     std::cout << "6. Reporte de usuarios.\n" << std::endl;
- 
-
-    std::cout << "\033[1;31m";
     std::cout << "7. Registro de solicitudes de prestamo y devoluciones.\n";
     std::cout << "8. Reporte de materiales en prestamo (general y por tipo de material).\n";
-    std::cout << "\033[0m";
     std::cout << "9. Reporte de prestamos por usuario.\n" << std::endl;
-
     std::cout << "0. Salir\n";
 }
 
@@ -30,9 +30,8 @@ int Interfaz::OpcionMenu() {
     int opcion;
 
     while (true) {
-        std::cout << "\033[1;33m";
-        std::cout << "\n> Opcion: ";
-        std::cout << "\033[0m";
+        std::cout << std::endl;
+        std::cout << YELLOW_COLOR << char(175) << " Opcion: " << WHITE_COLOR;
         std::cin >> input;
 
         try {
@@ -60,38 +59,54 @@ void Interfaz::Borrar() {
 }
 
 void Interfaz::GuardadoExitoso() {
-	std::cout << "\n -- Guardado exitoso" << std::endl;
+    std::cout << BLUE_COLOR << "\n----------------------------------------" << std::endl;
+    std::cout << "|            Guardado exitoso          |" << std::endl;
+    std::cout << "----------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+}
+
+void Interfaz::Farewell() {
+	std::cout << BLUE_COLOR << "\n----------------------------------------" << std::endl;
+	std::cout << "|         Gracias por usar el          |" << std::endl;
+	std::cout << "|     sistema de administracion de     |" << std::endl;
+	std::cout << "|             biblioteca.              |" << std::endl;
+	std::cout << "----------------------------------------" << WHITE_COLOR << std::endl;
 }
 
 // ----------------------------------- Opcion 1 del menu -----------------------------------
 void Interfaz::MenuElegirMaterial() {
     system("CLS");
-    std::cout << "Seleccione el tipo de material para inclusion:\n";
-    std::cout << "1. Libros\n";
-    std::cout << "2. Revistas\n";
-    std::cout << "3. Articulos digitales\n";
+    std::cout << CYAN_COLOR << "- - - - - - - - - - - -- - - - - - - - - -" << std::endl;
+    std::cout << "|    Seleccione el material a crear...   |" << std::endl;
+    std::cout << "- - - - - - - - - - - -- - - - - - - - - -" << WHITE_COLOR << std::endl;
+    
+    std::cout << "\n1) Libros" << std::endl;
+    std::cout << "2) Revistas" << std::endl;
+    std::cout << "3) Articulos digitales" << std::endl << std::endl;
 }
 
 int Interfaz::ElegirTipoMaterial() {
     int Opc_mat;
     while (true) {
-        std::cout << "\n> Opcion: ";
+        try {
+            std::cout << YELLOW_COLOR << char(175) << " Opcion: " << WHITE_COLOR;
 
-        if (!(std::cin >> Opc_mat)) {
-            std::cin.clear(); // limpia el error
-            std::cin.ignore((1000), '\n'); 
+            if (!(std::cin >> Opc_mat)) {
+                std::cin.clear(); 
+                std::cin.ignore(1000, '\n');
+                throw MyException("Entrada no valida. Por favor, ingrese un numero.");
+            }
+
+            if (Opc_mat < 1 || Opc_mat > 3) {
+                throw MyException("Opcion no valida. Debe ser entre 1 y 3.");
+            }
+
+            return Opc_mat;
+        }
+        catch (const MyException& e) {
+            std::cout << e.what() << std::endl;
             system("cls");
             MenuElegirMaterial();
-            continue;
         }
-
-        if (Opc_mat < 1 || Opc_mat > 3) {
-            system("cls");
-            MenuElegirMaterial();
-            continue;
-        }
-
-        return Opc_mat;
     }
 }
 
@@ -262,14 +277,9 @@ std::string Interfaz::Palabra_Clave() {
     return _palabra_clave;
 }
 
+std::string Interfaz::Tipo_MaterialLibro() { return "Libro"; }
 
-std::string Interfaz::Tipo_MaterialLibro() {
-    return "Libro";
-}
-
-std::string Interfaz::Tipo_MaterialRevista() {
-	return "Revista";
-}
+std::string Interfaz::Tipo_MaterialRevista() { return "Revista"; }
 
 std::string Interfaz::Tipo_MaterialDigital() {
     std::cin.clear();
@@ -284,23 +294,26 @@ std::string Interfaz::Tipo_MaterialDigital() {
         std::cout << "\n> ";
         std::cin >> opcion;
 
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(1000, '\n');
-            std::cerr << "Entrada invalida. Intente nuevamente." << std::endl;
-            continue;
-        }
+        try {
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                throw MyException("Entrada invalida. Intente nuevamente.");
+            }
 
-        switch (opcion) {
-        case 1: _estado = "CD"; break;
-        case 2: _estado = "DVD"; break;
-        case 3: _estado = "BluRay"; break;
-        default:
-            std::cerr << "Opcion invalida. Intente nuevamente." << std::endl;
-            continue;
-        }
+            switch (opcion) {
+            case 1: _estado = "CD"; break;
+            case 2: _estado = "DVD"; break;
+            case 3: _estado = "BluRay"; break;
+            default:
+                throw MyException("Opcion invalida. Intente nuevamente.");
+            }
 
-        break;
+            break;
+        }
+        catch (const MyException& e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
     return _estado;
 }
@@ -319,24 +332,26 @@ std::string Interfaz::Estado() {
         std::cout << "\n> ";
         std::cin >> opcion;
 
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(1000, '\n');
-            std::cerr << "Entrada invalida. Intente nuevamente." << std::endl;
-            continue;
-        }
+        try {
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                throw MyException("Entrada invalida. Intente nuevamente.");
+            }
 
-        switch (opcion) {
-        case 1: _estado = "Disponible"; break;
-        case 2: _estado = "Usado"; break;
-        case 3: _estado = "Danado"; break;
-        case 4: _estado = "Perdido"; break;
-        default:
-            std::cerr << "Opcion invalida. Intente nuevamente." << std::endl;
-            continue;
-        }
+            switch (opcion) {
+            case 1: _estado = "Nuevo"; break;
+            case 2: _estado = "Usado"; break;
+            case 3: _estado = "Danado"; break;
+            case 4: _estado = "Perdido"; break;
+            default:
+                throw MyException("Opcion invalida. Intente nuevamente.");
+            }
 
-        break;
+            break;
+        } catch (const MyException& e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
     return _estado;
 }
@@ -383,7 +398,7 @@ int Interfaz::Numero() {
             std::cout << std::endl << char(175) << " Numero de la revista: ";
             std::getline(std::cin, entrada);
 
-            // Validar que la entrada contiene solo dígitos
+            // Validar que la entrada contiene solo digitos
             if (entrada.empty() || entrada.find_first_not_of("0123456789") != std::string::npos) {
                 throw MyException("Error: Solo se permiten numeros enteros entre 1 y 99.");
             }
@@ -485,27 +500,62 @@ bool Interfaz::Acceso() {
 	return acceso;
 }
 
+void Interfaz::AgregandoLibroInterfaz() {
+	system("cls");
+	std::cout << CYAN_COLOR << "----------------------------------------" << std::endl;
+	std::cout << "|         Agregando un libro           |" << std::endl;
+	std::cout << "----------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+}
+
+void Interfaz::AgregandoRevistaInterfaz() {
+	system("cls");
+	std::cout << CYAN_COLOR << "----------------------------------------" << std::endl;
+	std::cout << "|        Agregando una revista         |" << std::endl;
+	std::cout << "----------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+}
+
+void Interfaz::AgregandoDigitalInterfaz() {
+	system("cls");
+	std::cout << CYAN_COLOR << "----------------------------------------" << std::endl;
+	std::cout << "|     Agregando un material digital    |" << std::endl;
+	std::cout << "----------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+}
+
 // ----------------------------------- Opcion 2 del menu -----------------------------------
 std::string Interfaz::BuscarPorTitulo() {
     std::string Titulo;
     std::cout << "Titulo del material: ";
     std::getline(std::cin, Titulo);
+
+    try {
+        if (Titulo.empty()) {
+            throw MyException("El titulo no puede estar vacio.");
+        }
+    }
+    catch (const MyException& e) {
+        std::cerr << e.what() << std::endl;
+        return "";
+    }
+
     return Titulo;
 }
 
 void Interfaz::MenuEditarMaterial() {
     system("cls");
-    std::cout << "- - Editar Material - -" << std::endl;
-    std::cout << "\n1. Libros\n";
-    std::cout << "2. Revistas\n";
-    std::cout << "3. Materiales digitales\n";
-    std::cout << "0. Volver al menu\n";
+    std::cout << CYAN_COLOR << "----------------------------------------" << std::endl;
+    std::cout << "|         Editar tipo material         |" << std::endl;
+    std::cout << "----------------------------------------" << WHITE_COLOR << std::endl;
+
+    std::cout << "\n1. Libros" << std::endl;
+    std::cout << "2. Revistas" << std::endl;
+    std::cout << "3. Materiales digitales" << std::endl;
+    std::cout << "0. Volver al menu" << std::endl << std::endl;
 }
 
 int Interfaz::OpcionEditarTipo() {
     int opcion;
     while (true) {
-        std::cout << "\n> Opcion: ";
+        std::cout << YELLOW_COLOR << char(175) << " Opcion: " << WHITE_COLOR;
         if (!(std::cin >> opcion)) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -521,10 +571,22 @@ int Interfaz::OpcionEditarTipo() {
 }
 
 int Interfaz::ElegirIndiceMaterial() {
-	int indice;
-	std::cout << "Ingrese el indice del material a editar: ";
-	std::cin >> indice;
-	return indice;
+    int indice;
+    std::cout << "Ingrese el indice del material a editar: ";
+
+    try {
+        if (!(std::cin >> indice)) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+            throw MyException("Entrada invalida. Debe ingresar un numero.");
+        }
+    }
+    catch (const MyException& e) {
+        std::cerr << e.what() << std::endl;
+        return -1;
+    }
+
+    return indice;
 }
 
 void Interfaz::EditarMenuLibro() {
@@ -623,25 +685,36 @@ int Interfaz::OpcionEditarDigital() {
 }
 
 void Interfaz::EditarLibro() {
-    std::cout << "- - Editar libros - -\n";
-    std::cout << "- - - - - - - - - - -\n";
+    std::cout << GREEN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|    Editar libro en el sistema...     |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
 }
 
 void Interfaz::EditarRevista() {
-    std::cout << "- - Editar revistas - -\n";
-    std::cout << "- - - - - - - - - - -\n";
+    std::cout << GREEN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|    Editar revista en el sistema...  |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
 }
 
 void Interfaz::EditarDigital() { 
-    std::cout << "- - Editar materiales digitales - -\n";
-    std::cout << "- - - - - - - - - - -\n";
+    std::cout << GREEN_COLOR << "------------------------------------------------" << std::endl;
+    std::cout << "|    Editar material digital en el sistema...  |" << std::endl;
+    std::cout << "------------------------------------------------" << WHITE_COLOR << std::endl << std::endl;
 }
 
 // ----------------------------------- Opcion 3 del menu -----------------------------------
 
 void Interfaz::MensajeAgregarUsuario() {
     system("CLS");
-	std::cout << "- - Agregar nuevo usuario - -";
+
+	std::cout << RED_COLOR << "Aviso: El ID del usuario debe ser un numero de 9 digitos." << std::endl;
+	std::cout << "El nombre y apellido del usuario deben contener solo letras." << std::endl;
+	std::cout << "El ID no debe contener letras y no debe estar en uso." << std::endl;
+	std::cout << "El nombre y apellido deben tener al menos 3 caracteres." << WHITE_COLOR << std::endl << std::endl;
+
+    std::cout << "- - - - - - - - - - - -- - - - - - - - - -" << std::endl;
+    std::cout << "|    Agregar nuevo usuario al sistema... |" << std::endl;
+    std::cout << "- - - - - - - - - - - -- - - - - - - - - -";
 }
 
 std::string Interfaz::IDNuevoUsuario() {
@@ -651,7 +724,7 @@ std::string Interfaz::IDNuevoUsuario() {
     std::cin.clear();
     while (true) {
         try {
-            std::cout << std::endl << char(169) << "> ID del usuario (9 digitos): ";
+            std::cout << std::endl << char(169) << "> ID del usuario: ";
             std::getline(std::cin, newID);
 
             if (newID.length() != 9) {
@@ -759,9 +832,7 @@ std::string Interfaz::ApellidoNuevoUsuario()
     }
 }
 
-bool Interfaz::DisponibleNuevoUsuario() {
-    return true;
-}
+bool Interfaz::DisponibleNuevoUsuario() { return true; }
 
 void Interfaz::UsuarioGuardado() {
 	std::cout << "\n-> Usuario guardado exitosamente! <-" << std::endl << std::endl;
@@ -772,15 +843,30 @@ void Interfaz::UsuarioGuardado() {
 // ----------------------------------- Opcion 4 del menu -----------------------------------
 
 void Interfaz::MostrarEditarUsuario() {
-    std::cout << "- - Editar Usuario - -\n" << std::endl;
-    std::cout << "Digite ID del usuario a modificar: ";
+    system("CLS");
+
+    std::cout << RED_COLOR << "Aviso: Asegurese de que el ID del usuario sea correcto." << std::endl;
+    std::cout << "El nombre y apellido del usuario deben contener solo letras." << std::endl;
+    std::cout << "El ID no debe contener letras y debe estar en uso." << std::endl;
+    std::cout << "El nombre y apellido deben tener al menos 3 caracteres." << WHITE_COLOR << std::endl << std::endl;
+
+    std::cout << "- - - - - - - - - - - - - - - - - - - -" << std::endl;
+    std::cout << "|    Editar usuario en el sistema...  |" << std::endl;
+    std::cout << "- - - - - - - - - - - - - - - - - - - -" << std::endl;
+
+    std::cout << "\n> ";
+}
+
+void Interfaz::WarningID() {
+    std::cout << "Error: El ID ya está en uso. No se puede agregar el usuario." << std::endl;
 }
 
 // ----------------------------------- Opcion 5 del menu -----------------------------------
 void Interfaz::OpcHacerPrestamoDevolucion() {
 	system("CLS");
-	std::cout << "- - Hacer prestamo o devolucion - -\n";
-	std::cout << "- - - - - - - - - - -" << std::endl;
+    std::cout << GREEN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|       Prestamos y Devoluciones      |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
 	std::cout << "1. Hacer prestamo\n";
 	std::cout << "2. Hacer devolucion\n";
 	std::cout << "0. Volver al menu\n";
@@ -799,6 +885,10 @@ int Interfaz::OpcionPrestamo() {
 	}
 }
 
+void Interfaz::WarningExistingID() {
+    std::cout << "\nEl ID ingresado no existe. No se puede editar." << std::endl;
+}
+
 // ----------------------------------- Opcion 6 del menu -----------------------------------
 
 void Interfaz::ReporteInventarioMateriales() {
@@ -809,11 +899,15 @@ void Interfaz::ReporteInventarioMateriales() {
 
 int Interfaz::MostrarPorMaterial() {
 	int opc;
-	std::cout << "1. Libros\n";
-	std::cout << "2. Revistas\n";
-	std::cout << "3. Materiales digitales\n";
-	std::cout << "4. Todos\n";
-	std::cout << "0. Volver al menu\n";
+    std::cout << GREEN_COLOR << "-------------------------------" << std::endl;
+    std::cout << "|     Reporte de Materiales   |" << std::endl;
+    std::cout << "-------------------------------" << WHITE_COLOR << std::endl << std::endl;
+
+	std::cout << "1) Libros\n";
+	std::cout << "2) Revistas\n";
+	std::cout << "3) Materiales digitales\n";
+	std::cout << "4) Todos\n";
+	std::cout << "0) Regresar\n";
 
 	while (true) {
 		std::cout << "\n> Opcion: ";
@@ -823,24 +917,25 @@ int Interfaz::MostrarPorMaterial() {
 
 		std::cin.clear();
 		std::cin.ignore(1000, '\n');
-		std::cout << "\nEntrada inválida. Por favor, ingrese un numero entre 0 y 4.\n";
+		std::cout << "\nEntrada invalida. Por favor, ingrese un numero entre 0 y 4.\n";
 	}
-
 }
 
 // ----------------------------------- Opcion 7 del menu -----------------------------------
+
 void Interfaz::MostrarReporteUsuarios() {
-	system("CLS");
-	std::cout << "- - Reporte de usuarios - -" << std::endl;
-	std::cout << "---------------------------\n\n";
+    system("CLS");
+    std::cout << GREEN_COLOR << "-----------------------------" << std::endl;
+    std::cout << "|     Reporte de Usuarios   |" << std::endl;
+    std::cout << "-----------------------------" << WHITE_COLOR << std::endl << std::endl;
 }
 
 int Interfaz::MostrarPorActividad() {
     int opc;
-    std::cout << "1. Activos\n";
-    std::cout << "2. Inactivos\n";
-    std::cout << "3. Todos\n";
-    std::cout << "0. Volver al menu\n";
+    std::cout << "1. Activos" << std::endl;
+    std::cout << "2. Inactivos" << std::endl;
+    std::cout << "3. Todos" << std::endl;
+    std::cout << "0. Volver al menu" << std::endl;
 
     while (true) {
         std::cout << "\n> Opcion: ";
@@ -858,6 +953,9 @@ int Interfaz::MostrarPorActividad() {
 int Interfaz::OpcionMostrarPrestamos() {
 	system("CLS");
 	int opc;
+    std::cout << GREEN_COLOR << "-------------------------------------------------" << std::endl;
+    std::cout << "|     Reporte de prestamos por general o tipo   |" << std::endl;
+    std::cout << "-------------------------------------------------" << WHITE_COLOR << std::endl << std::endl;
 	std::cout << "1. Reporte general de prestamos\n";
 	std::cout << "2. Reporte por tipo de material\n";
 	std::cout << "0. Volver al menu\n";
@@ -874,8 +972,9 @@ int Interfaz::OpcionMostrarPrestamos() {
 
 void Interfaz::InterfazTipoPrestamos() {
 	system("CLS");
-	std::cout << "- - Reporte de prestamos por tipo de material - -" << std::endl;
-	std::cout << "--------------------------------------------------\n\n";
+    std::cout << GREEN_COLOR << "----------------------------------------" << std::endl;
+    std::cout << "|     Tipo de Material en prestamo     |" << std::endl;
+    std::cout << "----------------------------------------" << WHITE_COLOR << std::endl << std::endl;
 	std::cout << "1. Libros\n";
 	std::cout << "2. Revistas\n";
 	std::cout << "3. Materiales digitales\n";
@@ -897,5 +996,11 @@ int Interfaz::TipoPrestamo() {
 
 // ----------------------------------- Opcion 9 del menu -----------------------------------
 void Interfaz::MostrarPrestamosPorUsuario() {
-    std::cout << "- - - Reporte de prestamos por usuario - - -" << std::endl << std::endl;
+    std::cout << GREEN_COLOR << "------------------------------------------" << std::endl;
+    std::cout << "|     Reporte de prestamos por usuarios   |" << std::endl;
+    std::cout << "------------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+}
+
+void Interfaz::InvalidEntry() {
+    std::cerr << "La opción no es valida. Por favor, elige una opcion del menu." << std::endl;
 }

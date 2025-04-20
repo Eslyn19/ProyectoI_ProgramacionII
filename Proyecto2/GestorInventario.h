@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+
 #include "Material.h"
 #include "Libro.h"
 #include "Revista.h"
@@ -36,7 +37,6 @@ public:
     Material** getMateriales();
     size_t getCantidadMateriales();
 	size_t getSize() const;
-
   
 private:
     void resize();

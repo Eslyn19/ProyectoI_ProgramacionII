@@ -237,7 +237,7 @@ size_t GestorPrestamo::getSize() const {
 void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateriales) {
     User* usuario = nullptr;
     std::string idUsuario;
-    std::cout << "Ingrese el ID del usuario: ";
+    std::cout << "\n>Ingrese el ID del usuario: ";
     std::cin >> idUsuario;
     std::cin.ignore();
 
@@ -599,7 +599,10 @@ void GestorPrestamo::actualizarDevolucionMaterial(const std::string& rutaArchivo
 }
 
 void GestorPrestamo::MostrarLibroPrestamo() const {
-	std::cout << "- - Libros en Prestamo - -\n" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "|       Material libro en prestamo     |" << std::endl;
+    std::cout << "----------------------------------------" << std::endl << std::endl;
+
 	for (size_t i = 0; i < cantidadPrestamos; ++i) {
 		if (prestamos[i]->getTipoMaterial() == "libro") {
 			std::cout 
@@ -611,7 +614,10 @@ void GestorPrestamo::MostrarLibroPrestamo() const {
 }
 
 void GestorPrestamo::MostrarRevistaPrestamo() const {
-	std::cout << "- - Revistas en Prestamo - -\n" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "|     Material revista en prestamo     |" << std::endl;
+    std::cout << "----------------------------------------" << std::endl << std::endl;
+
 	for (size_t i = 0; i < cantidadPrestamos; ++i) {
 		if (prestamos[i]->getTipoMaterial() == "revista") {
 			std::cout
@@ -623,7 +629,10 @@ void GestorPrestamo::MostrarRevistaPrestamo() const {
 }
 
 void GestorPrestamo::MostrarMaterialDigitalPrestamo() const {
-	std::cout << "- - Materiales Digitales en Prestamo - -\n" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "|     Material digital en prestamo     |" << std::endl;
+    std::cout << "----------------------------------------" << std::endl << std::endl;
+
 	for (size_t i = 0; i < cantidadPrestamos; ++i) {
 		if (prestamos[i]->getTipoMaterial() == "digital") {
 			std::cout 
@@ -635,7 +644,10 @@ void GestorPrestamo::MostrarMaterialDigitalPrestamo() const {
 }
 
 void GestorPrestamo::MaterialesEnPrestamo() const {
-	std::cout << "- - Materiales en Prestamo - -\n" << std::endl;
+    std::cout << "----------------------------------" << std::endl;
+    std::cout << "|     Materiales en prestamo     |" << std::endl;
+    std::cout << "----------------------------------" << std::endl << std::endl;
+
 	for (size_t i = 0; i < cantidadPrestamos; ++i) {
 		std::cout << "Titulo del material: " << prestamos[i]->getTitulo() << "\n"
 			<< "Tipo de material: " << prestamos[i]->getTipoMaterial() << "\n"

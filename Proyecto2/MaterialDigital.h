@@ -13,18 +13,13 @@ public:
         std::string estado, std::string tipo, std::string formato, bool acceso);
 
     int getDiasPrestamo() const override;
-
 	void setTipo(const std::string& tipo);
 	void setFormato(const std::string& formato);
 	void setAcceso(bool acceso);
 
     std::string getTipo() const;
     std::string getFormato() const;
-	
     bool getAcceso() const;
-
-    void habilitarAcceso();
-    void deshabilitarAcceso();
 
     std::string toString() const;
 };

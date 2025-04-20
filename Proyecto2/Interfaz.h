@@ -16,9 +16,13 @@ public:
 	static void EsperarBorrar();
 	static void Borrar();
 	static void GuardadoExitoso();
+	static void Farewell();
 	// -----------Opcion 1 del menu------------
 	static void MenuElegirMaterial();
 	static int ElegirTipoMaterial();
+	static void AgregandoLibroInterfaz();
+	static void AgregandoRevistaInterfaz();
+	static void AgregandoDigitalInterfaz();
 	// Guardar componentes del material
 	static int Cantidad();
 	static int Num_Clasificacion();
@@ -61,9 +65,11 @@ public:
 	static void UsuarioGuardado();
 	// -----------Opcion 4 del menu------------
 	static void MostrarEditarUsuario();
+	static void WarningID();
 	// ----------Opcion 5 del menu------------
 	static void OpcHacerPrestamoDevolucion();
 	static int OpcionPrestamo();
+	static void WarningExistingID();
 	// -----------Opcion 6 del menu------------
 	static void ReporteInventarioMateriales();
 	static int MostrarPorMaterial();
@@ -76,4 +82,5 @@ public:
 	static int TipoPrestamo();
 	// -----------Opcion 9 del menu------------
 	static void MostrarPrestamosPorUsuario();
+	static void InvalidEntry();
 };

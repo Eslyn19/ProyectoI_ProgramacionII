@@ -18,5 +18,5 @@ private:
     std::string Titulo;
     std::string fechaPrestamo;
     std::string fechaDevolucion;
-    std::string tipoMaterial; // REVISTA  - LIBRO - MATERIAL DIGITAL 
+    std::string tipoMaterial; 
 };

@@ -22,14 +22,6 @@ bool MaterialDigital::getAcceso() const {
     return acceso;
 }
 
-void MaterialDigital::habilitarAcceso() {
-    acceso = true;
-}
-
-void MaterialDigital::deshabilitarAcceso() {
-    acceso = false;
-}
-
 void MaterialDigital::setTipo(const std::string& tipo) {
 	this->tipo = tipo;
 }
