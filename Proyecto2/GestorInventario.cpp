@@ -181,11 +181,6 @@ bool GestorInventario::mostrarMaterialesPorTipo(const std::string& tipoBuscado) 
         }
         index++;
     }
-
-    //if (!encontrado) {
-     //   std::cout << "\n> No hay materiales registrados del tipo \"" << tipoBuscado << "\".\n";
-   // }
-
     return encontrado;
 }
 

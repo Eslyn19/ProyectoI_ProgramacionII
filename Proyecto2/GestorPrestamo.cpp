@@ -247,88 +247,6 @@ size_t GestorPrestamo::getSize() const {
 	return size;
 }
 
-/*
-void GestorPrestamo::HacerPrestamo(Material** materiales, size_t cantidadMateriales) {
-    User* usuario = nullptr;
-    std::string idUsuario;
-    std::cout << "\n>Ingrese el ID del usuario: ";
-    std::cin >> idUsuario;
-    std::cin.ignore();
-
-    for (size_t i = 0; i < size; ++i) {
-        if (users[i]->getID() == idUsuario) {
-            usuario = users[i];
-            break;
-        }
-    }
-
-    if (usuario == nullptr) {
-        std::cout << "\nUsuario no encontrado." << std::endl;
-        return;
-    }
-
-	if (usuario->getAvailable() == false) {
-		std::cout << "\nEl usuario no esta activo." << std::endl;
-		return;
-	}
-
-    if (usuario->getMaterial() != "ninguno") {
-        std::cout << "\nEl usuario ya tiene un material prestado." << std::endl;
-        return;
-    }
-
-    std::cout << "\nMateriales disponibles:\n";
-    for (size_t i = 0; i < cantidadMateriales; ++i) {
-        std::cout << i << ". " << materiales[i]->getTitulo() << " (Cantidad: " << materiales[i]->getCantidad() << ")\n";
-    }
-
-    int indiceMaterial;
-    std::cout << "Ingrese el indice del material: ";
-    std::cin >> indiceMaterial;
-    std::cin.ignore();
-
-    if (indiceMaterial < 0 || static_cast<size_t>(indiceMaterial) >= cantidadMateriales) {
-        std::cout << "Indice invalido. No se puede realizar el prestamo.\n";
-        return;
-    }
-
-    Material* material = materiales[indiceMaterial];
-
-    if (material->getCantidad() <= 0) {
-        std::cout << "No hay materiales disponibles para prestar.\n";
-        return;
-    }
-
-    std::time_t t = std::time(nullptr);
-    std::tm now = {};
-    localtime_s(&now, &t);
-
-    std::ostringstream ossPrestamo;
-    ossPrestamo << std::put_time(&now, "%Y-%m-%d");
-    std::string fechaPrestamo = ossPrestamo.str();
-
-    int diasPrestamo = material->getDiasPrestamo(); 
-    now.tm_mday += diasPrestamo;
-    std::mktime(&now);  // Normaliza la fecha
-
-    std::ostringstream ossDevolucion;
-    ossDevolucion << std::put_time(&now, "%Y-%m-%d");
-    std::string fechaDevolucion = ossDevolucion.str();
-
-    usuario->setMaterial(material->getTitulo());
-    material->setCantidad(material->getCantidad() - 1);
-
-    std::string tipoMaterial = ObtenerTipoMaterial(material);
-
-    std::cout << "\nFecha del Prestamo: " << fechaPrestamo << std::endl;
-    std::cout << "Fecha de Devolucion calculada automaticamente: " << fechaDevolucion << std::endl;
-
-    AgregarPrestamoArchivo(usuario->getID(), material->getTitulo(), fechaPrestamo, fechaDevolucion, tipoMaterial);
-
-    std::cout << "\nPrestamo realizado con exito.\n";
-}
-*/
-
 User* GestorPrestamo::verificarUsuario() {
     std::string idUsuario;
     std::cout << "\n>Ingrese el ID del usuario: ";
@@ -362,7 +280,7 @@ std::string GestorPrestamo::seleccionarMaterial(Material** materiales, size_t ca
     }
 
     int indiceMaterial;
-    std::cout << "Ingrese el indice del material: ";
+    std::cout << "\nIngrese el indice del material: ";
     std::cin >> indiceMaterial;
     std::cin.ignore();
 
@@ -414,15 +332,6 @@ void GestorPrestamo::procesarPrestamo(User* usuario, Material** materiales, size
 
     std::string tipoMaterial = ObtenerTipoMaterial(material);
     AgregarPrestamoArchivo(usuario->getID(), tituloMaterial, fechaPrestamo, fechaDevolucion, tipoMaterial);
-
-    // Aquí puedes llamar al método para guardar la nueva cantidad en el archivo
-    // gestorInventario->actualizarCantidadMaterialPorTitulo(tituloMaterial);
-
-    std::cout << "\nFecha del Prestamo: " << fechaPrestamo;
-    std::cout << "\nFecha de Devolucion: " << fechaDevolucion;
-    std::cout << "\nPrestamo realizado con exito.\n";
-
-    system("pause");
 }
 
 
@@ -441,19 +350,16 @@ void GestorPrestamo::ActualizarUsuarioArchivo(const std::string& idUsuario, cons
             std::getline(ss, estado, ',');
             std::getline(ss, material);
 
-            // Si encontramos al usuario, cambiamos su material
             if (id == idUsuario) {
-                material = nuevoMaterial; // Actualizamos el material
+                material = nuevoMaterial;
             }
 
-            // Escribimos la línea actualizada (o sin cambios) en el archivo temporal
             archivoTemp << nombre << "," << apellido << "," << id << "," << estado << "," << material << "\n";
         }
 
         archivo.close();
         archivoTemp.close();
 
-        // Reemplazamos el archivo original con el archivo temporal
         std::remove(RUTA_USUARIOS);
         std::rename(RUTA_TEMP, RUTA_USUARIOS);
     }
@@ -489,12 +395,10 @@ void GestorPrestamo::cargarPrestamos() {
 			std::getline(ss, fechaDevolucion, ',');
             std::getline(ss, tipoMaterial);
 
-            // Redimensionar el arreglo de préstamos si es necesario
             if (cantidadPrestamos == capacidadPrestamos) {
                 redimensionarPrestamo();
             }
 
-            // Crear un nuevo objeto de préstamo y agregarlo al arreglo
             prestamos[cantidadPrestamos] = new Prestamo(idUsuario, Titulo, fechaPrestamo, fechaDevolucion, tipoMaterial);
             ++cantidadPrestamos;
         }
@@ -534,10 +438,8 @@ void GestorPrestamo::DevolverPrestamo(std::string idUsuario, Material** material
             encontrado = true;
             catalogoPrestado = prestamos[i]->getTitulo();
 
-            // Liberar memoria del préstamo
             delete prestamos[i];
 
-            // Mover los elementos hacia la izquierda
             for (size_t j = i; j < cantidadPrestamos - 1; ++j) {
                 prestamos[j] = prestamos[j + 1];
             }
@@ -552,7 +454,6 @@ void GestorPrestamo::DevolverPrestamo(std::string idUsuario, Material** material
         return;
     }
 
-    // Devolver el material al inventario
     for (size_t i = 0; i < cantidadMateriales; ++i) {
         if (materiales[i]->getTitulo() == catalogoPrestado) {
             materiales[i]->setCantidad(materiales[i]->getCantidad() + 1);
@@ -560,7 +461,6 @@ void GestorPrestamo::DevolverPrestamo(std::string idUsuario, Material** material
         }
     }
 
-    // Actualizar el archivo de préstamos
     std::ofstream archivoTemp(RUTA_TEMP);
     if (archivoTemp.is_open()) {
         for (size_t i = 0; i < cantidadPrestamos; ++i) {
@@ -578,7 +478,6 @@ void GestorPrestamo::DevolverPrestamo(std::string idUsuario, Material** material
         std::cerr << "No se pudo abrir el archivo temporal para actualizar los prestamos.\n";
     }
 
-    // Actualizar estado del usuario en archivo (ponerlo como "No Material")
     ActualizarUsuarioArchivo(idUsuario, "ninguno");
 
     for (size_t i = 0; i < capacity; ++i) {
@@ -587,9 +486,6 @@ void GestorPrestamo::DevolverPrestamo(std::string idUsuario, Material** material
             break;
         }
     }
-
-    std::cout << "\nPrestamo devuelto con exito.\n";
-    system("pause");
 }
 
 std::string GestorPrestamo::ObtenerTipoMaterial(Material* material) {
@@ -778,22 +674,20 @@ void GestorPrestamo::actualizarCantidadMaterialTXT(const std::string& tituloBusc
     std::string linea;
     while (std::getline(archivoEntrada, linea)) {
         std::istringstream ss(linea);
-        std::string campos[20]; // hasta 20 campos por si acaso
+        std::string campos[20];
         int index = 0;
 
         while (std::getline(ss, campos[index], ',') && index < 20) {
             index++;
         }
 
-        // Titulo está en campo 4, Cantidad está en campo 1
         if (campos[4] == tituloBuscado) {
-            int cantidad = std::stoi(campos[1]);  // campo 1 = cantidad
+            int cantidad = std::stoi(campos[1]);
             if (cantidad > 0) {
                 cantidad -= 1;
             }
-            campos[1] = std::to_string(cantidad); // actualizamos cantidad correctamente
+            campos[1] = std::to_string(cantidad);
 
-            // Escribimos todos los campos con coma
             for (int i = 0; i < index; ++i) {
                 archivoTemporal << campos[i];
                 if (i < index - 1) archivoTemporal << ",";
@@ -831,10 +725,9 @@ void GestorPrestamo::sumarCantidadMaterialTXT(const std::string& tituloBuscado) 
             index++;
         }
 
-        // Titulo está en campo 4, Cantidad en campo 1
         if (campos[4] == tituloBuscado) {
             int cantidad = std::stoi(campos[1]);
-            cantidad += 1; // Aquí sumamos
+            cantidad += 1;
             campos[1] = std::to_string(cantidad);
 
             for (int i = 0; i < index; ++i) {
@@ -853,8 +746,6 @@ void GestorPrestamo::sumarCantidadMaterialTXT(const std::string& tituloBuscado) 
 
     std::remove(RUTA_MATERIALES);
     std::rename(RUTA_TMATERIALES, RUTA_MATERIALES);
-
-    std::cout << "Cantidad del material actualizada correctamente (+1).\n";
 }
 
 std::string GestorPrestamo::obtenerTituloPorIDUsuario(const std::string& idUsuario) {

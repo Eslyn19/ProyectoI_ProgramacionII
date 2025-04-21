@@ -322,6 +322,7 @@ void Biblioteca::IniciarBiblioteca() {
                 GestorPrestamos->procesarPrestamo(usuario, materiales, cantidadMateriales, tituloMaterial);
                 GestorPrestamos->actualizarArchivoUsuarios(RUTA_USUARIOS);
                 GestorPrestamos->actualizarCantidadMaterialTXT(tituloMaterial);
+                Interfaz::PrestamoExitoso();
             }
             else if (opcPrestamo == 2) {
                 std::string idUsuario = GestorPrestamos->IDDevolucion();
@@ -329,7 +330,8 @@ void Biblioteca::IniciarBiblioteca() {
 
                 GestorPrestamos->DevolverPrestamo(idUsuario, materiales, cantidadMateriales);
                 GestorPrestamos->actualizarDevolucionMaterial(RUTA_USUARIOS);
-                GestorPrestamos->sumarCantidadMaterialTXT(titulo); // usa el método nuevo que suma
+                GestorPrestamos->sumarCantidadMaterialTXT(titulo); 
+				Interfaz::DevolucionExitosa();
             }
 
             GestorPrestamos->cargarPrestamos();

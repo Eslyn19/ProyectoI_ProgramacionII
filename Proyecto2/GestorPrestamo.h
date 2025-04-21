@@ -37,7 +37,6 @@ public:
 	void mostrarUsuariosActivos() const;
 
 	// Metodos de prestamo
-	void HacerPrestamo(Material** materiales, size_t cantidadMateriales);
 	void ActualizarUsuarioArchivo(const std::string& idUsuario, const std::string& nuevoMaterial);
 	std::string ObtenerTipoMaterial(Material* material);
 	void actualizarArchivoUsuarios(const std::string& rutaArchivo);
@@ -55,15 +54,10 @@ public:
 	void MostrarMaterialDigitalPrestamo() const;
 	User** getUsers() const;
 	size_t getSize() const;
-
-
 	User* verificarUsuario();
 	std::string seleccionarMaterial(Material** materiales, size_t cantidadMateriales);
 	void procesarPrestamo(User* usuario, Material** materiales, size_t cantidadMateriales, const std::string& tituloMaterial);
 	void actualizarCantidadMaterialTXT(const std::string& titulo);
-
-
-
 
 private:
     void resize();

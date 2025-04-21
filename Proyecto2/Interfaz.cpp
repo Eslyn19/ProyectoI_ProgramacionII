@@ -36,7 +36,7 @@ int Interfaz::OpcionMenu() {
 
         try {
             opcion = std::stoi(input);
-            break; // éxito
+            break;
         }
         catch (const std::invalid_argument&) {
             std::cout << "Entrada invalida. Por favor, ingresa un numero.\n";
@@ -950,6 +950,20 @@ int Interfaz::MostrarPorActividad() {
         std::cin.ignore(1000, '\n');
         std::cout << "\nEntrada inválida. Por favor, ingrese un numero entre 0 y 3.\n";
     }
+}
+
+void Interfaz::PrestamoExitoso() {
+	std::cout << BLUE_COLOR << "\n----------------------------------------" << std::endl;
+	std::cout << "|     Prestamo realizado con exito     |" << std::endl;
+	std::cout << "----------------------------------------" << WHITE_COLOR << std::endl;
+    system("pause");
+}
+
+void Interfaz::DevolucionExitosa() {
+	std::cout << BLUE_COLOR << "\n----------------------------------------" << std::endl;
+	std::cout << "|     Devolucion realizada con exito   |" << std::endl;
+	std::cout << "----------------------------------------" << WHITE_COLOR << std::endl;
+    system("pause");
 }
 // ----------------------------------- Opcion 8 del menu -----------------------------------
 // 

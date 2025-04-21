@@ -76,6 +76,8 @@ public:
 	// -----------Opcion 7 del menu------------
 	static void MostrarReporteUsuarios();
 	static int MostrarPorActividad();
+	static void PrestamoExitoso();
+	static void DevolucionExitosa();
 	// -----------Opcion 8 del menu------------
 	static int OpcionMostrarPrestamos();
 	static void InterfazTipoPrestamos();
