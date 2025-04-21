@@ -55,8 +55,7 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-04-20T18:33:52.037Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -66,7 +65,7 @@
               "RelativeDocumentMoniker": "Proyecto2\\Biblioteca.cpp",
               "ToolTip": "C:\\Users\\jaraa\\Documents\\ProyectoBiblioteca\\Proyecto2\\Biblioteca.cpp",
               "RelativeToolTip": "Proyecto2\\Biblioteca.cpp",
-              "ViewState": "AgIAACcBAAAAAAAAAAAvwDkBAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHcBAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-04-21T13:17:21.111Z",
               "IsPinned": true,
@@ -82,8 +81,7 @@
               "RelativeToolTip": "Proyecto2\\GestorInventario.cpp",
               "ViewState": "AgIAAAMAAAAAAAAAAAAtwB0AAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-21T22:51:11.377Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T22:51:11.377Z"
             },
             {
               "$type": "Document",
@@ -95,8 +93,7 @@
               "RelativeToolTip": "Proyecto2\\GestorInventario.h",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABsAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-21T22:51:05.818Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T22:51:05.818Z"
             },
             {
               "$type": "Document",
@@ -108,8 +105,7 @@
               "RelativeToolTip": "Proyecto2\\GestorPrestamo.cpp",
               "ViewState": "AgIAAFsCAAAAAAAAAAAjwP0CAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-21T22:24:39.632Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T22:24:39.632Z"
             },
             {
               "$type": "Document",
@@ -121,8 +117,7 @@
               "RelativeToolTip": "Proyecto2\\GestorPrestamo.h",
               "ViewState": "AgIAAB0AAAAAAAAAAAAAwD0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-21T22:24:20.697Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T22:24:20.697Z"
             },
             {
               "$type": "Document",
@@ -134,8 +129,7 @@
               "RelativeToolTip": "Proyecto2\\Interfaz.h",
               "ViewState": "AgIAADwAAAAAAAAAAAAAAFEAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-21T13:29:06.544Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T13:29:06.544Z"
             },
             {
               "$type": "Document",
@@ -147,8 +141,7 @@
               "RelativeToolTip": "Proyecto2\\Interfaz.cpp",
               "ViewState": "AgIAAIgDAAAAAAAAAAAjwKYDAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-21T13:04:02.24Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T13:04:02.24Z"
             }
           ]
         }
