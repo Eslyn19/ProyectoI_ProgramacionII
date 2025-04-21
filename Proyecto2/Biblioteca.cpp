@@ -304,6 +304,12 @@ void Biblioteca::IniciarBiblioteca() {
         }
 
         case 7: {
+            if (!gestorInventario->VerificarLista()) {
+                Interfaz::MostrarVacio();
+                Interfaz::EsperarBorrar();
+                break;
+            }
+
             Interfaz::Borrar();
             Interfaz::OpcHacerPrestamoDevolucion();
 

@@ -58,6 +58,7 @@ public:
 	std::string seleccionarMaterial(Material** materiales, size_t cantidadMateriales);
 	void procesarPrestamo(User* usuario, Material** materiales, size_t cantidadMateriales, const std::string& tituloMaterial);
 	void actualizarCantidadMaterialTXT(const std::string& titulo);
+	bool listaPrestamosVacia() const;
 
 private:
     void resize();

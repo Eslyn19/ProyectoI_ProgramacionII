@@ -25,7 +25,8 @@ public:
     bool mostrarMaterialesPorTipo(const std::string& tipoBuscado) const;
     bool indiceValido(int indice) const;
     void editarMaterial(int tipo);
-
+    bool VerificarLista() const;
+        
     void mostrarLibros() const;
     void mostrarRevistas() const;
     void mostrarMaterialesDigitales() const;

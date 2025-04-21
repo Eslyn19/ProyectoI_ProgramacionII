@@ -25,6 +25,16 @@ void GestorInventario::addMaterial(Material* material) {
     materials[size++] = material;
 }
 
+bool GestorInventario::VerificarLista() const {
+    for (size_t i = 0; i < size; ++i) {
+        if (materials[i] != nullptr && materials[i]->getCantidad() > 0) {
+            return true; 
+        }
+    }
+    return false;
+}
+
+
 // Metodo para guardar o despues de sobreescrinir los materiales en un archivo
 void GestorInventario::saveToFile(const std::string& filename) {
     std::ofstream file(filename);

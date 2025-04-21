@@ -931,6 +931,10 @@ int Interfaz::MostrarPorMaterial() {
 
 // ----------------------------------- Opcion 7 del menu -----------------------------------
 
+void Interfaz::MostrarVacio() {
+    std::cout << "\nNo hay materiales disponibles para prestar." << std::endl;
+}
+
 void Interfaz::MostrarReporteUsuarios() {
     system("CLS");
     std::cout << GREEN_COLOR << "-----------------------------" << std::endl;

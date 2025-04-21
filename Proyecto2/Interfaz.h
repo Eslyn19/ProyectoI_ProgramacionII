@@ -79,6 +79,7 @@ public:
 	static int MostrarPorActividad();
 	static void PrestamoExitoso();
 	static void DevolucionExitosa();
+	static void MostrarVacio();
 	// -----------Opcion 8 del menu------------
 	static int OpcionMostrarPrestamos();
 	static void InterfazTipoPrestamos();

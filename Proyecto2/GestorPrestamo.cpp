@@ -710,7 +710,6 @@ void GestorPrestamo::sumarCantidadMaterialTXT(const std::string& tituloBuscado) 
     std::ofstream archivoTemporal(RUTA_TMATERIALES);
 
     if (!archivoEntrada || !archivoTemporal) {
-        std::cout << "Error abriendo el archivo de materiales.\n";
         return;
     }
 
@@ -754,4 +753,14 @@ std::string GestorPrestamo::obtenerTituloPorIDUsuario(const std::string& idUsuar
         }
     }
     return "";
+}
+
+bool GestorPrestamo::listaPrestamosVacia() const {
+    for (size_t i = 0; i < cantidadPrestamos; ++i) {
+        if (prestamos[i] != nullptr) {
+            std::cout << "\nNo pueden haber prestamos sin materiales" << std::endl;
+            return false;
+        }
+    }
+    return true;
 }
