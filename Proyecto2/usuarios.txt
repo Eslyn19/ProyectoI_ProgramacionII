@@ -1,4 +1,0 @@
-Eslyn Andres,Jara Calderon,208380902,1,ninguno
-Jean Carlo,Blanco Serrano,309092109,0,ninguno
-Juan,Guzman Herrera,102323201,1,ninguno
-Caleb,Coto Castro,108380903,1,Curso de C++

@@ -38,7 +38,7 @@ void GestorPrestamo::resize() {
 }
 
 void GestorPrestamo::redimensionarPrestamo() {
-    capacidadPrestamos = (capacidadPrestamos == 0) ? 10 : capacidadPrestamos * 2; // Duplicamos el tamaño cada vez
+    capacidadPrestamos = (capacidadPrestamos == 0) ? 10 : capacidadPrestamos * 2;
     Prestamo** nuevoArray = new Prestamo * [capacidadPrestamos];
     for (size_t i = 0; i < cantidadPrestamos; ++i) {
         nuevoArray[i] = prestamos[i];
@@ -432,7 +432,6 @@ void GestorPrestamo::DevolverPrestamo(std::string idUsuario, Material** material
     bool encontrado = false;
     std::string catalogoPrestado;
 
-    // Buscar préstamo en el arreglo
     for (size_t i = 0; i < cantidadPrestamos; ++i) {
         if (prestamos[i]->getIdUsuario() == idUsuario) {
             encontrado = true;

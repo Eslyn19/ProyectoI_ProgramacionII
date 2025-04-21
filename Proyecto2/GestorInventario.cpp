@@ -5,6 +5,7 @@
 
 #define CYAN_COLOR "\033[36m"
 #define WHITE_COLOR "\033[1;37m"
+#define YELLOW_COLOR "\033[1;33m"
 
 GestorInventario::GestorInventario() : size(0), capacity(2) {
     materials = new Material * [capacity];
@@ -144,7 +145,6 @@ void GestorInventario::loadFromFile(const std::string& filename) {
     file.close();
 }
 
-// Aumentar el tamano de arreglo por si se llena
 void GestorInventario::resize() {
     capacity *= 2;
     Material** newMaterials = new Material * [capacity];
@@ -155,7 +155,6 @@ void GestorInventario::resize() {
     materials = newMaterials;
 }
 
-// Mostrar todos los materiales
 void GestorInventario::displayMaterials() const {
     if (size == 0) {
         std::cout << "No hay materiales en el inventario." << std::endl;
@@ -219,7 +218,7 @@ void GestorInventario::editarMaterial(int index) {
 void GestorInventario::editarLibro(Libro* libro) {
     int opcion;
     do {
-        std::cout << '\n' << char(175) << "Seleccione el atributo a editar del Libro:" << std::endl;
+        std::cout << '\n' << char(175) << " Seleccione el atributo a editar del Libro:" << std::endl;
         std::cout << "\n1. Cantidad" << std::endl;
         std::cout << "2. Numero de Clasificacion" << std::endl;
         std::cout << "3. Numero de Catalogo" << std::endl;
@@ -229,7 +228,7 @@ void GestorInventario::editarLibro(Libro* libro) {
         std::cout << "7. Tipo de Material" << std::endl;
         std::cout << "8. Estado" << std::endl;
         std::cout << "9. Salir" << std::endl;
-        std::cout << "\n> Ingrese su opcion: ";
+        std::cout << YELLOW_COLOR << char(175) << " Opcion: " << WHITE_COLOR;
         std::cin >> opcion;
         std::cin.ignore(); 
 
@@ -371,6 +370,9 @@ void GestorInventario::editarRevista(Revista* revista) {
         default:
             std::cout << "\n>Opción no valida." << std::endl;
         }
+        std::cout << "\nGuardado exitosamente" << std::endl;
+        system("pause");
+        system("CLS");
     } while (opcion != 11);
 }
 
@@ -534,7 +536,10 @@ void GestorInventario::mostrarMaterialesDigitales() const {
 }
 
 void GestorInventario::displayPos(int indice) const{
-    std::cout << "- - Material elegido - -\n" << materials[indice]->toString();
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|          Material Elegido           |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl << 
+    materials[indice]->toString();
 }
 
 Material** GestorInventario::getMateriales() {

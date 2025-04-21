@@ -43,6 +43,7 @@ public:
 	static std::string Formato();
 	static bool Acceso();
 	// -----------Opcion 2 del menu------------
+	static void ErrorEdicionUsuario();
 	static std::string BuscarPorTitulo();
 	static void MenuEditarMaterial();
 	static int ElegirIndiceMaterial();

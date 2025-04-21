@@ -291,7 +291,7 @@ std::string Interfaz::Tipo_MaterialDigital() {
     while (true) {
         std::cout << "\n1) CD" << std::endl;
         std::cout << "2) DVD" << std::endl;
-        std::cout << "3) BluRay" << std::endl;
+        std::cout << "3) Blu-ray" << std::endl;
         std::cout << "\n> ";
         std::cin >> opcion;
 
@@ -523,6 +523,11 @@ void Interfaz::AgregandoDigitalInterfaz() {
 }
 
 // ----------------------------------- Opcion 2 del menu -----------------------------------
+void Interfaz::ErrorEdicionUsuario() {
+    std::cout << "\nUsuario ya tiene un material prestado, no se puede editar." << std::endl;
+    system("pause");
+}
+
 std::string Interfaz::BuscarPorTitulo() {
     std::string Titulo;
     std::cout << "Titulo del material: ";
