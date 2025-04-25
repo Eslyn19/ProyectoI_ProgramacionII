@@ -274,6 +274,7 @@ void Biblioteca::IniciarBiblioteca() {
             else {
                 Interfaz::Borrar();
                 GestorPrestamos->EditarUser(idBuscar);
+                
                 persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
             }
             break;

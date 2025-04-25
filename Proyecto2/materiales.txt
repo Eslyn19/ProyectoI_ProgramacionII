@@ -1,0 +1,1 @@
+Libro,2,10,100,Luna de Pluton,dross,terror,Libro,Nuevo

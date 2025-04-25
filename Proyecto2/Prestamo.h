@@ -8,6 +8,7 @@ public:
     }
 
     std::string getIdUsuario() const { return idUsuario; }
+    void setIdUsuario(const std::string& nuevoId) { idUsuario = nuevoId; }
     std::string getTitulo() const { return Titulo; }
     std::string getFechaPrestamo() const { return fechaPrestamo; }
     std::string getFechaDevolucion() const { return fechaDevolucion; }

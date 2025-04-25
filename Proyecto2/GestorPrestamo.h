@@ -63,6 +63,7 @@ public:
 private:
     void resize();
 	void redimensionarPrestamo();
+    void actualizarIDEnPrestamos(const std::string& idViejo, const std::string& idNuevo);
 
 	int indiceMaterialSeleccionado;
     User** users;
