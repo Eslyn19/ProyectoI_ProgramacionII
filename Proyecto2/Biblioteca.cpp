@@ -321,7 +321,7 @@ void Biblioteca::IniciarBiblioteca() {
 
             if (opcPrestamo == 1) {
                 User* usuario = GestorPrestamos->verificarUsuario();
-                if (usuario == nullptr) return;
+                if (usuario == nullptr) return; // quiza corregir esto, mostrar un cout con interfaz y volver, pero no cerrar programa y no seguir con las funciones
 
                 std::string tituloMaterial = GestorPrestamos->seleccionarMaterial(materiales, cantidadMateriales);
                 if (tituloMaterial == "") return;

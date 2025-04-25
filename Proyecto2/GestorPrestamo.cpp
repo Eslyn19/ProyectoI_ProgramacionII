@@ -63,49 +63,6 @@ int GestorPrestamo::getIndicePorID(const std::string& idBuscado) const {
     return -1;
 }
 
-void GestorPrestamo::actualizarIDEnPrestamos(const std::string& idViejo, const std::string& idNuevo) {
-    // Actualizar el arreglo en memoria
-    for (size_t i = 0; i < cantidadPrestamos; ++i) {
-        if (prestamos[i]->getIdUsuario() == idViejo) {
-            prestamos[i]->setIdUsuario(idNuevo);
-        }
-    }
-
-    // Actualizar el archivo
-    std::ifstream archivoEntrada(RUTA_PRESTAMOS);
-    std::ofstream archivoTemporal(RUTA_TEMP);
-
-    if (!archivoEntrada.is_open() || !archivoTemporal.is_open()) {
-        std::cerr << "Error al abrir los archivos de préstamos." << std::endl;
-        return;
-    }
-
-    std::string linea;
-    while (std::getline(archivoEntrada, linea)) {
-        std::istringstream ss(linea);
-        std::string idUsuario, titulo, fechaPrestamo, fechaDevolucion, tipoMaterial;
-        
-        std::getline(ss, idUsuario, ',');
-        std::getline(ss, titulo, ',');
-        std::getline(ss, fechaPrestamo, ',');
-        std::getline(ss, fechaDevolucion, ',');
-        std::getline(ss, tipoMaterial);
-
-        if (idUsuario == idViejo) {
-            idUsuario = idNuevo;
-        }
-
-        archivoTemporal << idUsuario << "," << titulo << "," << fechaPrestamo << "," 
-                       << fechaDevolucion << "," << tipoMaterial << "\n";
-    }
-
-    archivoEntrada.close();
-    archivoTemporal.close();
-
-    std::remove(RUTA_PRESTAMOS);
-    std::rename(RUTA_TEMP, RUTA_PRESTAMOS);
-}
-
 void GestorPrestamo::EditarUser(const std::string& id) {
     int index = getIndicePorID(id);
     if (index == -1) {
@@ -114,7 +71,6 @@ void GestorPrestamo::EditarUser(const std::string& id) {
     }
 
     User* usuario = users[index];
-    std::string idViejo = usuario->getID();
 
     int opcion;
     do {
@@ -168,7 +124,6 @@ void GestorPrestamo::EditarUser(const std::string& id) {
             }
             else {
                 usuario->setID(nuevoValor);
-                actualizarIDEnPrestamos(idViejo, nuevoValor);
                 std::cout << GREEN_COLOR << "\n> ID actualizado.\n" << WHITE_COLOR << std::endl;
             }
             system("pause");
@@ -192,12 +147,12 @@ void GestorPrestamo::EditarUser(const std::string& id) {
             break;
 
         case 0:
-            std::cout << "\nSaliendo de la edición del usuario.\n";
+            std::cout << "\nSaliendo de la edici�n del usuario.\n";
             break;
         default:
             std::cout << "\n> Opcion no valida.\n";
         }
-        system("cls");  
+		system("cls");  
     } while (opcion != 0);
 }
 
