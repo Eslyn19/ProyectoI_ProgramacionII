@@ -12,10 +12,15 @@
 🧱 Estructura del Proyecto
 
 Clase Material 
+
 |--Libro
+
 |
+
 |--Revista
+
 |
+
 |--MaterialDigital
 
 Gestor administrativo encargado de dirigir mateariales y usuarios con un
@@ -30,5 +35,7 @@ Interfaz: gestiona la interacción visual con el usuario.
 📂 Sistema de Almacenamiento 
 
 usuarios.txt: contiene los usuarios y el material que tienen (si aplica).
+
 materiales.txt: contiene todos los materiales registrados.
+
 prestamos.txt: registro de préstamos activos.
