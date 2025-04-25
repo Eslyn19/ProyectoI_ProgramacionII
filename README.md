@@ -1,39 +1,34 @@
 📚 Sistema de Gestión de Préstamos de Materiales
 
+
 🛠️ **Funcionalidades**
 
-Registro de usuarios y materiales.
+ > Registro de usuarios y y tipo de materiales.
 
-Préstamo y devolución de materiales.
+ > Préstamo y devolución de materiales en tiempo real.
 
-Actualización automática de archivos.
+ > Actualización automática de archivos como sistema de almacenamiento.
 
 🧱 Estructura del Proyecto
 
-Clase Base Material
+Clase Material 
+|--Libro
+|
+|--Revista
+|
+|--MaterialDigital
 
-Clase abstracta de la cual heredan:
+Gestor administrativo encargado de dirigir mateariales y usuarios con un
+sistema de prestamos y devoluciones
 
-Libro
+GestorInventario: administracion y edicion de materiales.
 
-Revista
+GestorPrestamo: controla préstamos, devoluciones a usuarios.
 
-MaterialDigital
+Interfaz: gestiona la interacción visual con el usuario.
 
-Puedes agregar más tipos de materiales fácilmente heredando de Material.
-
-Gestores:
-
-GestorInventario: administra materiales.
-
-GestorPrestamo: gestiona préstamos, devoluciones y usuarios.
-
-Interfaz: gestiona la interacción con el usuario.
-
-📂 Archivos Importantes
+📂 Sistema de Almacenamiento 
 
 usuarios.txt: contiene los usuarios y el material que tienen (si aplica).
-
 materiales.txt: contiene todos los materiales registrados.
-
 prestamos.txt: registro de préstamos activos.
