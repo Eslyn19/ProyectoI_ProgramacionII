@@ -13,24 +13,19 @@
 
 Clase Material 
 
-|--Libro
+• Libro
 
-|
+• Revista
 
-|--Revista
+• MaterialDigital
 
-|
+• Persistencia: Almacenamiento de usuarios
 
-|--MaterialDigital
+• GestorInventario: administracion y edicion de materiales.
 
-Gestor administrativo encargado de dirigir mateariales y usuarios con un
-sistema de prestamos y devoluciones
+• GestorPrestamo: controla préstamos, devoluciones a usuarios.
 
-GestorInventario: administracion y edicion de materiales.
-
-GestorPrestamo: controla préstamos, devoluciones a usuarios.
-
-Interfaz: gestiona la interacción visual con el usuario.
+• Interfaz: gestiona la interacción visual con el usuario.
 
 📂 Sistema de Almacenamiento 
 
