@@ -21,98 +21,97 @@ Biblioteca::Biblioteca(std::string _nombre) : nombre(_nombre) {
 }
 
 void Biblioteca::IniciarBiblioteca() {
-
-    Interfaz::Bienvenida();
-    Interfaz::MostrarMenu();
+    Interfaz::showWelcome();
+    Interfaz::showMenu();
 
     while (true) {
-        int opcion = Interfaz::OpcionMenu();
+        int opcion = Interfaz::getMenuOption();
         switch (opcion) {
         case 0:
-            Interfaz::Farewell();
+            Interfaz::showFarewell();
             return;
 
         case 1: {
-            Interfaz::MenuElegirMaterial();
-            int tipoMaterial = Interfaz::ElegirTipoMaterial();
+            Interfaz::showMaterialTypeMenu();
+            int tipoMaterial = Interfaz::getMaterialType();
 
             switch (tipoMaterial) {
             case 1: {
-                Interfaz::AgregandoLibroInterfaz();
+                Interfaz::showAddBookInterface();
 
-                int cantidad = Interfaz::Cantidad();
-                int numClasificacion = Interfaz::Num_Clasificacion();
+                int cantidad = Interfaz::getQuantity();
+                int numClasificacion = Interfaz::getClassificationNumber();
                 std::cin.ignore();
 
-                std::string numCatalogo = Interfaz::Num_Catalogo();
-                std::string titulo = Interfaz::Titulo();
-                std::string autor = Interfaz::Autor();
-                std::string palabraClave = Interfaz::Palabra_Clave();
-                std::string tipoMaterialStr = Interfaz::Tipo_MaterialLibro();
-                std::string estado = Interfaz::Estado();
+                std::string numCatalogo = Interfaz::getCatalogNumber();
+                std::string titulo = Interfaz::getTitle();
+                std::string autor = Interfaz::getAuthor();
+                std::string palabraClave = Interfaz::getKeyword();
+                std::string tipoMaterialStr = Interfaz::getBookType();
+                std::string estado = Interfaz::getStatus();
 
                 gestorInventario->addMaterial(new Libro(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado));
                 gestorInventario->saveToFile(RUTA_ARCHIVO);
 
-                Interfaz::GuardadoExitoso();
-                Interfaz::EsperarBorrar();
+                Interfaz::showSaveSuccess();
+                Interfaz::waitAndClear();
                 break;
             }
 
             case 2: {
-                Interfaz::AgregandoRevistaInterfaz();
+                Interfaz::showAddMagazineInterface();
 
-                int cantidad = Interfaz::Cantidad();
-                int numClasificacion = Interfaz::Num_Clasificacion();
+                int cantidad = Interfaz::getQuantity();
+                int numClasificacion = Interfaz::getClassificationNumber();
                 std::cin.ignore();
 
-                std::string numCatalogo = Interfaz::Num_Catalogo();
-                std::string titulo = Interfaz::Titulo();
-                std::string autor = Interfaz::Autor();
-                std::string palabraClave = Interfaz::Palabra_Clave();
-                std::string tipoMaterialStr = Interfaz::Tipo_MaterialRevista();
-                std::string estado = Interfaz::Estado();
+                std::string numCatalogo = Interfaz::getCatalogNumber();
+                std::string titulo = Interfaz::getTitle();
+                std::string autor = Interfaz::getAuthor();
+                std::string palabraClave = Interfaz::getKeyword();
+                std::string tipoMaterialStr = Interfaz::getMagazineType();
+                std::string estado = Interfaz::getStatus();
                 std::cin.ignore();
-                int volumen = Interfaz::Volumen();
-                int numero = Interfaz::Numero();
+                int volumen = Interfaz::getVolume();
+                int numero = Interfaz::getIssueNumber();
 
                 gestorInventario->addMaterial(new Revista(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado, volumen, numero));
                 gestorInventario->saveToFile(RUTA_ARCHIVO);
 
-                Interfaz::GuardadoExitoso();
-                Interfaz::EsperarBorrar();
+                Interfaz::showSaveSuccess();
+                Interfaz::waitAndClear();
                 break;
             }
 
             case 3: {
-                Interfaz::AgregandoDigitalInterfaz();
+               
+                Interfaz::showAddDigitalInterface();
 
-                int cantidad = Interfaz::Cantidad();
-                int numClasificacion = Interfaz::Num_Clasificacion();
+                int cantidad = Interfaz::getQuantity();
+                int numClasificacion = Interfaz::getClassificationNumber();
                 std::cin.ignore();
 
-                std::string numCatalogo = Interfaz::Num_Catalogo();
-                std::string titulo = Interfaz::Titulo();
-                std::string autor = Interfaz::Autor();
-                std::string palabraClave = Interfaz::Palabra_Clave();
-                std::string tipoMaterialStr = Interfaz::Tipo_MaterialDigital();
-                std::string estado = Interfaz::Estado();
+                std::string numCatalogo = Interfaz::getCatalogNumber();
+                std::string titulo = Interfaz::getTitle();
+                std::string autor = Interfaz::getAuthor();
+                std::string palabraClave = Interfaz::getKeyword();
+                std::string tipoMaterialStr = Interfaz::getDigitalType();
                 std::cin.ignore();
-                std::string tipo = Interfaz::Tipo();
-                std::string formato = Interfaz::Formato();
-                bool acceso = Interfaz::Acceso();
+                std::string estado = Interfaz::getStatus();
+                std::string formato = Interfaz::getDigitalFormat();
+                bool acceso = Interfaz::getAccessStatus();
 
-                gestorInventario->addMaterial(new MaterialDigital(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado, tipo, formato, acceso));
+                gestorInventario->addMaterial(new MaterialDigital(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado, tipoMaterialStr, formato, acceso));
                 gestorInventario->saveToFile(RUTA_ARCHIVO);
 
-                Interfaz::GuardadoExitoso();
-                Interfaz::EsperarBorrar();
+                Interfaz::showSaveSuccess();
+                Interfaz::waitAndClear();
                 break;
             }
 
-			case 0:
-				Interfaz::Borrar();
-				break;
+            case 0:
+                Interfaz::clearScreen();
+                break;
 
             default:
                 break;
@@ -121,111 +120,46 @@ void Biblioteca::IniciarBiblioteca() {
         }
 
         case 2: {
-            Interfaz::MenuEditarMaterial();
-            int tipo = Interfaz::OpcionEditarTipo();
+            Interfaz::clearScreen();
 
-            switch (tipo) {
-            case 0:
-                Interfaz::Borrar();
-                break;
+            gestorInventario->displayToEdit();
+            int indice = Interfaz::getMaterialIndex();
 
-            case 1:
-                Interfaz::Borrar();
-                Interfaz::EditarLibro();
-
-                if (gestorInventario->mostrarMaterialesPorTipo(LIBRO)) {
-                    int indice = Interfaz::ElegirIndiceMaterial();
-
-                    if (!gestorInventario->indiceValido(indice)) {
-                        Interfaz::Borrar();
-                        break;
-                    }
-                    else {
-                        Interfaz::Borrar();
-                        gestorInventario->displayPos(indice);
-                        gestorInventario->editarMaterial(indice);
-                    }
-                    Interfaz::EsperarBorrar();
-                }
-                else {
-                    Interfaz::EsperarBorrar();
-                }
-                break;
-
-            case 2:
-                Interfaz::Borrar();
-                Interfaz::EditarRevista();
-
-                if (gestorInventario->mostrarMaterialesPorTipo(REVISTA)) {
-                    int indice = Interfaz::ElegirIndiceMaterial();
-
-                    if (!gestorInventario->indiceValido(indice)) {
-                        Interfaz::Borrar();
-                        break;
-                    }
-                    else {
-                        Interfaz::Borrar();
-                        gestorInventario->displayPos(indice);
-                        gestorInventario->editarMaterial(indice);
-                    }
-                    Interfaz::EsperarBorrar();
-                }
-                else {
-                    Interfaz::EsperarBorrar();
-                }
-                break;
-
-            case 3:
-                Interfaz::Borrar();
-                Interfaz::EditarDigital();
-
-                if (gestorInventario->mostrarMaterialesPorTipo(MATERIAL_DIGITAL)) {
-                    int indice = Interfaz::ElegirIndiceMaterial();
-
-                    if (!gestorInventario->indiceValido(indice)) {
-                        Interfaz::Borrar();
-                        break;
-                    }
-                    else {
-                        Interfaz::Borrar();
-                        gestorInventario->displayPos(indice);
-                        gestorInventario->editarMaterial(indice);
-                    }
-                    Interfaz::EsperarBorrar();
-                }
-                else {
-                    Interfaz::EsperarBorrar();
-                }
-                break;
-
-            default:
-                break;
+            if (!gestorInventario->indiceValido(indice)) {
+                Interfaz::clearScreen();
             }
+            else {
+                Interfaz::clearScreen();
+                gestorInventario->displayPos(indice);
+                gestorInventario->editarMaterial(indice);
+            }
+
+            Interfaz::waitAndClear();
             gestorInventario->saveToFile(RUTA_ARCHIVO);
             break;
         }
 
         case 3: {
-            Interfaz::Borrar();
-            int opc = Interfaz::MostrarPorMaterial();
+            Interfaz::clearScreen();
+            int opc = Interfaz::getMaterialReportOption();
 
-            Interfaz::Borrar();
+            Interfaz::clearScreen();
             switch (opc) {
             case 1:
                 gestorInventario->mostrarLibros();
-                Interfaz::EsperarBorrar();
+                Interfaz::waitAndClear();
                 break;
             case 2:
                 gestorInventario->mostrarRevistas();
-                Interfaz::EsperarBorrar();
+                Interfaz::waitAndClear();
                 break;
             case 3:
                 gestorInventario->mostrarMaterialesDigitales();
-                Interfaz::EsperarBorrar();
+                Interfaz::waitAndClear();
                 break;
             case 4:
                 gestorInventario->displayMaterials();
-                Interfaz::EsperarBorrar();
+                Interfaz::waitAndClear();
                 break;
             case 0:
                 break;
@@ -233,46 +167,46 @@ void Biblioteca::IniciarBiblioteca() {
                 break;
             }
 
-            Interfaz::Borrar();
+            Interfaz::clearScreen();
             break;
         }
 
         case 4: {
             std::cin.ignore();
-            Interfaz::MensajeAgregarUsuario();
+            Interfaz::showAddUserMessage();
 
-            std::string _nuevoNombre = Interfaz::NombreNuevoUsuario();
-            std::string _nuevoApellido = Interfaz::ApellidoNuevoUsuario();
-            std::string _nuevoID = Interfaz::IDNuevoUsuario();
+            std::string _nuevoNombre = Interfaz::getNewUserName();
+            std::string _nuevoApellido = Interfaz::getNewUserSurname();
+            std::string _nuevoID = Interfaz::getNewUserID();
             bool estado = GestorPrestamos->existeID(_nuevoID);
 
             if (estado) {
-                Interfaz::WarningID();
-                Interfaz::EsperarBorrar();
+                Interfaz::showIDWarning();
+                Interfaz::waitAndClear();
             }
             else {
-                bool _estaActivo = Interfaz::DisponibleNuevoUsuario();
+                bool _estaActivo = Interfaz::getNewUserAvailability();
                 GestorPrestamos->addUser(new User(_nuevoNombre, _nuevoApellido, _nuevoID, _estaActivo, NINGUNO_MAT));
                 persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
 
-                Interfaz::GuardadoExitoso();
-                Interfaz::EsperarBorrar();
+                Interfaz::showSaveSuccess();
+                Interfaz::waitAndClear();
             }
             break;
         }
 
         case 5: {
             std::cin.ignore();
-            Interfaz::MostrarEditarUsuario();
+            Interfaz::showEditUserInterface();
 
             std::string idBuscar;
             std::getline(std::cin, idBuscar);
 
             if (!GestorPrestamos->existeID(idBuscar)) {
-                Interfaz::WarningExistingID();
+                Interfaz::showExistingIDWarning();
             }
             else {
-                Interfaz::Borrar();
+                Interfaz::clearScreen();
                 GestorPrestamos->EditarUser(idBuscar);
                 
                 persistenciaUsuarios.guardarUsuarios(RUTA_USUARIOS, GestorPrestamos->getUsers(), GestorPrestamos->getSize());
@@ -281,9 +215,8 @@ void Biblioteca::IniciarBiblioteca() {
         }
 
         case 6: {
-            Interfaz::MostrarReporteUsuarios();
-            int opc = Interfaz::MostrarPorActividad();
-            Interfaz::Borrar();
+            int opc = Interfaz::getActivityReportOption();
+            Interfaz::clearScreen();
 
             switch (opc) {
             case 1:
@@ -300,84 +233,90 @@ void Biblioteca::IniciarBiblioteca() {
             default:
                 break;
             }
-            Interfaz::EsperarBorrar();
+            Interfaz::waitAndClear();
             break;
         }
 
         case 7: {
             if (!gestorInventario->VerificarLista()) {
-                Interfaz::MostrarVacio();
-                Interfaz::EsperarBorrar();
+                Interfaz::showEmptyMessage();
+                Interfaz::waitAndClear();
                 break;
             }
 
-            Interfaz::Borrar();
-            Interfaz::OpcHacerPrestamoDevolucion();
+            Interfaz::clearScreen();
+            Interfaz::showLoanReturnMenu();
 
-            int opcPrestamo = Interfaz::OpcionPrestamo();
+            int opcPrestamo = Interfaz::getLoanOption();
 
             size_t cantidadMateriales = gestorInventario->getCantidadMateriales();
             Material** materiales = gestorInventario->getMateriales();
 
             if (opcPrestamo == 1) {
                 User* usuario = GestorPrestamos->verificarUsuario();
-                if (usuario == nullptr) return; // quiza corregir esto, mostrar un cout con interfaz y volver, pero no cerrar programa y no seguir con las funciones
-
+                if (usuario == reinterpret_cast<User*>(-1)) {
+                    Interfaz::waitAndClear();
+                    break;
+                }
                 std::string tituloMaterial = GestorPrestamos->seleccionarMaterial(materiales, cantidadMateriales);
                 if (tituloMaterial == "") return;
 
                 GestorPrestamos->procesarPrestamo(usuario, materiales, cantidadMateriales, tituloMaterial);
                 GestorPrestamos->actualizarArchivoUsuarios(RUTA_USUARIOS);
                 GestorPrestamos->actualizarCantidadMaterialTXT(tituloMaterial);
-                Interfaz::PrestamoExitoso();
+                Interfaz::showLoanSuccess();
             }
             else if (opcPrestamo == 2) {
                 std::string idUsuario = GestorPrestamos->IDDevolucion();
                 std::string titulo = GestorPrestamos->obtenerTituloPorIDUsuario(idUsuario);
-
-                GestorPrestamos->DevolverPrestamo(idUsuario, materiales, cantidadMateriales);
-                GestorPrestamos->actualizarDevolucionMaterial(RUTA_USUARIOS);
-                GestorPrestamos->sumarCantidadMaterialTXT(titulo); 
-				Interfaz::DevolucionExitosa();
+                
+                if (titulo != "") {
+                    GestorPrestamos->DevolverPrestamo(idUsuario, materiales, cantidadMateriales);
+                    GestorPrestamos->actualizarDevolucionMaterial(RUTA_USUARIOS);
+                    GestorPrestamos->sumarCantidadMaterialTXT(titulo);
+                    Interfaz::showReturnSuccess();
+                }
             }
 
             GestorPrestamos->cargarPrestamos();
-            Interfaz::Borrar();
+            Interfaz::clearScreen();
             break;
         }
 
-
         case 8: {
-            int c = Interfaz::OpcionMostrarPrestamos();
+            int c = Interfaz::getLoanReportOption();
             switch (c) {
             case 0:
-                Interfaz::Borrar();
+                Interfaz::clearScreen();
                 break;
             case 1:
-                Interfaz::Borrar();
+                Interfaz::clearScreen();
                 GestorPrestamos->MaterialesEnPrestamo();
-                Interfaz::EsperarBorrar();
+                Interfaz::waitAndClear();
                 break;
             case 2: {
-                Interfaz::InterfazTipoPrestamos();
-                int d = Interfaz::TipoPrestamo();
+                Interfaz::showLoanTypeInterface();
+                int d = Interfaz::getLoanType();
                 switch (d) {
                 case 1:
-                    Interfaz::Borrar();
+                    Interfaz::clearScreen();
                     GestorPrestamos->MostrarLibroPrestamo();
-                    Interfaz::EsperarBorrar();
+                    Interfaz::waitAndClear();
                     break;
                 case 2:
-                    Interfaz::Borrar();
+                    Interfaz::clearScreen();
                     GestorPrestamos->MostrarRevistaPrestamo();
-                    Interfaz::EsperarBorrar();
+                    Interfaz::waitAndClear();
                     break;
                 case 3:
-                    Interfaz::Borrar();
+                    Interfaz::clearScreen();
                     GestorPrestamos->MostrarMaterialDigitalPrestamo();
-                    Interfaz::EsperarBorrar();
+                    Interfaz::waitAndClear();
                     break;
+                case 4:
+                    Interfaz::clearScreen();
                 default:
+                    Interfaz::clearScreen();
                     break;
                 }
                 break;
@@ -389,23 +328,23 @@ void Biblioteca::IniciarBiblioteca() {
         }
 
         case 9: {
-            Interfaz::Borrar();
-            Interfaz::MostrarPrestamosPorUsuario();
+            Interfaz::clearScreen();
+            Interfaz::showUserLoansReport();
 
             GestorPrestamos->mostrarPrestamos();
-            Interfaz::EsperarBorrar();
+            Interfaz::waitAndClear();
             break;
         }
 
         default:
-            Interfaz::InvalidEntry();
+            Interfaz::showInvalidEntry();
             break;
         }
 
-        Interfaz::Bienvenida();
-        Interfaz::MostrarMenu();
+        Interfaz::showWelcome();
+        Interfaz::showMenu();
     }
-    Interfaz::EsperarBorrar();
+    Interfaz::waitAndClear();
 }
 
 Biblioteca::~Biblioteca() {

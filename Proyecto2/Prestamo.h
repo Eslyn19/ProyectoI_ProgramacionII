@@ -13,6 +13,8 @@ public:
     std::string getFechaDevolucion() const { return fechaDevolucion; }
     std::string getTipoMaterial() const { return tipoMaterial; }
 
+    void setIdUsuario(std::string n) { idUsuario = n; }
+
 private:
     std::string idUsuario;
     std::string Titulo;

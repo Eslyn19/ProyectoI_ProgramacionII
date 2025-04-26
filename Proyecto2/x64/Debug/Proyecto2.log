@@ -1,2 +1,9 @@
-﻿  GestorPrestamo.cpp
+﻿  Biblioteca.cpp
+  GestorInventario.cpp
+  GestorPrestamo.cpp
+  Interfaz.cpp
+  Main.cpp
+  Material.cpp
+  Persistencia.cpp
+  Generating Code...
   Proyecto2.vcxproj -> C:\Users\jaraa\Documents\ProyectoBiblioteca\x64\Debug\Proyecto2.exe

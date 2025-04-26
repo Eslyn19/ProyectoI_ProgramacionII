@@ -39,7 +39,7 @@ std::string Material::toString() const
 		<< "Numero de Catalogo: " << num_catalogo << "\n"
 		<< "Palabra Clave:" << palabra_clave << "\n"
 		<< "Estado:" << estado << "\n"
-		<< "-------------------------------";
+		<< std::endl;
 	return ss.str();
 }
 
