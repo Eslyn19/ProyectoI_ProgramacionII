@@ -1,0 +1,2 @@
+Libro,10,3,100,Luna de Pluton,Dross Rotzank,comedia,Libro,Usado
+Libro,2,10,10000,Luna de s,dross,comedia,Libro,Danado

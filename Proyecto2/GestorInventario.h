@@ -21,11 +21,14 @@ public:
     void saveToFile(const std::string& filename);
     void loadFromFile(const std::string& filename);
     void displayMaterials() const;
+    void displayToEdit() const;
     void displayPos(int indice) const;
     bool mostrarMaterialesPorTipo(const std::string& tipoBuscado) const;
     bool indiceValido(int indice) const;
     void editarMaterial(int tipo);
     bool VerificarLista() const;
+    bool validarEntero(int& valor, const std::string& mensaje);
+    bool validarCadena(std::string& valor, const std::string& mensaje, bool permitirNumeros = true);
         
     void mostrarLibros() const;
     void mostrarRevistas() const;
@@ -36,8 +39,9 @@ public:
     void editarMaterialDigital(MaterialDigital* digital);
 
     Material** getMateriales();
-    size_t getCantidadMateriales();
+    size_t getCantidadMateriales() const;
 	size_t getSize() const;
+    bool tienePrestamoActivo(int indice) const;
   
 private:
     void resize();

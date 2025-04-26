@@ -71,6 +71,7 @@ void GestorPrestamo::EditarUser(const std::string& id) {
     }
 
     User* usuario = users[index];
+    std::string idAnterior = usuario->getID(); // Guardar el ID anterior
 
     int opcion;
     do {
@@ -125,6 +126,42 @@ void GestorPrestamo::EditarUser(const std::string& id) {
             else {
                 usuario->setID(nuevoValor);
                 std::cout << GREEN_COLOR << "\n> ID actualizado.\n" << WHITE_COLOR << std::endl;
+
+                // Actualizar el archivo de préstamos con el nuevo ID
+                std::ifstream archivoPrestamos(RUTA_PRESTAMOS);
+                std::ofstream archivoTemp("prestamos_temp.txt");
+                std::string linea;
+
+                if (archivoPrestamos.is_open() && archivoTemp.is_open()) {
+                    while (std::getline(archivoPrestamos, linea)) {
+                        std::stringstream ss(linea);
+                        std::string idPrestamo, titulo, fechaPrestamo, fechaDevolucion, tipoMaterial;
+                        std::getline(ss, idPrestamo, ',');
+                        std::getline(ss, titulo, ',');
+                        std::getline(ss, fechaPrestamo, ',');
+                        std::getline(ss, fechaDevolucion, ',');
+                        std::getline(ss, tipoMaterial);
+
+                        if (idPrestamo == idAnterior) {
+                            archivoTemp << nuevoValor << "," << titulo << "," << fechaPrestamo << "," << fechaDevolucion << "," << tipoMaterial << "\n";
+                        } else {
+                            archivoTemp << linea << "\n";
+                        }
+                    }
+
+                    archivoPrestamos.close();
+                    archivoTemp.close();
+
+                    std::remove(RUTA_PRESTAMOS);
+                    std::rename("prestamos_temp.txt", RUTA_PRESTAMOS);
+
+                    // Actualizar el arreglo de préstamos
+                    for (size_t i = 0; i < cantidadPrestamos; ++i) {
+                        if (prestamos[i]->getIdUsuario() == idAnterior) {
+                            prestamos[i]->setIdUsuario(nuevoValor);
+                        }
+                    }
+                }
             }
             system("pause");
             break;
@@ -147,12 +184,12 @@ void GestorPrestamo::EditarUser(const std::string& id) {
             break;
 
         case 0:
-            std::cout << "\nSaliendo de la edici�n del usuario.\n";
+            std::cout << "\nSaliendo de la edición del usuario.\n";
             break;
         default:
             std::cout << "\n> Opcion no valida.\n";
         }
-		system("cls");  
+        system("cls");  
     } while (opcion != 0);
 }
 
@@ -179,14 +216,13 @@ bool GestorPrestamo::existeID(const std::string& idBuscado) {
 }
 
 void GestorPrestamo::displayUsers() const {
-	if (size == 0) {
-		std::cout << "El sistema no tiene usuarios guardados." << std::endl;
-	}
-
     std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
     std::cout << "|         Usuarios del sistema        |" << std::endl;
     std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
 
+	if (size == 0) {
+		std::cout << "El sistema no tiene usuarios guardados." << std::endl;
+	}
 
 	for (size_t i = 0; i < size; ++i) {
 		std::cout << users[i]->toString() << std::endl;
@@ -256,12 +292,12 @@ User* GestorPrestamo::verificarUsuario() {
     for (size_t i = 0; i < size; ++i) {
         if (users[i]->getID() == idUsuario) {
             if (!users[i]->getAvailable()) {
-                std::cout << "\nEl usuario no esta activo.\n";
-                return nullptr;
+                std::cout << "\nEl usuario no esta activo." << std::endl;
+                return reinterpret_cast<User*>(-1);
             }
             if (users[i]->getMaterial() != "ninguno") {
-                std::cout << "\nEl usuario ya tiene un material prestado.\n";
-                return nullptr;
+                std::cout << "\nEl usuario ya tiene un material prestado." << std::endl;
+                return reinterpret_cast<User*>(-1);
             }
             return users[i];
         }

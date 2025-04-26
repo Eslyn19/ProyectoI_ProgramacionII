@@ -166,17 +166,28 @@ void GestorInventario::resize() {
 }
 
 void GestorInventario::displayMaterials() const {
-    if (size == 0) {
-        std::cout << "No hay materiales en el inventario." << std::endl;
-    }
-
     std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
     std::cout << "|         Lista de materiales         |" << std::endl;
     std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+
+    if (size == 0) {
+        std::cout << "No hay materiales en el inventario." << std::endl;
+    }
    
     for (size_t i = 0; i < size; ++i) {
         std::cout << materials[i]->toString() << std::endl;
     }    
+}
+
+void GestorInventario::displayToEdit() const {
+    std::cout << CYAN_COLOR << "---------------------------------------" << std::endl;
+    std::cout << "|         Lista de materiales         |" << std::endl;
+    std::cout << "---------------------------------------" << WHITE_COLOR << std::endl << std::endl;
+
+
+    for (size_t i = 0; i < size; ++i) {
+        std::cout << "Numero: [" << i << "]\n" << materials[i]->toString() << std::endl;
+    }
 }
 
 bool GestorInventario::mostrarMaterialesPorTipo(const std::string& tipoBuscado) const {
@@ -197,10 +208,41 @@ size_t GestorInventario::getSize() const {
 	return size;
 }
 
+bool GestorInventario::tienePrestamoActivo(int indice) const {
+    if (indice < 0 || indice >= size) {
+        return false;
+    }
+
+    std::ifstream archivoPrestamos("prestamos.txt");
+    if (!archivoPrestamos.is_open()) {
+        return false;
+    }
+
+    std::string tituloMaterial = materials[indice]->getTitulo();
+    std::string linea;
+    while (std::getline(archivoPrestamos, linea)) {
+        std::stringstream ss(linea);
+        std::string tituloPrestamo;
+        std::getline(ss, tituloPrestamo, ','); // ID
+        std::getline(ss, tituloPrestamo, ','); // Título
+        if (tituloPrestamo == tituloMaterial) {
+            archivoPrestamos.close();
+            return true;
+        }
+    }
+    archivoPrestamos.close();
+    return false;
+}
+
 void GestorInventario::editarMaterial(int index) {
     try {
         if (index < 0 || index >= size) {
             std::cerr << "Indice fuera de rango." << std::endl;
+            return;
+        }
+
+        if (tienePrestamoActivo(index)) {
+            std::cout << "\n>Error: No se puede editar un material que está actualmente prestado." << std::endl;
             return;
         }
 
@@ -225,11 +267,49 @@ void GestorInventario::editarMaterial(int index) {
     }
 }
 
+bool GestorInventario::validarEntero(int& valor, const std::string& mensaje) {
+    std::string entrada;
+    std::cout << "\n>" << mensaje << ": ";
+    std::getline(std::cin, entrada);
+
+    try {
+        valor = std::stoi(entrada);
+        if (valor < 0 || valor > 100) {
+            std::cout << "\n>Error: El valor debe estar entre 0 y 100.\n";
+            return false;
+        }
+        return true;
+    }
+    catch (const std::invalid_argument&) {
+        std::cout << "\n>Error: Debe ingresar un número válido.\n";
+        return false;
+    }
+    catch (const std::out_of_range&) {
+        std::cout << "\n>Error: El número es demasiado grande.\n";
+        return false;
+    }
+}
+
+bool GestorInventario::validarCadena(std::string& valor, const std::string& mensaje, bool permitirNumeros) {
+    std::cout << "\n>" << mensaje << ": ";
+    std::getline(std::cin, valor);
+
+    if (!permitirNumeros) {
+        for (char c : valor) {
+            if (std::isdigit(c)) {
+                std::cout << "\n>Error: La palabra clave no debe contener números.\n";
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 void GestorInventario::editarLibro(Libro* libro) {
     int opcion;
     do {
-        std::cout << '\n' << char(175) << " Seleccione el atributo a editar del Libro:" << std::endl;
-        std::cout << "\n1. Cantidad" << std::endl;
+        std::cout << '\n' << char(175) << "Seleccione el atributo a editar del Libro:" << std::endl;
+        std::cout << "1. Cantidad" << std::endl;
         std::cout << "2. Numero de Clasificacion" << std::endl;
         std::cout << "3. Numero de Catalogo" << std::endl;
         std::cout << "4. Titulo" << std::endl;
@@ -240,38 +320,36 @@ void GestorInventario::editarLibro(Libro* libro) {
         std::cout << "9. Salir" << std::endl;
         std::cout << YELLOW_COLOR << char(175) << " Opcion: " << WHITE_COLOR;
         std::cin >> opcion;
-        std::cin.ignore(); 
+        std::cin.ignore();
 
         std::string nuevoValor;
         int nuevoIntValor;
 
         switch (opcion) {
         case 1:
-            std::cout << "\n>Ingrese nueva cantidad: ";
-            std::cin >> nuevoIntValor;
-            std::cin.ignore();
-            libro->setCantidad(nuevoIntValor);
+            if (validarEntero(nuevoIntValor, "Ingrese nueva cantidad")) {
+                libro->setCantidad(nuevoIntValor);
+            }
             break;
         case 2:
-            std::cout << "\n>Ingrese nuevo numero de clasificacion: ";
-            std::cin >> nuevoIntValor;
-            std::cin.ignore();
-            libro->setNumClasificacion(nuevoIntValor);
+            if (validarEntero(nuevoIntValor, "Ingrese nuevo numero de clasificacion")) {
+                libro->setNumClasificacion(nuevoIntValor);
+            }
             break;
         case 3:
-            std::cout << "\n>Ingrese nuevo numero de catalogo: ";
-            std::getline(std::cin, nuevoValor);
-            libro->setNumCatalogo(nuevoValor);
+            if (validarCadena(nuevoValor, "Ingrese nuevo numero de catalogo")) {
+                libro->setNumCatalogo(nuevoValor);
+            }
             break;
         case 4:
-            std::cout << "\n>Ingrese nuevo titulo: ";
-            std::getline(std::cin, nuevoValor);
-            libro->setTitulo(nuevoValor);
+            if (validarCadena(nuevoValor, "Ingrese nuevo titulo")) {
+                libro->setTitulo(nuevoValor);
+            }
             break;
         case 5:
-            std::cout << "\n>Ingrese nuevo autor: ";
-            std::getline(std::cin, nuevoValor);
-            libro->setAutor(nuevoValor);
+            if (validarCadena(nuevoValor, "Ingrese nuevo autor")) {
+                libro->setAutor(nuevoValor);
+            }
             break;
         case 6:
             std::cout << "\n>Ingrese nueva palabra clave: ";
@@ -378,7 +456,7 @@ void GestorInventario::editarRevista(Revista* revista) {
             std::cout << "\n>Saliendo de la edicion de la Revista." << std::endl;
             break;
         default:
-            std::cout << "\n>Opci�n no valida." << std::endl;
+            std::cout << "\n>Opcin no valida." << std::endl;
         }
         std::cout << "\nGuardado exitosamente" << std::endl;
         system("pause");
@@ -464,7 +542,7 @@ void GestorInventario::editarMaterialDigital(MaterialDigital* digital) {
             digital->setFormato(nuevoValor);
             break;
         case 11:
-            std::cout << "\n>Ingrese nuevo acceso (1 para s�, 0 para no): ";
+            std::cout << "\n>Ingrese nuevo acceso (1 para s, 0 para no): ";
             std::cin >> nuevoBoolValor;
             std::cin.ignore();
             digital->setAcceso(nuevoBoolValor);
@@ -473,7 +551,7 @@ void GestorInventario::editarMaterialDigital(MaterialDigital* digital) {
             std::cout << "\n>Saliendo de la edicion del Material Digital." << std::endl;
             break;
         default:
-            std::cout << "\n>Opci�n no valida." << std::endl;
+            std::cout << "\n>Opci�n no valida." << std::endl;
         }
     } while (opcion != 12);
 }
@@ -556,6 +634,6 @@ Material** GestorInventario::getMateriales() {
     return this->materials;
 }
 
-size_t GestorInventario::getCantidadMateriales() {
+size_t GestorInventario::getCantidadMateriales() const {
     return this->size;
 }

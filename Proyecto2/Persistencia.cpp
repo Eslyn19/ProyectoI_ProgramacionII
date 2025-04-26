@@ -15,7 +15,7 @@ void PersistenciaUsuarios::guardarUsuarios(const std::string& ruta, User** usuar
             << usuarios[i]->getSurname() << ","
             << usuarios[i]->getID() << ","
 			<< (usuarios[i]->getAvailable() ? "1" : "0") << ","
-            << "ninguno" << "\n";
+            << usuarios[i]->getMaterial() << "\n";
     }
 
     outFile.close();
