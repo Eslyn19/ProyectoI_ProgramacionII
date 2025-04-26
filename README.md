@@ -63,3 +63,7 @@ El sistema proporciona una interfaz por consola que permite:
 3. Realizar préstamos y devoluciones
 4. Consultar el estado del inventario
 5. Generar reportes
+
+## 🧑‍💻 Autor
+
+Eslyn Jara Calderon
