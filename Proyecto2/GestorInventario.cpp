@@ -242,7 +242,7 @@ void GestorInventario::editarMaterial(int index) {
         }
 
         if (tienePrestamoActivo(index)) {
-            std::cout << "\n>Error: No se puede editar un material que está actualmente prestado." << std::endl;
+            std::cout << "\n>Error: No se puede editar un material que esta actualmente prestado." << std::endl;
             return;
         }
 
