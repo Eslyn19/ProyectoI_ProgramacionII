@@ -13,7 +13,7 @@
  * version 1.0.0 2025-04-01 |
  * version final 2.0.0 2025-04-26 |
  * |
- * Link Github: https://github.com/Eslyn19/ProyectoBiblioteca
+ * Link Github: https://github.com/Eslyn19/ProyectoI_ProgramacionII
  * |
  * -------------------------------------------------------------------+
  */

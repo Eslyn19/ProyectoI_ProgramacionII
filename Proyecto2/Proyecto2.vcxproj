@@ -138,6 +138,7 @@
     <ClCompile Include="MaterialDigital.cpp" />
     <ClCompile Include="Materiales.cpp" />
     <ClCompile Include="Persistencia.cpp" />
+    <ClCompile Include="Prestamo.cpp" />
     <ClCompile Include="Revista.cpp" />
     <ClCompile Include="Usuario.cpp" />
     <ClCompile Include="Usuarios.cpp" />
