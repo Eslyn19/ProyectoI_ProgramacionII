@@ -285,18 +285,24 @@ size_t GestorPrestamo::getSize() const {
 
 User* GestorPrestamo::verificarUsuario() {
     std::string idUsuario;
-    std::cout << "\n>Ingrese el ID del usuario: ";
+    std::cout << "\n> Ingrese el ID del usuario: ";
     std::cin >> idUsuario;
     std::cin.ignore();
+
+    for (char c : idUsuario) {
+        if (!isdigit(c)) {
+            return reinterpret_cast<User*>(-1);
+        }
+    }
 
     for (size_t i = 0; i < size; ++i) {
         if (users[i]->getID() == idUsuario) {
             if (!users[i]->getAvailable()) {
-                std::cout << "\nEl usuario no esta activo." << std::endl;
+                std::cout << "\nEl usuario no esta activo.\n";
                 return reinterpret_cast<User*>(-1);
             }
             if (users[i]->getMaterial() != "ninguno") {
-                std::cout << "\nEl usuario ya tiene un material prestado." << std::endl;
+                std::cout << "\nEl usuario ya tiene un material prestado.\n";
                 return reinterpret_cast<User*>(-1);
             }
             return users[i];
@@ -306,6 +312,7 @@ User* GestorPrestamo::verificarUsuario() {
     std::cout << "\nUsuario no encontrado.\n";
     return nullptr;
 }
+
 
 
 std::string GestorPrestamo::seleccionarMaterial(Material** materiales, size_t cantidadMateriales) {
