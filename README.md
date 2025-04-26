@@ -1,36 +1,65 @@
-📚 Sistema de Gestión de Préstamos de Materiales
+# 📚 Sistema de Gestión de Biblioteca
 
+Este proyecto implementa un sistema completo de gestión de biblioteca en C++, permitiendo administrar diferentes tipos de materiales bibliográficos, usuarios y préstamos.
 
-🛠️ **Funcionalidades**
+## Características Principales
 
- > Registro de usuarios y y tipo de materiales.
+- Gestión de diferentes tipos de materiales:
+   · Libros
+   · Revistas
+   · Materiales Digitales
+   · Entre otros
+- Sistema de préstamos y devoluciones
+- Gestión de usuarios
+- Persistencia de datos
+- Interfaz de usuario por consola
+- Manejo de excepciones
 
- > Préstamo y devolución de materiales en tiempo real.
+## 🧱 Estructura del Proyecto
 
- > Actualización automática de archivos como sistema de almacenamiento.
+### 📂 Módulos Principales
 
-🧱 Estructura del Proyecto
+- **Gestión de Materiales**
+  - `Material.h/cpp`: Clase base para todos los materiales
+  - `Libro.h/cpp`: Implementación específica para libros
+  - `Revista.h/cpp`: Implementación específica para revistas
+  - `MaterialDigital.h/cpp`: Implementación para materiales digitales
 
-Clase Material 
+- **Gestión de Usuarios**
+  - `Usuario.h/cpp`: Manejo de usuarios individuales
+  - `Usuarios.h/cpp`: Gestión de colección de usuarios
 
-• Libro
+- **Sistema de Préstamos**
+  - `GestorPrestamo.h/cpp`: Manejo de préstamos y devoluciones
+  - `Prestamo.h`: Definición de la estructura de préstamos
 
-• Revista
+- **Gestión de Inventario**
+  - `GestorInventario.h/cpp`: Administración del inventario de materiales
+  - `Materiales.h/cpp`: Colección de materiales
 
-• MaterialDigital
+- **Nucleo del Sistema**
+  - `Biblioteca.h/cpp`: Núcleo del sistema
+  - `Interfaz.h/cpp`: Interfaz de usuario
+  - `Persistencia.h/cpp`: Manejo de almacenamiento de datos
+  - `Excepcion.h/cpp`: Sistema de manejo de excepciones
 
-• Persistencia: Almacenamiento de usuarios
+## 🛠️ Requisitos del Sistema
 
-• GestorInventario: administracion y edicion de materiales.
+- Compilador C++ compatible con el estándar C++11 o superior
+- Sistema de construcción Visual Studio (archivo de proyecto incluido)
 
-• GestorPrestamo: controla préstamos, devoluciones a usuarios.
+## 🚀 Compilación y Ejecución
 
-• Interfaz: gestiona la interacción visual con el usuario.
+1. Abrir el proyecto en Visual Studio
+2. Compilar la solución (Ctrl + Shift + B)
+3. Ejecutar el programa (F5)
 
-📂 Sistema de Almacenamiento 
+## 💻 Uso del Sistema
 
-usuarios.txt: contiene los usuarios y el material que tienen (si aplica).
+El sistema proporciona una interfaz por consola que permite:
 
-materiales.txt: contiene todos los materiales registrados.
-
-prestamos.txt: registro de préstamos activos.
+1. Gestionar materiales (agregar, eliminar, modificar)
+2. Administrar usuarios
+3. Realizar préstamos y devoluciones
+4. Consultar el estado del inventario
+5. Generar reportes
