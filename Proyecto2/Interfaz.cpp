@@ -432,7 +432,7 @@ std::string Interfaz::getDigitalType() {
 }
 
 std::string Interfaz::getDigitalFormat() {
-    std::cin.clear();
+    std::cin.ignore();
     std::string _formato;
 
     while (true) {

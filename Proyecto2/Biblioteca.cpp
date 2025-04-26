@@ -84,6 +84,7 @@ void Biblioteca::IniciarBiblioteca() {
             }
 
             case 3: {
+               
                 Interfaz::showAddDigitalInterface();
 
                 int cantidad = Interfaz::getQuantity();
@@ -95,13 +96,12 @@ void Biblioteca::IniciarBiblioteca() {
                 std::string autor = Interfaz::getAuthor();
                 std::string palabraClave = Interfaz::getKeyword();
                 std::string tipoMaterialStr = Interfaz::getDigitalType();
-                std::string estado = Interfaz::getStatus();
                 std::cin.ignore();
-                std::string tipo = Interfaz::getDigitalType();
+                std::string estado = Interfaz::getStatus();
                 std::string formato = Interfaz::getDigitalFormat();
                 bool acceso = Interfaz::getAccessStatus();
 
-                gestorInventario->addMaterial(new MaterialDigital(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado, tipo, formato, acceso));
+                gestorInventario->addMaterial(new MaterialDigital(cantidad, numClasificacion, numCatalogo, titulo, autor, palabraClave, tipoMaterialStr, estado, tipoMaterialStr, formato, acceso));
                 gestorInventario->saveToFile(RUTA_ARCHIVO);
 
                 Interfaz::showSaveSuccess();
