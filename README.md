@@ -5,10 +5,6 @@ Este proyecto implementa un sistema completo de gestión de biblioteca en C++, p
 ## Características Principales
 
 - Gestión de diferentes tipos de materiales:
-   · Libros
-   · Revistas
-   · Materiales Digitales
-   · Entre otros
 - Sistema de préstamos y devoluciones
 - Gestión de usuarios
 - Persistencia de datos
